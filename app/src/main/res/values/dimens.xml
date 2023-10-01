@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="font_size_heading">22sp</dimen>
+    <dimen name="font_line_height_heading">26sp</dimen>
+    <dimen name="font_weight_button">500</dimen>
+
+    <dimen name="font_size_regular">16sp</dimen>
+    <dimen name="font_line_height_regular">19sp</dimen>
+
+
+    <dimen name="icon_size_button">24dp</dimen>
+    <dimen name="icon_padding_button_right">8dp</dimen>
+
+
+    <dimen name="header_padding_vertical">4dp</dimen>
+    <dimen name="header_padding_right">52dp</dimen>
+    <dimen name="header_padding_button">12dp</dimen>
+    <dimen name="header_padding_left">4dp</dimen>
+    <dimen name="header_margin_bottom">24dp</dimen>
+
+
+
+    <dimen name="heading_margin_top">10dp</dimen>
+    <dimen name="heading_margin_right">62dp</dimen>
+    <dimen name="heading_margin_bottom">12dp</dimen>
+    <dimen name="heading_margin_left">12dp</dimen>
+
+
+
+    <dimen name="heading_padding_button">12dp</dimen>
+    <dimen name="corner_radius_button">16dp</dimen>
+    <dimen name="padding_horizontal_button">16dp</dimen>
+    <dimen name="margin_horizontal_button">16dp</dimen>
+
+
+
+    <dimen name="lists_padding_top">19dp</dimen>
+    <dimen name="lists_padding_right">12dp</dimen>
+    <dimen name="lists_padding_bottom">18dp</dimen>
+    <dimen name="lists_padding_left">16dp</dimen>
+    <dimen name="lists_heading_margin_right">8dp</dimen>
+
+
+
+
+
+
+</resources>
