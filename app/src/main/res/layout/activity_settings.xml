@@ -1,121 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".SettingsActivity">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingVertical="@dimen/header_padding_vertical"
-            android:paddingStart="@dimen/header_padding_left"
-            android:paddingEnd="@dimen/header_padding_right">
-            
-            <ImageView
-                android:id="@+id/return_from_settings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/arrow_back"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="12dp"/>
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:textColor="@color/black"
-                android:text="@string/settings"
-                android:textSize="@dimen/font_size_heading"
-                android:lineHeight="@dimen/font_line_height_heading"
-                android:layout_marginTop="@dimen/heading_margin_top"
-                android:layout_marginRight="86dp"
-                android:layout_marginBottom="@dimen/heading_margin_bottom"
-                android:layout_marginLeft="@dimen/heading_margin_left">
-
-            </TextView>
-
-        </LinearLayout>
-
-
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="24dp">
+        android:paddingVertical="@dimen/header_padding_vertical"
+        android:paddingStart="@dimen/header_padding_start"
+        android:paddingEnd="@dimen/header_padding_end">
 
-        <TextView
+        <ImageView
+            android:id="@+id/return_from_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="12dp"
+            android:src="@drawable/arrow_back" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="@dimen/heading_margin_start"
+            android:layout_marginTop="@dimen/heading_margin_top"
+            android:layout_marginBottom="@dimen/heading_margin_bottom"
+            android:layout_weight="1"
+            android:lineHeight="@dimen/font_line_height_heading"
+            android:text="@string/settings"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_size_heading">
+
+        </TextView>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginVertical="21dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="44dp"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"
+            android:lineHeight="@dimen/font_line_height_regular"
             android:text="@string/dark_theme"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_size_regular"
-            android:lineHeight="@dimen/font_line_height_regular"
-            />
+            android:textSize="@dimen/font_size_regular" />
 
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="6dp"
-            android:layout_marginBottom="11dp"
-
             android:minHeight="48dp"
-            android:paddingVertical="0dp"
             android:paddingStart="9dp"
-            android:paddingEnd="0dp"
             tools:ignore="UseSwitchCompatOrMaterialXml">
 
         </Switch>
 
 
-
     </LinearLayout>
-
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingStart="@dimen/lists_padding_start"
         android:paddingTop="@dimen/lists_padding_top"
-        android:paddingEnd="@dimen/lists_padding_right"
-        android:paddingBottom="@dimen/lists_padding_bottom"
-        android:paddingStart="@dimen/lists_padding_left">
+        android:paddingEnd="@dimen/lists_padding_end"
+        android:paddingBottom="@dimen/lists_padding_bottom">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/lists_heading_margin_right"
+            android:layout_weight="1"
+            android:lineHeight="@dimen/font_line_height_regular"
             android:text="@string/Share_app"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_size_regular"
-            android:lineHeight="@dimen/font_line_height_regular"
-            />
+            android:textSize="@dimen/font_size_regular" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/share"
             android:layout_gravity="center_vertical"
-            />
+            android:src="@drawable/share" />
 
     </LinearLayout>
 
@@ -123,29 +110,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingStart="@dimen/lists_padding_start"
         android:paddingTop="@dimen/lists_padding_top"
-        android:paddingEnd="@dimen/lists_padding_right"
-        android:paddingBottom="@dimen/lists_padding_bottom"
-        android:paddingStart="@dimen/lists_padding_left">
+        android:paddingEnd="@dimen/lists_padding_end"
+        android:paddingBottom="@dimen/lists_padding_bottom">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/lists_heading_margin_right"
+            android:layout_weight="1"
+            android:lineHeight="@dimen/font_line_height_regular"
             android:text="@string/Contact_support"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_size_regular"
-            android:lineHeight="@dimen/font_line_height_regular"
-            />
+            android:textSize="@dimen/font_size_regular" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/support"
             android:layout_gravity="center_vertical"
-            />
+            android:src="@drawable/support" />
 
     </LinearLayout>
 
@@ -153,33 +138,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingStart="@dimen/lists_padding_start"
         android:paddingTop="@dimen/lists_padding_top"
-        android:paddingEnd="@dimen/lists_padding_right"
-        android:paddingBottom="@dimen/lists_padding_bottom"
-        android:paddingStart="@dimen/lists_padding_left">
+        android:paddingEnd="@dimen/lists_padding_end"
+        android:paddingBottom="@dimen/lists_padding_bottom">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/lists_heading_margin_right"
+            android:layout_weight="1"
+            android:lineHeight="@dimen/font_line_height_regular"
             android:text="@string/user_agreement"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_size_regular"
-            android:lineHeight="@dimen/font_line_height_regular"
-            />
+            android:textSize="@dimen/font_size_regular" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/arrow_forward"
             android:layout_gravity="center_vertical"
-            />
+            android:src="@drawable/arrow_forward" />
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>

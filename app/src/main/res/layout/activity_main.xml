@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="28dp"
+    android:background="@color/blue"
     android:orientation="vertical"
-    android:background="@color/blue">
+    android:paddingBottom="28dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/header_margin_bottom"
         android:orientation="horizontal"
         android:paddingVertical="@dimen/header_padding_vertical"
-        android:paddingStart="@dimen/header_padding_left"
-        android:paddingEnd="@dimen/header_padding_right"
-        android:layout_marginBottom="@dimen/header_margin_bottom">
+        android:paddingStart="@dimen/header_padding_start"
+        android:paddingEnd="@dimen/header_padding_end">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="@string/app_name"
-            android:textSize="@dimen/font_size_heading"
-            android:lineHeight="@dimen/font_line_height_heading"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="@dimen/heading_margin_start"
             android:layout_marginTop="@dimen/heading_margin_top"
-            android:layout_marginRight="@dimen/heading_margin_right"
             android:layout_marginBottom="@dimen/heading_margin_bottom"
-            android:layout_marginLeft="@dimen/heading_margin_left">
-        </TextView>
+            android:layout_weight="1"
+            android:lineHeight="@dimen/font_line_height_heading"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_heading">
 
+        </TextView>
 
 
     </LinearLayout>
@@ -39,70 +38,67 @@
         android:id="@+id/button_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:backgroundTint="@color/white"
         android:layout_marginHorizontal="@dimen/margin_horizontal_button"
+        android:layout_weight="1"
+        android:backgroundTint="@color/white"
+        android:gravity="center"
+        android:lineHeight="@dimen/font_line_height_heading"
         android:paddingHorizontal="@dimen/padding_horizontal_button"
         android:text="@string/search"
-        android:textSize="@dimen/font_size_heading"
-        android:lineHeight="@dimen/font_line_height_heading"
+        android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        android:textAlignment="center"
+        android:textSize="@dimen/font_size_heading"
         app:cornerRadius="@dimen/corner_radius_button"
         app:icon="@drawable/search"
-        app:iconSize="@dimen/icon_size_button"
-        app:iconTint="@color/black"
         app:iconGravity="textStart"
-        app:iconPadding="@dimen/icon_padding_button_right"
-        />
+        app:iconPadding="@dimen/icon_padding_button_end"
+        app:iconSize="@dimen/icon_size_button"
+        app:iconTint="@color/black" />
 
     <Button
         android:id="@+id/button_mediateka"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:backgroundTint="@color/white"
         android:layout_marginHorizontal="@dimen/margin_horizontal_button"
+        android:layout_weight="1"
+        android:backgroundTint="@color/white"
+        android:gravity="center"
+        android:lineHeight="@dimen/font_line_height_heading"
         android:paddingHorizontal="@dimen/padding_horizontal_button"
         android:text="@string/mediateka"
-        android:textSize="@dimen/font_size_heading"
-        android:lineHeight="@dimen/font_line_height_heading"
+        android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        android:textAlignment="center"
+        android:textSize="@dimen/font_size_heading"
         app:cornerRadius="@dimen/corner_radius_button"
         app:icon="@drawable/mediateka"
-        app:iconSize="@dimen/icon_size_button"
-        app:iconTint="@color/black"
         app:iconGravity="textStart"
-        app:iconPadding="@dimen/icon_padding_button_right"
-        />
+        app:iconPadding="@dimen/icon_padding_button_end"
+        app:iconSize="@dimen/icon_size_button"
+        app:iconTint="@color/black" />
 
     <Button
         android:id="@+id/button_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:backgroundTint="@color/white"
         android:layout_marginHorizontal="@dimen/margin_horizontal_button"
+        android:layout_weight="1"
+        android:backgroundTint="@color/white"
+        android:gravity="center"
+        android:lineHeight="@dimen/font_line_height_heading"
         android:paddingHorizontal="@dimen/padding_horizontal_button"
         android:text="@string/settings"
-        android:textSize="@dimen/font_size_heading"
-        android:lineHeight="@dimen/font_line_height_heading"
+        android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        android:textAlignment="center"
+        android:textSize="@dimen/font_size_heading"
         app:cornerRadius="@dimen/corner_radius_button"
         app:icon="@drawable/settings"
-        app:iconSize="@dimen/icon_size_button"
-        app:iconTint="@color/black"
         app:iconGravity="textStart"
-        app:iconPadding="@dimen/icon_padding_button_right"
-        />
+        app:iconPadding="@dimen/icon_padding_button_end"
+        app:iconSize="@dimen/icon_size_button"
+        app:iconTint="@color/black" />
 
 
 </LinearLayout>

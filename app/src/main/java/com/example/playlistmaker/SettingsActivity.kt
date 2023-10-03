@@ -13,7 +13,9 @@ class SettingsActivity : AppCompatActivity() {
         val buttonReturn = findViewById<ImageView>(R.id.return_from_settings)
         buttonReturn.setOnClickListener {
             val returnIntent = Intent(this, MainActivity::class.java)
-            startActivity(returnIntent)}
-
+            returnIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            startActivity(returnIntent)
+            this.finish()
+        }
     }
 }
