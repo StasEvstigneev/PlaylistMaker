@@ -1,18 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ActivityLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".SearchActivity">
 
-    <TextView
+    <LinearLayout
+        style="@style/HeaderStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Здесь будет Поиск"
-        android:gravity="center"/>
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/return_from_settings"
+            style="@style/HeaderIcon"
+            android:src="@drawable/ic_arrow_back" />
+
+
+        <TextView
+            style="@style/HeadingOfActivities"
+            android:text="@string/search"></TextView>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_search_field"
+            style="@style/EditTextSearchField"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLength="30"  />
+
+        <ImageView
+            android:id="@+id/iv_clearIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:src="@drawable/ic_cancel"
+            android:layout_marginEnd="@dimen/ic_cancel_button_marginEnd"
+            android:visibility="gone" />
+
+
+    </FrameLayout>
+
+
+
+
 
 </LinearLayout>

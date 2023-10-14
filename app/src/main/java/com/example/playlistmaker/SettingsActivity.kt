@@ -1,6 +1,7 @@
 package com.example.playlistmaker
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
@@ -14,5 +15,34 @@ class SettingsActivity : AppCompatActivity() {
         buttonReturn.setOnClickListener {
             this.finish()
         }
+
+        val buttonShare = findViewById<ImageView>(R.id.ivShareSettings)
+        buttonShare.setOnClickListener {
+            val shareIntent = Intent(Intent.ACTION_SEND).apply{
+                setType("text/plain")
+                putExtra(Intent.EXTRA_TEXT,  getString(R.string.urlAndroidDeveloper))
+            }
+            startActivity(Intent.createChooser(shareIntent, null))
+        }
+
+        val buttonSupport = findViewById<ImageView>(R.id.ivSupportSettings)
+        buttonSupport.setOnClickListener {
+            val supportIntent = Intent(Intent.ACTION_SENDTO).apply{
+                data = Uri.parse("mailto:")
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.developerEmail)))
+                putExtra(Intent.EXTRA_SUBJECT, getString(R.string.MessageToSupportSubject))
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.MessageToSupportText))
+            }
+            startActivity(Intent.createChooser(supportIntent, null))
+        }
+
+        val buttonUserAgreement = findViewById<ImageView>(R.id.ivUserAgreementSettings)
+        buttonUserAgreement.setOnClickListener{
+            val userAgreement:Uri = Uri.parse(getString(R.string.urlUserAgreement))
+            val userAgreementIntent = Intent(Intent.ACTION_VIEW, userAgreement)
+            startActivity(userAgreementIntent)
+        }
+
+
     }
 }

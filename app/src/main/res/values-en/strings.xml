@@ -4,8 +4,10 @@
     <string name="search">Search</string>
     <string name="mediateka">Mediateka</string>
     <string name="settings">Settings</string>
-    <string name="dark_theme">Dark theme</string>
+    <string name="night_mode">Night mode</string>
     <string name="Share_app">Share the App</string>
     <string name="Contact_support">Contact support</string>
     <string name="user_agreement">User agreement</string>
+    <string name="MessageToSupportSubject">Message to the developers of Playlist Maker</string>
+    <string name="MessageToSupportText">Thanks the developers for this cool app!</string>
 </resources>
