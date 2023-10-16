@@ -35,22 +35,19 @@
             style="@style/EditTextSearchField"
             android:inputType="text"
             android:lines="1"
-            android:maxLength="30"  />
+            android:maxLength="35" />
 
         <ImageView
             android:id="@+id/iv_clearIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
-            android:src="@drawable/ic_cancel"
             android:layout_marginEnd="@dimen/ic_cancel_button_marginEnd"
+            android:src="@drawable/ic_cancel"
             android:visibility="gone" />
 
 
     </FrameLayout>
-
-
-
 
 
 </LinearLayout>

@@ -2,7 +2,6 @@ package com.example.playlistmaker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -11,7 +10,7 @@ import android.widget.ImageView
 
 class SearchActivity : AppCompatActivity() {
 
-    var savedText:String? = ""
+    var savedText: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,13 +22,14 @@ class SearchActivity : AppCompatActivity() {
             this.finish()
         }
 
-        val inputEditText = findViewById<EditText>(R.id.et_search_field)
-        savedText=inputEditText.text.toString()
+        val editText = findViewById<EditText>(R.id.et_search_field)
+        editText.setText(savedText)
+
 
         val clearButton = findViewById<ImageView>(R.id.iv_clearIcon)
 
         clearButton.setOnClickListener {
-            inputEditText.setText("")
+            editText.setText("")
         }
 
         val simpleTextWatcher = object : TextWatcher {
@@ -41,10 +41,11 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
+                savedText = s.toString()
             }
 
         }
-        inputEditText.addTextChangedListener(simpleTextWatcher)
+        editText.addTextChangedListener(simpleTextWatcher)
 
     }
 
@@ -64,6 +65,7 @@ class SearchActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         savedText = savedInstanceState.getString(SAVED_TEXT)
+
     }
 
     companion object {
