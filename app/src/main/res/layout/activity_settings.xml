@@ -2,44 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ActivityLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".SettingsActivity">
 
 
     <LinearLayout
+        style="@style/HeaderStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingVertical="@dimen/header_padding_vertical"
-        android:paddingStart="@dimen/header_padding_start"
-        android:paddingEnd="@dimen/header_padding_end">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/return_from_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="12dp"
-            android:src="@drawable/arrow_back" />
+            style="@style/HeaderIcon"
+            android:src="@drawable/ic_arrow_back" />
 
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|start"
-            android:layout_marginStart="@dimen/heading_margin_start"
-            android:layout_marginTop="@dimen/heading_margin_top"
-            android:layout_marginBottom="@dimen/heading_margin_bottom"
-            android:layout_weight="1"
-            android:lineHeight="@dimen/font_line_height_heading"
-            android:text="@string/settings"
-            android:textColor="@color/black"
-            android:textSize="@dimen/font_size_heading">
-
-        </TextView>
+            style="@style/HeadingOfActivities"
+            android:text="@string/settings"></TextView>
 
     </LinearLayout>
 
@@ -51,114 +35,70 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            style="@style/SettingsItemsText"
             android:layout_marginVertical="21dp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="44dp"
-            android:layout_weight="1"
-            android:lineHeight="@dimen/font_line_height_regular"
-            android:text="@string/dark_theme"
-            android:textColor="@color/black"
-            android:textSize="@dimen/font_size_regular" />
+            android:layout_marginEnd="8dp"
+            android:text="@string/night_mode" />
 
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="6dp"
-            android:minHeight="48dp"
-            android:paddingStart="9dp"
-            tools:ignore="UseSwitchCompatOrMaterialXml">
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchNight"
+            style="@style/SettingsSwitchIcon">
 
-        </Switch>
+        </androidx.appcompat.widget.SwitchCompat>
 
 
     </LinearLayout>
 
 
     <LinearLayout
+        style="@style/SettingsItemsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/lists_padding_start"
-        android:paddingTop="@dimen/lists_padding_top"
-        android:paddingEnd="@dimen/lists_padding_end"
-        android:paddingBottom="@dimen/lists_padding_bottom">
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="@dimen/lists_heading_margin_right"
-            android:layout_weight="1"
-            android:lineHeight="@dimen/font_line_height_regular"
-            android:text="@string/Share_app"
-            android:textColor="@color/black"
-            android:textSize="@dimen/font_size_regular" />
+            style="@style/SettingsItemsText"
+            android:text="@string/Share_app" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/share" />
+            android:id="@+id/ivShareSettings"
+            style="@style/SettingsItemsIcons"
+            android:src="@drawable/ic_share" />
 
     </LinearLayout>
 
     <LinearLayout
+        style="@style/SettingsItemsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/lists_padding_start"
-        android:paddingTop="@dimen/lists_padding_top"
-        android:paddingEnd="@dimen/lists_padding_end"
-        android:paddingBottom="@dimen/lists_padding_bottom">
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="@dimen/lists_heading_margin_right"
-            android:layout_weight="1"
-            android:lineHeight="@dimen/font_line_height_regular"
-            android:text="@string/Contact_support"
-            android:textColor="@color/black"
-            android:textSize="@dimen/font_size_regular" />
+            style="@style/SettingsItemsText"
+            android:text="@string/Contact_support" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/support" />
+            android:id="@+id/ivSupportSettings"
+            style="@style/SettingsItemsIcons"
+            android:src="@drawable/ic_support" />
 
     </LinearLayout>
 
     <LinearLayout
+        style="@style/SettingsItemsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/lists_padding_start"
-        android:paddingTop="@dimen/lists_padding_top"
-        android:paddingEnd="@dimen/lists_padding_end"
-        android:paddingBottom="@dimen/lists_padding_bottom">
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="@dimen/lists_heading_margin_right"
-            android:layout_weight="1"
-            android:lineHeight="@dimen/font_line_height_regular"
-            android:text="@string/user_agreement"
-            android:textColor="@color/black"
-            android:textSize="@dimen/font_size_regular" />
+            style="@style/SettingsItemsText"
+            android:text="@string/user_agreement" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/arrow_forward" />
+            android:id="@+id/ivUserAgreementSettings"
+            style="@style/SettingsItemsIcons"
+            android:src="@drawable/ic_arrow_forward" />
 
     </LinearLayout>
 

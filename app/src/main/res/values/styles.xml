@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+
+    <style name="ActivityLayout">
+        <item name="android:background">?attr/colorSecondary</item>
+    </style>
+
+    <style name="MainActivityLayout">
+        <item name="android:background">?attr/colorPrimary</item>
+    </style>
+
+    <style name="HeaderStyle">
+        <item name="android:paddingVertical">@dimen/header_padding_vertical</item>
+        <item name="android:paddingStart">@dimen/header_padding_start</item>
+        <item name="android:paddingEnd">@dimen/header_padding_end</item>
+    </style>
+
+    <style name="HeaderIcon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_margin">@dimen/icon_return_margin</item>
+    </style>
+
+
+    <style name="HeadingOfActivities">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical|start</item>
+        <item name="android:layout_marginTop">@dimen/heading_margin_top</item>
+        <item name="android:layout_marginStart">@dimen/heading_margin_start</item>
+        <item name="android:layout_marginBottom">@dimen/heading_margin_bottom</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/font_size_heading</item>
+        <item name="android:lineHeight">@dimen/font_line_height_heading</item>
+        <item name="android:fontWeight">@dimen/font_weight_button</item>
+        <item name="android:textColor">?attr/textAppearanceBody1</item>
+    </style>
+
+
+    <style name="BigButtonMainActivity" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginHorizontal">@dimen/margin_horizontal_button</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingHorizontal">@dimen/padding_horizontal_button</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/font_size_heading</item>
+        <item name="android:lineHeight">@dimen/font_line_height_heading</item>
+        <item name="android:fontWeight">@dimen/font_weight_button</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="cornerRadius">@dimen/corner_radius_button</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">@dimen/icon_padding_button_end</item>
+        <item name="iconSize">@dimen/icon_size_button</item>
+        <item name="iconTint">@color/black</item>
+    </style>
+
+
+    <style name="SettingsItemsLayout">
+        <item name="android:paddingStart">@dimen/lists_padding_start</item>
+        <item name="android:paddingTop">@dimen/lists_padding_top</item>
+        <item name="android:paddingEnd">@dimen/lists_padding_end</item>
+        <item name="android:paddingBottom">@dimen/lists_padding_bottom</item>
+    </style>
+
+    <style name="SettingsItemsText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginEnd">@dimen/lists_heading_margin_right</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/font_size_regular</item>
+        <item name="android:lineHeight">@dimen/font_line_height_regular</item>
+        <item name="android:fontWeight">@dimen/font_weight_regular</item>
+        <item name="android:textColor">?attr/textAppearanceBody1</item>
+    </style>
+
+
+    <style name="SettingsItemsIcons">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+
+    </style>
+
+    <style name="SettingsSwitchIcon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginEnd">6dp</item>
+        <item name="android:paddingStart">9dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="thumbTint">@color/selector_switch_thumb</item>
+        <item name="trackTint">@color/selector_switch_track</item>
+
+    </style>
+
+
+    <style name="EditTextSearchField">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">top</item>
+        <item name="android:layout_marginVertical">@dimen/et_search_field_margin_vertical</item>
+        <item name="android:layout_marginHorizontal">@dimen/et_search_field_margin_horizontal</item>
+        <item name="android:background">@drawable/et_search_field</item>
+
+        <item name="android:gravity">center_vertical|start</item>
+        <item name="android:paddingStart">@dimen/et_search_field_padding_start</item>
+        <item name="android:paddingVertical">@dimen/et_search_field_padding_vertical</item>
+
+        <item name="android:hint">@string/search</item>
+        <item name="android:textColorHint">?attr/hintTextColor</item>
+        <item name="android:textColor">?attr/editTextColor</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/font_size_regular</item>
+        <item name="android:lineHeight">@dimen/font_line_height_regular</item>
+
+        <item name="android:drawableStart">@drawable/ic_search_icon</item>
+        <item name="android:drawablePadding">@dimen/icon_padding_button_end</item>
+        <item name="android:textCursorDrawable">@drawable/ic_cursor_search</item>
+
+    </style>
+
+
+</resources>
