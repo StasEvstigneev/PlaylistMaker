@@ -28,7 +28,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/et_search_field_margin_bottom">
 
         <EditText
             android:id="@+id/et_search_field"
@@ -43,11 +44,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
             android:layout_marginEnd="@dimen/ic_cancel_button_marginEnd"
-            android:src="@drawable/ic_cancel"
+            android:src="@drawable/ic_cancel_icon"
             android:visibility="gone" />
 
 
     </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSearchResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="9" />
 
 
 </LinearLayout>
