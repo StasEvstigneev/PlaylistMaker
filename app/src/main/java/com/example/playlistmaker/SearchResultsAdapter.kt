@@ -12,9 +12,7 @@ class SearchResultsAdapter(private val searchResults: List<Track>) :
         return SearchResultsViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return searchResults.size
-    }
+    override fun getItemCount(): Int = searchResults.size
 
     override fun onBindViewHolder(holder: SearchResultsViewHolder, position: Int) {
         holder.bind(searchResults[position])
