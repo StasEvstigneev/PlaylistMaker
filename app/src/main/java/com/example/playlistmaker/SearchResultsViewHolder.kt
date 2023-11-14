@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class SearchResultsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val ivTrackArtWork: ImageView = itemView.findViewById(R.id.ivTrackArtWork)
@@ -40,7 +42,8 @@ class SearchResultsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
 
         tvTrackName.text = track.trackName
         tvArtistName.text = track.artistName
-        tvTrackTime.text = track.trackTime
+        tvTrackTime.text =
+            SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTime.toLong())
 
     }
 

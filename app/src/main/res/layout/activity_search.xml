@@ -28,21 +28,22 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/et_search_field_margin_bottom">
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/et_search_field"
             style="@style/EditTextSearchField"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:lines="1"
-            android:maxLength="35" />
+            android:maxLength="35"
+            android:singleLine="true" />
 
         <ImageView
             android:id="@+id/iv_clearIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
+            android:layout_gravity="end|center_vertical"
             android:layout_marginEnd="@dimen/ic_cancel_button_marginEnd"
             android:src="@drawable/ic_cancel_icon"
             android:visibility="gone" />
@@ -54,8 +55,40 @@
         android:id="@+id/rvSearchResults"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/rv_recyclerView_margin_top"
+        android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="9" />
+        tools:itemCount="3"
+        tools:listitem="@layout/search_result_track" />
+
+
+    <TextView
+        android:id="@+id/tv_search_error_placeholder"
+        style="@style/SearchErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/img_search_error"
+        android:text="@string/nothing_found"
+        android:visibility="gone"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_connection_error_placeholder"
+        style="@style/SearchErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/img_connection_error"
+        android:text="@string/connection_error"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/search_refresh_btn"
+        style="@style/RefreshButtonSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/refresh"
+        android:visibility="gone"></Button>
 
 
 </LinearLayout>

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class SearchResultsAdapter(private val searchResults: List<Track>) :
+class SearchResultsAdapter(private val searchResults: ArrayList<Track>) :
     RecyclerView.Adapter<SearchResultsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultsViewHolder {
         val view =
