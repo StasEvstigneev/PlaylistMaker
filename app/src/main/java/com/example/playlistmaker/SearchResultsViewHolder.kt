@@ -22,20 +22,12 @@ class SearchResultsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
 
         val trackArtWorkUrl: String = track.artworkUrl100
         val cornerRadius =
-            itemView.context.resources.getDimension(R.dimen.track_artwork_cornerRadius)
+            itemView.context.resources.getDimensionPixelSize(R.dimen.track_artwork_cornerRadius)
         Glide.with(itemView)
             .load(trackArtWorkUrl)
             .placeholder(R.drawable.img_trackplaceholder)
             .centerInside()
-            .transform(
-                RoundedCorners(
-                    TypedValue.applyDimension(
-                        TypedValue.COMPLEX_UNIT_DIP,
-                        cornerRadius,
-                        Resources.getSystem().displayMetrics
-                    ).toInt()
-                )
-            )
+            .transform(RoundedCorners(cornerRadius))
             .into(ivTrackArtWork)
 
 

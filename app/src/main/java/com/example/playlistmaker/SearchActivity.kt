@@ -21,9 +21,9 @@ class SearchActivity : AppCompatActivity() {
 
     var savedText: String? = ""
 
-    private val iTunesBaseUrl = "https://itunes.apple.com"
+
     private val retrofit = Retrofit.Builder()
-        .baseUrl(iTunesBaseUrl)
+        .baseUrl(ITUNES_BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -60,7 +60,6 @@ class SearchActivity : AppCompatActivity() {
                 if (searchField.text.isNotEmpty()) {
                     search()
                 }
-                true
             }
             false
 
@@ -112,20 +111,35 @@ class SearchActivity : AppCompatActivity() {
                 ) {
                     if (response.code() == 200) {
                         searchResults.clear()
+                        rvSearchResults.visibility = View.VISIBLE
                         connectionErrorPlaceholder.visibility = View.GONE
                         refreshButton.visibility = View.GONE
+                        searchErrorPlaceholder.visibility = View.GONE
                         if (response.body()?.results?.isNotEmpty() == true) {
                             searchResults.addAll(response.body()?.results!!)
                             searchResultsAdapter.notifyDataSetChanged()
                         }
                         if (searchResults.isEmpty()) {
+                            rvSearchResults.visibility = View.GONE
+                            connectionErrorPlaceholder.visibility = View.GONE
+                            refreshButton.visibility = View.GONE
                             searchErrorPlaceholder.visibility = View.VISIBLE
                         }
+
+                    } else {
+                        searchResults.clear()
+                        rvSearchResults.visibility = View.GONE
+                        connectionErrorPlaceholder.visibility = View.GONE
+                        refreshButton.visibility = View.GONE
+                        searchErrorPlaceholder.visibility = View.VISIBLE
 
                     }
                 }
 
                 override fun onFailure(call: Call<SearchResultsResponse>, t: Throwable) {
+                    searchResults.clear()
+                    rvSearchResults.visibility = View.GONE
+                    searchErrorPlaceholder.visibility = View.GONE
                     connectionErrorPlaceholder.visibility = View.VISIBLE
                     refreshButton.visibility = View.VISIBLE
 
@@ -157,6 +171,7 @@ class SearchActivity : AppCompatActivity() {
 
     companion object {
         const val SAVED_TEXT = "SavedText"
+        private const val ITUNES_BASE_URL = "https://itunes.apple.com"
 
 
     }

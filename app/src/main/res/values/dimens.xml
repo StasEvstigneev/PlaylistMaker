@@ -57,7 +57,7 @@
 
     <dimen name="track_artwork_width">45dp</dimen>
     <dimen name="track_artwork_height">45dp</dimen>
-    <dimen name="track_artwork_cornerRadius">2px</dimen>
+    <dimen name="track_artwork_cornerRadius">2dp</dimen>
 
 
     <dimen name="track_artwork_marginVertical">8dp</dimen>
