@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class SearchResultsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val ivTrackArtWork: ImageView = itemView.findViewById(R.id.ivTrackArtWork)
@@ -20,27 +22,20 @@ class SearchResultsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
 
         val trackArtWorkUrl: String = track.artworkUrl100
         val cornerRadius =
-            itemView.context.resources.getDimension(R.dimen.track_artwork_cornerRadius)
+            itemView.context.resources.getDimensionPixelSize(R.dimen.track_artwork_cornerRadius)
         Glide.with(itemView)
             .load(trackArtWorkUrl)
             .placeholder(R.drawable.img_trackplaceholder)
             .centerInside()
-            .transform(
-                RoundedCorners(
-                    TypedValue.applyDimension(
-                        TypedValue.COMPLEX_UNIT_DIP,
-                        cornerRadius,
-                        Resources.getSystem().displayMetrics
-                    ).toInt()
-                )
-            )
+            .transform(RoundedCorners(cornerRadius))
             .into(ivTrackArtWork)
 
 
 
         tvTrackName.text = track.trackName
         tvArtistName.text = track.artistName
-        tvTrackTime.text = track.trackTime
+        tvTrackTime.text =
+            SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTime.toLong())
 
     }
 
