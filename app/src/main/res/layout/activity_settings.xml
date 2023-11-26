@@ -41,11 +41,11 @@
             android:layout_marginEnd="8dp"
             android:text="@string/night_mode" />
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switchNight"
-            style="@style/SettingsSwitchIcon">
-
-        </androidx.appcompat.widget.SwitchCompat>
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switcherNightTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/SettingsSwitchIcon" />
 
 
     </LinearLayout>

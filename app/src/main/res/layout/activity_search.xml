@@ -59,7 +59,8 @@
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="3"
-        tools:listitem="@layout/search_result_track" />
+        tools:listitem="@layout/search_result_track"
+        tools:visibility="gone" />
 
 
     <TextView
@@ -89,6 +90,48 @@
         android:layout_height="wrap_content"
         android:text="@string/refresh"
         android:visibility="gone" />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/searchHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/searchHistory_marginTop"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvYouSearchedFor"
+                style="@style/YouSearchedForMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/youSearchedFor" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSearchHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                tools:itemCount="3"
+                tools:listitem="@layout/search_result_track" />
+
+            <Button
+                android:id="@+id/btnClearHistory"
+                style="@style/ClearHistoryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/clearHistory"
+                android:visibility="visible" />
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
 
 
 </LinearLayout>
