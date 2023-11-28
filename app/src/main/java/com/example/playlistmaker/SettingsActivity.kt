@@ -13,16 +13,13 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-
         val buttonReturn = findViewById<ImageView>(R.id.return_from_settings)
         buttonReturn.setOnClickListener {
             this.finish()
         }
 
         val nightThemeSwitcher = findViewById<SwitchMaterial>(R.id.switcherNightTheme)
-        if ((applicationContext as App).nightTheme) {
-           nightThemeSwitcher.isChecked = true
-        }
+        nightThemeSwitcher.isChecked = (applicationContext as App).nightTheme
         nightThemeSwitcher.setOnCheckedChangeListener { switcher, isChecked ->
             (applicationContext as App).switchNightTheme(isChecked)
             (applicationContext as App).settingsSharedPrefs.edit().putBoolean(NIGHT_THEME, isChecked).apply()
@@ -33,7 +30,7 @@ class SettingsActivity : AppCompatActivity() {
         buttonShare.setOnClickListener {
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
                 setType("text/plain")
-                putExtra(Intent.EXTRA_TEXT, getString(R.string.urlAndroidDeveloper))
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.url_android_developer))
             }
             startActivity(Intent.createChooser(shareIntent, null))
         }
@@ -42,20 +39,19 @@ class SettingsActivity : AppCompatActivity() {
         buttonSupport.setOnClickListener {
             val supportIntent = Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("mailto:")
-                putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.developerEmail)))
-                putExtra(Intent.EXTRA_SUBJECT, getString(R.string.MessageToSupportSubject))
-                putExtra(Intent.EXTRA_TEXT, getString(R.string.MessageToSupportText))
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.developer_email)))
+                putExtra(Intent.EXTRA_SUBJECT, getString(R.string.message_to_support_subject))
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.message_to_support_text))
             }
             startActivity(Intent.createChooser(supportIntent, null))
         }
 
         val buttonUserAgreement = findViewById<ImageView>(R.id.ivUserAgreementSettings)
         buttonUserAgreement.setOnClickListener {
-            val userAgreement: Uri = Uri.parse(getString(R.string.urlUserAgreement))
+            val userAgreement: Uri = Uri.parse(getString(R.string.url_user_agreement))
             val userAgreementIntent = Intent(Intent.ACTION_VIEW, userAgreement)
             startActivity(userAgreementIntent)
         }
-
 
     }
 }

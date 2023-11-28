@@ -4,19 +4,19 @@
     <string name="mediateka">Медиатека</string>
     <string name="settings">Настройки</string>
     <string name="night_mode">Тёмная тема</string>
-    <string name="Share_app">Поделиться приложением</string>
-    <string name="Contact_support">Написать в поддержку</string>
+    <string name="share_app">Поделиться приложением</string>
+    <string name="contact_support">Написать в поддержку</string>
     <string name="user_agreement">Пользовательское соглашение</string>
-    <string name="urlAndroidDeveloper" translatable="false">https://practicum.yandex.ru/android-developer/</string>
-    <string name="developerEmail" translatable="false">evstigneevstas@gmail.com</string>
-    <string name="MessageToSupportSubject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
-    <string name="MessageToSupportText">Спасибо разработчикам и разработчицам за крутое приложение!</string>
-    <string name="urlUserAgreement" translatable="false">https://www.yandex.ru/legal/practicum_offer/</string>
+    <string name="url_android_developer" translatable="false">https://practicum.yandex.ru/android-developer/</string>
+    <string name="developer_email" translatable="false">evstigneevstas@gmail.com</string>
+    <string name="message_to_support_subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
+    <string name="message_to_support_text">Спасибо разработчикам и разработчицам за крутое приложение!</string>
+    <string name="url_user_agreement" translatable="false">https://www.yandex.ru/legal/practicum_offer/</string>
     <string name="nothing_found">Ничего не нашлось</string>
     <string name="connection_error">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
     <string name="refresh">Обновить</string>
-    <string name="youSearchedFor">Вы искали</string>
-    <string name="clearHistory">Очистить историю</string>
+    <string name="you_searched_for">Вы искали</string>
+    <string name="clear_history">Очистить историю</string>
 
 
 </resources>

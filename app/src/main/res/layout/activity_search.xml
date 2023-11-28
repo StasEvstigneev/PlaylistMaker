@@ -19,7 +19,6 @@
             style="@style/HeaderIcon"
             android:src="@drawable/ic_arrow_back" />
 
-
         <TextView
             style="@style/HeadingOfActivities"
             android:text="@string/search"></TextView>
@@ -70,9 +69,7 @@
         android:layout_height="wrap_content"
         android:drawableTop="@drawable/img_search_error"
         android:text="@string/nothing_found"
-        android:visibility="gone"
-
-        />
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_connection_error_placeholder"
@@ -109,7 +106,7 @@
                 style="@style/YouSearchedForMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/youSearchedFor" />
+                android:text="@string/you_searched_for" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSearchHistory"
@@ -124,14 +121,11 @@
                 style="@style/ClearHistoryButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/clearHistory"
+                android:text="@string/clear_history"
                 android:visibility="visible" />
-
 
         </LinearLayout>
 
-
     </androidx.core.widget.NestedScrollView>
-
 
 </LinearLayout>

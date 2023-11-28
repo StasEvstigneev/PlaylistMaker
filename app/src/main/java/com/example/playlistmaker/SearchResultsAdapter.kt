@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 class SearchResultsAdapter(var searchResults: ArrayList<Track>) :
     RecyclerView.Adapter<SearchResultsViewHolder>() {
 
-
     private var onClickListener: OnTrackClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultsViewHolder {
@@ -24,9 +23,7 @@ class SearchResultsAdapter(var searchResults: ArrayList<Track>) :
             if (onClickListener != null) {
                 onClickListener!!.onTrackClick(searchResults[position])
             }
-
         }
-
     }
 
     fun setOnClickListener(onClickListener: OnTrackClickListener) {

@@ -5,10 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 
-class SearchHistory(sharedPreferences: SharedPreferences) {
-
-    var sharedPreferences = sharedPreferences
-
+class SearchHistory(private val sharedPreferences: SharedPreferences) {
 
     fun getSearchHistory(): ArrayList<Track> {
         val json =
@@ -28,24 +25,18 @@ class SearchHistory(sharedPreferences: SharedPreferences) {
             }
         }
 
-
         if (updatedList.size >= SEARCH_HISTORY_ITEMS_LIMIT) {
             updatedList.removeFirst()
             adapter.notifyItemRemoved(0)
-
         }
 
         updatedList.add(element)
         adapter.notifyItemInserted(updatedList.size - 1)
         adapter.notifyItemRangeChanged(0, updatedList.size - 1)
 
-
         val json = Gson().toJson(updatedList)
         sharedPreferences.edit().putString(SEARCH_HISTORY_KEY, json).apply()
-
         return updatedList
-
-
     }
 
     fun clearSearchHistory() {

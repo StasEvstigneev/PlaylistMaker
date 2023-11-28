@@ -12,14 +12,12 @@ class App : Application() {
     var nightTheme: Boolean = false
     lateinit var settingsSharedPrefs: SharedPreferences
 
-
     override fun onCreate() {
         super.onCreate()
 
         settingsSharedPrefs = getSharedPreferences(SETTINGS_PREFERENCES, MODE_PRIVATE)
         nightTheme = settingsSharedPrefs.getBoolean(NIGHT_THEME, false)
         switchNightTheme(nightTheme)
-
     }
 
     fun switchNightTheme(nightThemeEnabled: Boolean) {
