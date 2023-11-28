@@ -14,6 +14,7 @@
     <dimen name="icon_return_margin">12dp</dimen>
 
 
+    <!---Header-->
     <dimen name="header_padding_vertical">4dp</dimen>
     <dimen name="header_padding_end">52dp</dimen>
     <dimen name="header_padding_button">12dp</dimen>
@@ -21,66 +22,101 @@
     <dimen name="header_margin_bottom">24dp</dimen>
 
 
+    <!---Heading-->
     <dimen name="heading_margin_top">10dp</dimen>
     <dimen name="heading_margin_end">62dp</dimen>
     <dimen name="heading_margin_bottom">12dp</dimen>
     <dimen name="heading_margin_start">12dp</dimen>
 
 
+    <!---MainActivityButton-->
     <dimen name="heading_padding_button">12dp</dimen>
     <dimen name="corner_radius_button">16dp</dimen>
     <dimen name="padding_horizontal_button">16dp</dimen>
     <dimen name="margin_horizontal_button">16dp</dimen>
 
-
+    <!---ListsSettings-->
     <dimen name="lists_padding_top">19dp</dimen>
     <dimen name="lists_padding_end">12dp</dimen>
     <dimen name="lists_padding_bottom">18dp</dimen>
     <dimen name="lists_padding_start">16dp</dimen>
     <dimen name="lists_heading_margin_right">8dp</dimen>
 
+
+    <!---SearchField-->
     <dimen name="et_search_field_margin_vertical">8dp</dimen>
     <dimen name="et_search_field_margin_horizontal">16dp</dimen>
     <dimen name="et_search_field_padding_start">12dp</dimen>
     <dimen name="et_search_field_padding_vertical">10dp</dimen>
 
+
+    <!---CancelButton-->
     <dimen name="ic_cancel_button_marginEnd">30dp</dimen>
 
+
+    <!---RecyclerView-->
     <dimen name="rv_recyclerView_margin_top">16dp</dimen>
 
+
+    <!---TrackName-->
     <dimen name="font_size_trackName">16sp</dimen>
     <dimen name="font_line_height_trackName">19sp</dimen>
+    <dimen name="trackName_margin_bottom">1dp</dimen>
 
 
+    <!---TrackArtistname-->
     <dimen name="font_size_artistName">11sp</dimen>
     <dimen name="font_line_height_artistName">13sp</dimen>
 
+
+    <!---TrackArtwork-->
     <dimen name="track_artwork_width">45dp</dimen>
     <dimen name="track_artwork_height">45dp</dimen>
     <dimen name="track_artwork_cornerRadius">2dp</dimen>
-
-
     <dimen name="track_artwork_marginVertical">8dp</dimen>
     <dimen name="track_artwork_marginStart">13dp</dimen>
     <dimen name="track_artwork_marginEnd">8dp</dimen>
 
+
+    <!---TrackArrowForward-->
     <dimen name="track_arrowforward_marginStart">8dp</dimen>
     <dimen name="track_arrowforward_marginEnd">12dp</dimen>
 
-    <dimen name="trackName_margin_bottom">1dp</dimen>
 
+    <!---ErrorPlaceholder-->
     <dimen name="error_placeholder_marginTop">110dp</dimen>
-
     <dimen name="error_message_drawablePadding">16dp</dimen>
     <dimen name="error_message_textSize">19sp</dimen>
     <dimen name="error_message_lineHeight">22sp</dimen>
     <dimen name="error_message_marginHorizontal">24dp</dimen>
 
 
+    <!---RefreshButton-->
     <dimen name="refresh_button_font_size">14sp</dimen>
     <dimen name="refresh_button_line_height">16sp</dimen>
     <dimen name="refresh_button_corner_radius">54dp</dimen>
     <dimen name="refresh_button_marginTop">24dp</dimen>
+
+
+    <!---SearchHistoryViewGroup-->
+    <dimen name="searchHistory_marginTop">24dp</dimen>
+
+
+    <!---YouSearchedMessage-->
+    <dimen name="youSearchedMessage_marginBottom">8dp</dimen>
+    <dimen name="youSearchedMessage_paddingTop">18dp</dimen>
+    <dimen name="youSearchedMessage_paddingBottom">12dp</dimen>
+    <dimen name="youSearchedMessage_paddingHorizontal">16dp</dimen>
+    <dimen name="youSearchedMessage_textSize">19sp</dimen>
+    <dimen name="youSearchedMessage_lineHeight">22sp</dimen>
+
+    <!---ClearHistoryButton-->
+    <dimen name="clearHistoryButton_font_size">14sp</dimen>
+    <dimen name="clearHistoryButton_line_height">16sp</dimen>
+    <dimen name="clearHistoryButton_corner_radius">54dp</dimen>
+    <dimen name="clearHistoryButton_marginTop">24dp</dimen>
+    <dimen name="clearHistoryButton_paddingVertical">10dp</dimen>
+    <dimen name="clearHistoryButton_paddingHorizontal">14dp</dimen>
 
 
 </resources>
