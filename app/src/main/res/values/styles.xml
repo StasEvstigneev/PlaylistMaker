@@ -192,7 +192,7 @@
         <item name="cornerRadius">@dimen/refresh_button_corner_radius</item>
 
     </style>
-    
+
     <style name="YouSearchedForMessage">
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_marginBottom">@dimen/youSearchedMessage_marginBottom</item>
@@ -220,6 +220,70 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">?attr/colorSecondary</item>
         <item name="cornerRadius">@dimen/clearHistoryButton_corner_radius</item>
+
+    </style>
+
+
+    <style name="AudioPlayerTrackName">
+        <item name="android:gravity">start</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/audio_player_trackName_fontSize</item>
+        <item name="android:lineHeight">@dimen/audio_player_trackName_fontLineHeight</item>
+        <item name="android:textColor">?attr/textAppearanceBody1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="layout_constrainedWidth">true</item>
+
+    </style>
+
+    <style name="AudioPlayerArtistName">
+        <item name="android:gravity">start</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/audio_player_artistName_fontSize</item>
+        <item name="android:lineHeight">@dimen/audio_player_artistName_fontLineHeight</item>
+        <item name="android:textColor">?attr/textAppearanceBody1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="layout_constrainedWidth">true</item>
+
+    </style>
+
+    <style name="AudioPlayerTrackTimeRemaining">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/audio_player_artistName_fontSize</item>
+        <item name="android:lineHeight">@dimen/audio_player_artistName_fontLineHeight</item>
+        <item name="android:textColor">?attr/textAppearanceBody1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="layout_constrainedWidth">true</item>
+
+    </style>
+
+
+    <style name="AudioPlayerTrackDataItems">
+        <item name="android:gravity">start</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/audio_player_trackDataItem_fontSize</item>
+        <item name="android:lineHeight">@dimen/audio_player_trackDataItem_fontLineHeight</item>
+        <item name="android:textColor">@color/text_grey</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:layout_marginEnd">44dp</item>
+        <item name="android:paddingTop">@dimen/audio_player_trackDataItem_paddingTop</item>
+        <item name="android:paddingBottom">@dimen/audio_player_trackDataItem_paddingBottom</item>
+
+    </style>
+
+    <style name="AudioPlayerTrackData">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/audio_player_trackDataItem_fontSize</item>
+        <item name="android:lineHeight">@dimen/audio_player_trackDataItem_fontLineHeight</item>
+        <item name="android:textColor">?attr/textAppearanceBody1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">end</item>
+        <item name="android:paddingTop">@dimen/audio_player_trackDataItem_paddingTop</item>
+        <item name="android:paddingBottom">@dimen/audio_player_trackDataItem_paddingBottom</item>
+        <item name="layout_constrainedWidth">true</item>
 
     </style>
 

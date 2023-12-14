@@ -1,5 +1,6 @@
 package com.example.playlistmaker
 
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,6 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 const val SEARCH_HISTORY = "SearchHistory"
 const val SEARCH_HISTORY_KEY = "SearchHistoryKey"
 const val SEARCH_HISTORY_ITEMS_LIMIT: Int = 10
+const val INTENT_KEY_FOR_TRACK = "track"
 
 class SearchActivity : AppCompatActivity() {
 
@@ -131,17 +133,22 @@ class SearchActivity : AppCompatActivity() {
             }
         }
         searchField.addTextChangedListener(simpleTextWatcher)
+        var intent = Intent(this, AudioPlayerActivity::class.java)
 
         searchResultsAdapter.setOnClickListener(object : SearchResultsAdapter.OnTrackClickListener {
             override fun onTrackClick(track: Track) {
                 searchHistoryList = searchHistory.addNewElement(track, searchHistoryAdapter)
                 searchHistoryAdapter.notifyDataSetChanged()
+                intent.apply { putExtra(INTENT_KEY_FOR_TRACK, track) }
+                startActivity(intent)
             }
         })
 
         searchHistoryAdapter.setOnClickListener(object : SearchResultsAdapter.OnTrackClickListener {
             override fun onTrackClick(track: Track) {
                 searchHistoryList = searchHistory.addNewElement(track, searchHistoryAdapter)
+                intent.apply { putExtra(INTENT_KEY_FOR_TRACK, track) }
+                startActivity(intent)
             }
         })
     }

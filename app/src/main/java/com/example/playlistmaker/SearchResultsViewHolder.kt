@@ -34,7 +34,7 @@ class SearchResultsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
         tvTrackName.text = track.trackName
         tvArtistName.text = track.artistName
         tvTrackTime.text =
-            SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTime.toLong())
+            SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTime)
 
     }
 

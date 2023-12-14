@@ -119,4 +119,40 @@
     <dimen name="clearHistoryButton_paddingHorizontal">14dp</dimen>
 
 
+    <!---AudioPlayer-->
+    <dimen name="audio_player_activity_marginStart">24dp</dimen>
+    <dimen name="audio_player_activity_marginEnd">24dp</dimen>
+    <dimen name="audio_player_activity_marginBottom">20dp</dimen>
+
+    <dimen name="track_data_marginStart">16dp</dimen>
+    <dimen name="track_data_marginEnd">16dp</dimen>
+
+    <dimen name="icon_return_padding">12dp</dimen>
+    <dimen name="icon_return_marginTop">4dp</dimen>
+    <dimen name="icon_return_marginStart">4dp</dimen>
+    <dimen name="icon_return_marginBottom">4dp</dimen>
+
+    <dimen name="audio_player_artWork_marginTop">32dp</dimen>
+    <dimen name="audio_player_artWork_cornerRadius">8dp</dimen>
+
+    <dimen name="audio_player_trackName_marginTop">24dp</dimen>
+    <dimen name="audio_player_trackName_fontSize">22sp</dimen>
+    <dimen name="audio_player_trackName_fontLineHeight">25.78sp</dimen>
+
+    <dimen name="audio_player_artistName_marginTop">12dp</dimen>
+    <dimen name="audio_player_artistName_fontSize">14sp</dimen>
+    <dimen name="audio_player_artistName_fontLineHeight">16sp</dimen>
+
+    <dimen name="audio_player_playButton_marginTop">32dp</dimen>
+
+    <dimen name="audio_player_trackTimeRemaining_marginTop">4dp</dimen>
+    <dimen name="audio_player_trackTimeRemaining_marginBottom">30dp</dimen>
+
+
+    <dimen name="audio_player_trackDataItem_fontSize">13sp</dimen>
+    <dimen name="audio_player_trackDataItem_fontLineHeight">15sp</dimen>
+    <dimen name="audio_player_trackDataItem_paddingTop">9dp</dimen>
+    <dimen name="audio_player_trackDataItem_paddingBottom">8dp</dimen>
+
+
 </resources>
