@@ -2,31 +2,29 @@ package com.example.playlistmaker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.Group
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class AudioPlayerActivity : AppCompatActivity() {
 
-    lateinit var returnButton: ImageView
-    lateinit var playerArtwork: ImageView
-    lateinit var trackName: TextView
-    lateinit var artistName: TextView
-    lateinit var playButton: ImageView
-    lateinit var addToPlaylistButton: ImageView
-    lateinit var addToFavoritesButton: ImageView
-    lateinit var remainingTrackTime: TextView
-    lateinit var trackDuration: TextView
-    lateinit var trackAlbum: TextView
-    lateinit var trackYear: TextView
-    lateinit var trackGenre: TextView
-    lateinit var trackCountry: TextView
-    lateinit var groupTrackAlbum: Group
+    private lateinit var returnButton: ImageView
+    private lateinit var playerArtwork: ImageView
+    private lateinit var trackName: TextView
+    private lateinit var artistName: TextView
+    private lateinit var playButton: ImageView
+    private lateinit var addToPlaylistButton: ImageView
+    private lateinit var addToFavoritesButton: ImageView
+    private lateinit var remainingTrackTime: TextView
+    private lateinit var trackDuration: TextView
+    private lateinit var trackAlbum: TextView
+    private lateinit var trackYear: TextView
+    private lateinit var trackGenre: TextView
+    private lateinit var trackCountry: TextView
+    private lateinit var groupTrackAlbum: Group
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,9 +50,10 @@ class AudioPlayerActivity : AppCompatActivity() {
         trackCountry = findViewById(R.id.tv_trackCountry)
         groupTrackAlbum = findViewById(R.id.trackAlbumGroup)
 
-        val track = intent.getSerializableExtra("track") as Track
-        val trackCoverUrl: String = track
-            .artworkUrl100.replaceAfterLast('/', "512x512bb.jpg")
+        val track = intent.getSerializableExtra(
+            INTENT_KEY_FOR_TRACK
+        ) as Track
+        val trackCoverUrl: String = track.getArtworkUrl512()
         val coverCornerRadius =
             resources.getDimensionPixelSize(R.dimen.audio_player_artWork_cornerRadius)
         Glide.with(applicationContext)
@@ -65,14 +64,13 @@ class AudioPlayerActivity : AppCompatActivity() {
 
         trackName.text = track.trackName
         artistName.text = track.artistName
-        trackDuration.text = SimpleDateFormat("mm:ss", Locale.getDefault())
-            .format(track.trackTime)
+        trackDuration.text = track.getTrackTimeMMSS()
         remainingTrackTime.text = trackDuration.text //временное значение
 
         if (track.collectionName.isEmpty()) {
-            groupTrackAlbum.visibility = View.GONE
+            groupTrackAlbum.isVisible = true
         } else {
-            groupTrackAlbum.visibility = View.VISIBLE
+            groupTrackAlbum.isVisible = false
             trackAlbum.text = track.collectionName
         }
         trackYear.text = track.releaseDate.substring(0, 4)
@@ -81,4 +79,5 @@ class AudioPlayerActivity : AppCompatActivity() {
 
 
     }
+
 }
