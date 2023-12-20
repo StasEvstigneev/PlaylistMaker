@@ -1,5 +1,6 @@
 package com.example.playlistmaker
 
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
@@ -23,6 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 const val SEARCH_HISTORY = "SearchHistory"
 const val SEARCH_HISTORY_KEY = "SearchHistoryKey"
 const val SEARCH_HISTORY_ITEMS_LIMIT: Int = 10
+const val INTENT_KEY_FOR_TRACK = "track"
 
 class SearchActivity : AppCompatActivity() {
 
@@ -36,16 +39,16 @@ class SearchActivity : AppCompatActivity() {
     private var searchResults = ArrayList<Track>()
     private var searchHistoryList = ArrayList<Track>()
 
-    lateinit var searchHistoryPrefs: SharedPreferences
+    private lateinit var searchHistoryPrefs: SharedPreferences
     lateinit var searchField: EditText
     lateinit var searchErrorPlaceholder: TextView
     lateinit var connectionErrorPlaceholder: TextView
     lateinit var refreshButton: Button
     lateinit var rvSearchResults: RecyclerView
     lateinit var searchHistoryGroup: LinearLayout
-    lateinit var tvYouSearchedFor: TextView
-    lateinit var rvSearchHistory: RecyclerView
-    lateinit var btnClearHistory: Button
+    private lateinit var tvYouSearchedFor: TextView
+    private lateinit var rvSearchHistory: RecyclerView
+    private lateinit var btnClearHistory: Button
     lateinit var searchResultsAdapter: SearchResultsAdapter
     lateinit var searchHistoryAdapter: SearchResultsAdapter
 
@@ -81,7 +84,7 @@ class SearchActivity : AppCompatActivity() {
             searchHistoryList.clear()
             searchHistory.clearSearchHistory()
             searchHistoryAdapter.notifyDataSetChanged()
-            searchHistoryGroup.visibility = View.GONE
+            searchHistoryGroup.isVisible = false
 
         }
 
@@ -104,7 +107,7 @@ class SearchActivity : AppCompatActivity() {
 
         searchField.setOnFocusChangeListener { view, hasFocus ->
             searchHistoryGroup.visibility =
-                if (hasFocus && searchField.text.isEmpty() && searchHistoryList.isNotEmpty() == true) View.VISIBLE else View.GONE
+                if (hasFocus && searchField.text.isEmpty() && searchHistoryList.isNotEmpty()) View.VISIBLE else View.GONE
         }
 
         val clearButton = findViewById<ImageView>(R.id.iv_clearIcon)
@@ -112,7 +115,7 @@ class SearchActivity : AppCompatActivity() {
         clearButton.setOnClickListener {
             searchField.setText("")
             searchResults.clear()
-            searchErrorPlaceholder.visibility = View.GONE
+            searchErrorPlaceholder.isVisible = false
             searchResultsAdapter.notifyDataSetChanged()
         }
 
@@ -131,17 +134,22 @@ class SearchActivity : AppCompatActivity() {
             }
         }
         searchField.addTextChangedListener(simpleTextWatcher)
+        val intent = Intent(this, AudioPlayerActivity::class.java)
 
         searchResultsAdapter.setOnClickListener(object : SearchResultsAdapter.OnTrackClickListener {
             override fun onTrackClick(track: Track) {
                 searchHistoryList = searchHistory.addNewElement(track, searchHistoryAdapter)
                 searchHistoryAdapter.notifyDataSetChanged()
+                intent.apply { putExtra(INTENT_KEY_FOR_TRACK, track) }
+                startActivity(intent)
             }
         })
 
         searchHistoryAdapter.setOnClickListener(object : SearchResultsAdapter.OnTrackClickListener {
             override fun onTrackClick(track: Track) {
                 searchHistoryList = searchHistory.addNewElement(track, searchHistoryAdapter)
+                intent.apply { putExtra(INTENT_KEY_FOR_TRACK, track) }
+                startActivity(intent)
             }
         })
     }
@@ -154,37 +162,37 @@ class SearchActivity : AppCompatActivity() {
                 ) {
                     if (response.code() == 200) {
                         searchResults.clear()
-                        rvSearchResults.visibility = View.VISIBLE
-                        connectionErrorPlaceholder.visibility = View.GONE
-                        refreshButton.visibility = View.GONE
-                        searchErrorPlaceholder.visibility = View.GONE
+                        rvSearchResults.isVisible = true
+                        connectionErrorPlaceholder.isVisible = false
+                        refreshButton.isVisible = false
+                        searchErrorPlaceholder.isVisible = false
                         if (response.body()?.results?.isNotEmpty() == true) {
                             searchResults.addAll(response.body()?.results!!)
                             searchResultsAdapter.notifyDataSetChanged()
                         }
                         if (searchResults.isEmpty()) {
-                            rvSearchResults.visibility = View.GONE
-                            connectionErrorPlaceholder.visibility = View.GONE
-                            refreshButton.visibility = View.GONE
-                            searchErrorPlaceholder.visibility = View.VISIBLE
+                            rvSearchResults.isVisible = false
+                            connectionErrorPlaceholder.isVisible = false
+                            refreshButton.isVisible = false
+                            searchErrorPlaceholder.isVisible = true
                         }
 
                     } else {
                         searchResults.clear()
-                        rvSearchResults.visibility = View.GONE
-                        connectionErrorPlaceholder.visibility = View.GONE
-                        refreshButton.visibility = View.GONE
-                        searchErrorPlaceholder.visibility = View.VISIBLE
+                        rvSearchResults.isVisible = false
+                        connectionErrorPlaceholder.isVisible = false
+                        refreshButton.isVisible = false
+                        searchErrorPlaceholder.isVisible = true
 
                     }
                 }
 
                 override fun onFailure(call: Call<SearchResultsResponse>, t: Throwable) {
                     searchResults.clear()
-                    rvSearchResults.visibility = View.GONE
-                    searchErrorPlaceholder.visibility = View.GONE
-                    connectionErrorPlaceholder.visibility = View.VISIBLE
-                    refreshButton.visibility = View.VISIBLE
+                    rvSearchResults.isVisible = false
+                    searchErrorPlaceholder.isVisible = false
+                    connectionErrorPlaceholder.isVisible = true
+                    refreshButton.isVisible = true
                 }
             }
             )
