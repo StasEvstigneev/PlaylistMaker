@@ -4,6 +4,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -12,6 +14,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,11 +39,16 @@ class SearchActivity : AppCompatActivity() {
 
     private val iTunesApiService = retrofit.create(iTunesApiService::class.java)
 
+    private val handler = Handler(Looper.getMainLooper())
+    private val searchRunnable = Runnable { if (searchField.text.isNotBlank()) search() }
+    private var isClickAllowed: Boolean = true
+
     private var searchResults = ArrayList<Track>()
     private var searchHistoryList = ArrayList<Track>()
 
     private lateinit var searchHistoryPrefs: SharedPreferences
     lateinit var searchField: EditText
+    lateinit var progressBar: ProgressBar
     lateinit var searchErrorPlaceholder: TextView
     lateinit var connectionErrorPlaceholder: TextView
     lateinit var refreshButton: Button
@@ -61,11 +69,30 @@ class SearchActivity : AppCompatActivity() {
         val searchHistory = SearchHistory(searchHistoryPrefs)
         searchHistoryList = searchHistory.getSearchHistory()
 
-        searchResultsAdapter = SearchResultsAdapter(searchResults)
+        progressBar = findViewById(R.id.searchProgressBar)
+
+
+        val intent = Intent(this, AudioPlayerActivity::class.java)
+        searchResultsAdapter = SearchResultsAdapter(searchResults) {
+            searchHistoryList = searchHistory.addNewElement(it, searchHistoryAdapter)
+            searchHistoryAdapter.notifyDataSetChanged()
+            if (clickDebounce()) {
+                intent.apply { putExtra(INTENT_KEY_FOR_TRACK, it) }
+                startActivity(intent)
+            }
+        }
+
         rvSearchResults = findViewById(R.id.rvSearchResults)
         rvSearchResults.adapter = searchResultsAdapter
 
-        searchHistoryAdapter = SearchResultsAdapter(searchHistoryList)
+        searchHistoryAdapter = SearchResultsAdapter(searchHistoryList) {
+            searchHistoryList = searchHistory.addNewElement(it, searchHistoryAdapter)
+            if (clickDebounce()) {
+                intent.apply { putExtra(INTENT_KEY_FOR_TRACK, it) }
+                startActivity(intent)
+            }
+        }
+
         rvSearchHistory = findViewById(R.id.rvSearchHistory)
         rvSearchHistory.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
@@ -125,6 +152,7 @@ class SearchActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clearButton.visibility = clearButtonVisibility(s)
+                searchDebounce()
                 searchHistoryGroup.visibility =
                     if (searchField.hasFocus() && searchHistoryList.isNotEmpty() && s?.isEmpty() == true) View.VISIBLE else View.GONE
             }
@@ -134,37 +162,21 @@ class SearchActivity : AppCompatActivity() {
             }
         }
         searchField.addTextChangedListener(simpleTextWatcher)
-        val intent = Intent(this, AudioPlayerActivity::class.java)
 
-        searchResultsAdapter.setOnClickListener(object : SearchResultsAdapter.OnTrackClickListener {
-            override fun onTrackClick(track: Track) {
-                searchHistoryList = searchHistory.addNewElement(track, searchHistoryAdapter)
-                searchHistoryAdapter.notifyDataSetChanged()
-                intent.apply { putExtra(INTENT_KEY_FOR_TRACK, track) }
-                startActivity(intent)
-            }
-        })
-
-        searchHistoryAdapter.setOnClickListener(object : SearchResultsAdapter.OnTrackClickListener {
-            override fun onTrackClick(track: Track) {
-                searchHistoryList = searchHistory.addNewElement(track, searchHistoryAdapter)
-                intent.apply { putExtra(INTENT_KEY_FOR_TRACK, track) }
-                startActivity(intent)
-            }
-        })
     }
 
     private fun search() {
+        showProgressBar()
         iTunesApiService.search(searchField.text.toString())
             .enqueue(object : Callback<SearchResultsResponse> {
                 override fun onResponse(
                     call: Call<SearchResultsResponse>, response: Response<SearchResultsResponse>
                 ) {
+                    progressBar.isVisible = false
                     if (response.code() == 200) {
                         searchResults.clear()
                         rvSearchResults.isVisible = true
-                        connectionErrorPlaceholder.isVisible = false
-                        refreshButton.isVisible = false
+                        hideConnectionErrorPlaceholder()
                         searchErrorPlaceholder.isVisible = false
                         if (response.body()?.results?.isNotEmpty() == true) {
                             searchResults.addAll(response.body()?.results!!)
@@ -172,31 +184,59 @@ class SearchActivity : AppCompatActivity() {
                         }
                         if (searchResults.isEmpty()) {
                             rvSearchResults.isVisible = false
-                            connectionErrorPlaceholder.isVisible = false
-                            refreshButton.isVisible = false
+                            hideConnectionErrorPlaceholder()
                             searchErrorPlaceholder.isVisible = true
                         }
 
                     } else {
                         searchResults.clear()
                         rvSearchResults.isVisible = false
-                        connectionErrorPlaceholder.isVisible = false
-                        refreshButton.isVisible = false
+                        hideConnectionErrorPlaceholder()
                         searchErrorPlaceholder.isVisible = true
 
                     }
                 }
 
                 override fun onFailure(call: Call<SearchResultsResponse>, t: Throwable) {
+                    progressBar.isVisible = false
                     searchResults.clear()
                     rvSearchResults.isVisible = false
                     searchErrorPlaceholder.isVisible = false
-                    connectionErrorPlaceholder.isVisible = true
-                    refreshButton.isVisible = true
+                    showConnectionErrorPlaceholder()
                 }
             }
             )
+    }
 
+    private fun showConnectionErrorPlaceholder() {
+        connectionErrorPlaceholder.isVisible = true
+        refreshButton.isVisible = true
+    }
+
+    private fun hideConnectionErrorPlaceholder() {
+        connectionErrorPlaceholder.isVisible = false
+        refreshButton.isVisible = false
+    }
+
+    private fun showProgressBar() {
+        progressBar.isVisible = true
+        rvSearchResults.isVisible = false
+        searchErrorPlaceholder.isVisible = false
+        hideConnectionErrorPlaceholder()
+    }
+
+    private fun searchDebounce() {
+        handler.removeCallbacks(searchRunnable)
+        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+    }
+
+    private fun clickDebounce(): Boolean {
+        val clickStatus = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            handler.postDelayed({ isClickAllowed = true }, SEARCH_RESULTS_CLICK_DELAY)
+        }
+        return clickStatus
     }
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
@@ -220,6 +260,8 @@ class SearchActivity : AppCompatActivity() {
     companion object {
         const val SAVED_TEXT = "SavedText"
         private const val ITUNES_BASE_URL = "https://itunes.apple.com"
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
+        private const val SEARCH_RESULTS_CLICK_DELAY = 1000L
     }
 
 }

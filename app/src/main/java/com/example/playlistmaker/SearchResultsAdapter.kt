@@ -4,10 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class SearchResultsAdapter(var searchResults: ArrayList<Track>) :
+class SearchResultsAdapter(var searchResults: ArrayList<Track>, val clickListener: OnTrackClickListener) :
     RecyclerView.Adapter<SearchResultsViewHolder>() {
-
-    private var onClickListener: OnTrackClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultsViewHolder {
         val view =
@@ -19,20 +17,11 @@ class SearchResultsAdapter(var searchResults: ArrayList<Track>) :
 
     override fun onBindViewHolder(holder: SearchResultsViewHolder, position: Int) {
         holder.bind(searchResults[position])
-        holder.itemView.setOnClickListener {
-            if (onClickListener != null) {
-                onClickListener!!.onTrackClick(searchResults[position])
-            }
-        }
+        holder.itemView.setOnClickListener { clickListener.onTrackClick(searchResults.get(position)) }
     }
 
-    fun setOnClickListener(onClickListener: OnTrackClickListener) {
-        this.onClickListener = onClickListener
-    }
-
-    interface OnTrackClickListener {
+    fun interface OnTrackClickListener {
         fun onTrackClick(track: Track)
     }
-
 
 }

@@ -108,7 +108,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/audio_player_playButton_marginTop"
         android:src="@drawable/ic_play_button"
-        app:layout_constraintBottom_toTopOf="@id/tv_trackTimeRemaining"
+        app:layout_constraintBottom_toTopOf="@id/tv_trackPlaybackTimer"
         app:layout_constraintEnd_toStartOf="@id/iv_addToFavoritesButton"
         app:layout_constraintHeight_percent="0.12"
         app:layout_constraintStart_toEndOf="@id/iv_addToPlaylistButton"
@@ -140,7 +140,7 @@
         app:layout_constraintTop_toTopOf="@+id/iv_playButton" />
 
     <TextView
-        android:id="@+id/tv_trackTimeRemaining"
+        android:id="@+id/tv_trackPlaybackTimer"
         style="@style/AudioPlayerTrackTimeRemaining"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
