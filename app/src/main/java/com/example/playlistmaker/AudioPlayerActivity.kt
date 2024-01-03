@@ -31,9 +31,11 @@ class AudioPlayerActivity : AppCompatActivity() {
     private lateinit var trackCountry: TextView
     private lateinit var groupTrackAlbum: Group
     private lateinit var track: Track
-    val mainThreadHandler = Handler(Looper.getMainLooper())
+    private val mainThreadHandler = Handler(Looper.getMainLooper())
+    private val playbackTimerUpdater = Runnable {updatePlaybackTimer()}
     private var playerState = STATE_DEFAULT
     private var mediaPlayer = MediaPlayer()
+    private val dateFormat by lazy { SimpleDateFormat("mm:ss", Locale.getDefault()) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +62,6 @@ class AudioPlayerActivity : AppCompatActivity() {
         trackCountry = findViewById(R.id.tv_trackCountry)
         groupTrackAlbum = findViewById(R.id.trackAlbumGroup)
 
-
         val trackCoverUrl: String = track.getArtworkUrl512()
         val coverCornerRadius =
             resources.getDimensionPixelSize(R.dimen.audio_player_artWork_cornerRadius)
@@ -73,7 +74,7 @@ class AudioPlayerActivity : AppCompatActivity() {
         trackName.text = track.trackName
         artistName.text = track.artistName
         trackDuration.text = track.getTrackTimeMMSS()
-        trackPlaybackTimer.text = getTimeMMSS(INITIAL_TRACK_PLAYBACK_TIME)
+        trackPlaybackTimer.text = getTimeMMSS(INITIAL_TRACK_PLAYBACK_TIME_MILLIS)
 
         if (track.collectionName.isEmpty()) {
             groupTrackAlbum.isVisible = true
@@ -98,7 +99,7 @@ class AudioPlayerActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        mainThreadHandler.removeCallbacks(launchTrackTimer())
+        mainThreadHandler.removeCallbacksAndMessages(playbackTimerUpdater)
         mediaPlayer.release()
     }
 
@@ -118,23 +119,20 @@ class AudioPlayerActivity : AppCompatActivity() {
         mediaPlayer.setOnCompletionListener {
             playButton.setImageResource(R.drawable.ic_play_button)
             playerState = STATE_PREPARED
-            resetTrackPlaybackTime()
         }
     }
 
     private fun startPlayer() {
         mediaPlayer.start()
-        playButton.setImageResource(R.drawable.ic_pause_button)
         playerState = STATE_PLAYING
-        mainThreadHandler.post(launchTrackTimer())
-
+        playButton.setImageResource(R.drawable.ic_pause_button)
+        playbackTimerUpdater.run()
     }
 
     private fun pausePlayer() {
         mediaPlayer.pause()
-        playButton.setImageResource(R.drawable.ic_play_button)
         playerState = STATE_PAUSED
-        mainThreadHandler.removeCallbacks(launchTrackTimer())
+        playButton.setImageResource(R.drawable.ic_play_button)
     }
 
     private fun playbackControl() {
@@ -148,23 +146,26 @@ class AudioPlayerActivity : AppCompatActivity() {
         }
     }
 
-    private fun launchTrackTimer(): Runnable {
-        return object : Runnable {
-            override fun run() {
-                if (playerState == STATE_PLAYING) {
-                    trackPlaybackTimer.text = getTimeMMSS(mediaPlayer.currentPosition.toLong())
-                    mainThreadHandler.postDelayed(this, PLAYER_POSITION_CHECK_INTERVAL)
-                }
+    private fun updatePlaybackTimer() {
+        when(playerState) {
+            STATE_PLAYING -> {
+                trackPlaybackTimer.text = getTimeMMSS(mediaPlayer.currentPosition.toLong())
+                mainThreadHandler.postDelayed(playbackTimerUpdater, PLAYER_POSITION_CHECK_INTERVAL_MILLIS)
+            }
+            STATE_PAUSED -> {mainThreadHandler.removeCallbacks(playbackTimerUpdater)}
+            STATE_PREPARED, STATE_DEFAULT -> {
+                mainThreadHandler.removeCallbacksAndMessages(playbackTimerUpdater)
+                resetTrackPlaybackTime()
             }
         }
     }
-
+    
     private fun getTimeMMSS(time: Long): String {
-        return SimpleDateFormat("mm:ss", Locale.getDefault()).format(time)
+        return dateFormat.format(time)
     }
 
     private fun resetTrackPlaybackTime() {
-        trackPlaybackTimer.text = getTimeMMSS(INITIAL_TRACK_PLAYBACK_TIME)
+        trackPlaybackTimer.text = getTimeMMSS(INITIAL_TRACK_PLAYBACK_TIME_MILLIS)
 
     }
 
@@ -173,8 +174,8 @@ class AudioPlayerActivity : AppCompatActivity() {
         private const val STATE_PREPARED = 1
         private const val STATE_PLAYING = 2
         private const val STATE_PAUSED = 3
-        private const val INITIAL_TRACK_PLAYBACK_TIME = 0L
-        private const val PLAYER_POSITION_CHECK_INTERVAL = 500L
+        private const val INITIAL_TRACK_PLAYBACK_TIME_MILLIS = 0L
+        private const val PLAYER_POSITION_CHECK_INTERVAL_MILLIS = 500L
     }
 
 }

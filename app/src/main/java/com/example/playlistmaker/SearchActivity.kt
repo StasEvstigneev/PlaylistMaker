@@ -74,9 +74,9 @@ class SearchActivity : AppCompatActivity() {
 
         val intent = Intent(this, AudioPlayerActivity::class.java)
         searchResultsAdapter = SearchResultsAdapter(searchResults) {
-            searchHistoryList = searchHistory.addNewElement(it, searchHistoryAdapter)
-            searchHistoryAdapter.notifyDataSetChanged()
             if (clickDebounce()) {
+                searchHistoryList = searchHistory.addNewElement(it, searchHistoryAdapter)
+                searchHistoryAdapter.notifyDataSetChanged()
                 intent.apply { putExtra(INTENT_KEY_FOR_TRACK, it) }
                 startActivity(intent)
             }
@@ -86,8 +86,8 @@ class SearchActivity : AppCompatActivity() {
         rvSearchResults.adapter = searchResultsAdapter
 
         searchHistoryAdapter = SearchResultsAdapter(searchHistoryList) {
-            searchHistoryList = searchHistory.addNewElement(it, searchHistoryAdapter)
             if (clickDebounce()) {
+                searchHistoryList = searchHistory.addNewElement(it, searchHistoryAdapter)
                 intent.apply { putExtra(INTENT_KEY_FOR_TRACK, it) }
                 startActivity(intent)
             }
