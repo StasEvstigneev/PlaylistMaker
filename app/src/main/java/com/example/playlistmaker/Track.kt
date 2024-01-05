@@ -14,8 +14,8 @@ data class Track(
     val collectionName: String,
     val releaseDate: String,
     val primaryGenreName: String,
-    val country: String
-
+    val country: String,
+    val previewUrl: String
 ) : Serializable {
 
     fun getTrackTimeMMSS(): String = SimpleDateFormat("mm:ss", Locale.getDefault())
