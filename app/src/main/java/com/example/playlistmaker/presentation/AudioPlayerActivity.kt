@@ -2,8 +2,6 @@ package com.example.playlistmaker.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.Group
@@ -13,11 +11,10 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.Creator
 import com.example.playlistmaker.domain.Formatter
 import com.example.playlistmaker.R
-import com.example.playlistmaker.data.GsonJsonConverterImpl
-import com.example.playlistmaker.domain.Constants
+import com.example.playlistmaker.domain.GsonJsonConverter
 import com.example.playlistmaker.domain.SearchHistoryRepository
 import com.example.playlistmaker.domain.models.Track
-import com.example.playlistmaker.domain.usecase.audioplayer.ReceiveTrackInPlayer
+import com.example.playlistmaker.domain.usecase.audioplayer.ReceiveTrackInPlayerUseCase
 
 
 class AudioPlayerActivity : AppCompatActivity() {
@@ -41,9 +38,9 @@ class AudioPlayerActivity : AppCompatActivity() {
     private val audioPlayer = Creator.getAudioPlayer()
 
     private lateinit var searchHistoryRepository: SearchHistoryRepository
-    private lateinit var receiveTrack: ReceiveTrackInPlayer
+    private lateinit var gsonJsonConverter: GsonJsonConverter
+    private lateinit var receiveTrack: ReceiveTrackInPlayerUseCase
 
-    private val mainThreadHandler = Handler(Looper.getMainLooper())
     private val playbackTimerUpdater = Runnable {updatePlaybackTimer()}
 
 
@@ -52,7 +49,9 @@ class AudioPlayerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_audio_player)
 
         searchHistoryRepository = Creator.provideSearchHistoryRepository(context = applicationContext)
-        receiveTrack = Creator.provideReceiveTrackInPlayerUseCase(searchHistoryRepository, GsonJsonConverterImpl)
+        gsonJsonConverter = Creator.provideGsonJsonConverter()
+
+        receiveTrack = Creator.provideReceiveTrackInPlayerUseCase(searchHistoryRepository, gsonJsonConverter)
 
         playerArtwork = findViewById(R.id.iv_playerArtwork)
         trackName = findViewById(R.id.tv_trackName)
@@ -88,7 +87,7 @@ class AudioPlayerActivity : AppCompatActivity() {
         trackName.text = track.trackName
         artistName.text = track.artistName
         trackDuration.text = track.trackTime
-        trackPlaybackTimer.text = Formatter.getTimeMMSS(Constants.INITIAL_TRACK_PLAYBACK_TIME_MILLIS)
+        trackPlaybackTimer.text = audioPlayer.resetTrackPlaybackTime()
 
         if (track.collectionName.isEmpty()) {
             groupTrackAlbum.isVisible = false
@@ -114,21 +113,19 @@ class AudioPlayerActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        mainThreadHandler.removeCallbacksAndMessages(playbackTimerUpdater)
-        audioPlayer.releasePlayer()
+        audioPlayer.releasePlayer(playbackTimerUpdater)
     }
-
 
 
     private fun preparePlayer() {
         audioPlayer.preparePlayer(track)
         audioPlayer.setOnPreparedListener {
             playButton.isEnabled = true
-            audioPlayer.playerState = Constants.PLAYER_STATE_PREPARED
+            audioPlayer.setPlayerStatePrepared()
         }
         audioPlayer.setOnCompletionListener {
             playButton.setImageResource(R.drawable.ic_play_button)
-            audioPlayer.playerState = Constants.PLAYER_STATE_PREPARED
+            audioPlayer.setPlayerStatePrepared()
         }
     }
 
@@ -145,36 +142,18 @@ class AudioPlayerActivity : AppCompatActivity() {
         playButton.setImageResource(R.drawable.ic_play_button)
     }
 
+
     private fun playbackControl() {
-        when (audioPlayer.playerState) {
-            Constants.PLAYER_STATE_PREPARED, Constants.PLAYER_STATE_PAUSED -> {
-                startPlayer()
-            }
-            Constants.PLAYER_STATE_PLAYING -> {
-                pausePlayer()
-            }
+        if (audioPlayer.isPlaying()) {
+            pausePlayer()
+        } else {
+            startPlayer()
         }
     }
 
 
     private fun updatePlaybackTimer() {
-        when(audioPlayer.playerState) {
-            Constants.PLAYER_STATE_PLAYING -> {
-                trackPlaybackTimer.text = audioPlayer.getCurrentPosition()
-                mainThreadHandler.postDelayed(playbackTimerUpdater, Constants.PLAYER_POSITION_CHECK_INTERVAL_MILLIS)
-            }
-            Constants.PLAYER_STATE_PAUSED -> {mainThreadHandler.removeCallbacks(playbackTimerUpdater)}
-            Constants.PLAYER_STATE_PREPARED, Constants.PLAYER_STATE_DEFAULT -> {
-                mainThreadHandler.removeCallbacksAndMessages(playbackTimerUpdater)
-                resetTrackPlaybackTime()
-            }
-        }
+        trackPlaybackTimer.text = audioPlayer.updatePlaybackTimer(playbackTimerUpdater)
     }
-
-    private fun resetTrackPlaybackTime() {
-        trackPlaybackTimer.text = audioPlayer.resetTrackPlaybackTime()
-
-    }
-
 
 }

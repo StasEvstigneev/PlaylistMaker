@@ -31,7 +31,5 @@ class RetrofitNetworkClient: NetworkClient {
     companion object {
 
         private const val ITUNES_BASE_URL = "https://itunes.apple.com"
-//        private const val SEARCH_DEBOUNCE_DELAY = 2000L
-//        private const val SEARCH_RESULTS_CLICK_DELAY = 1000L
     }
 }

@@ -1,11 +1,7 @@
 package com.example.playlistmaker.domain.usecase.searchhistory
 
-import com.example.playlistmaker.domain.SearchHistoryRepository
+interface ClearSearchHistoryUseCase {
 
-class ClearSearchHistoryUseCase(private val searchHistoryRepository: SearchHistoryRepository):
-    ClearSearchHistory {
+    fun execute()
 
-    override fun execute() {
-        searchHistoryRepository.sharedPreferences.edit().clear().apply()
-    }
 }

@@ -16,7 +16,11 @@ object Formatter {
     }
 
     fun getYearFromReleaseDate(releaseDate: String): String {
-        return releaseDate.substring(0, 4)
+        return if (releaseDate.length > 4) {
+           releaseDate.substring(0, 4)
+        } else {
+            releaseDate
+        }
     }
 
 

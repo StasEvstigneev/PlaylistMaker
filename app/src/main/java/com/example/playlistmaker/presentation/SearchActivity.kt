@@ -20,24 +20,25 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.Creator
 import com.example.playlistmaker.R
-import com.example.playlistmaker.data.GsonJsonConverterImpl
+import com.example.playlistmaker.domain.GsonJsonConverter
 import com.example.playlistmaker.domain.SearchHistoryRepository
 import com.example.playlistmaker.domain.api.TracksInteractor
 import com.example.playlistmaker.domain.models.Track
-import com.example.playlistmaker.domain.usecase.audioplayer.SelectTrackForPlayer
-import com.example.playlistmaker.domain.usecase.searchhistory.AddElementToSearchHistory
-import com.example.playlistmaker.domain.usecase.searchhistory.ClearSearchHistory
-import com.example.playlistmaker.domain.usecase.searchhistory.GetSearchHistory
+import com.example.playlistmaker.domain.usecase.audioplayer.SelectTrackForPlayerUseCase
+import com.example.playlistmaker.domain.usecase.searchhistory.AddElementToSearchHistoryUseCase
+import com.example.playlistmaker.domain.usecase.searchhistory.ClearSearchHistoryUseCase
+import com.example.playlistmaker.domain.usecase.searchhistory.GetSearchHistoryUseCase
 
 
 class SearchActivity : AppCompatActivity() {
 
     private val tracksInteractor = Creator.provideTracksInteractor()
     private lateinit var searchHistoryRepository: SearchHistoryRepository
-    private lateinit var getSearchHistory: GetSearchHistory
-    private lateinit var addElementToSearchHistory: AddElementToSearchHistory
-    private lateinit var clearSearchHistory: ClearSearchHistory
-    private lateinit var selectTrackForPlayer: SelectTrackForPlayer
+    private lateinit var gsonJsonConverter: GsonJsonConverter
+    private lateinit var getSearchHistoryUseCase: GetSearchHistoryUseCase
+    private lateinit var addElementToSearchHistoryUseCase: AddElementToSearchHistoryUseCase
+    private lateinit var clearSearchHistoryUseCase: ClearSearchHistoryUseCase
+    private lateinit var selectTrackForPlayerUseCase: SelectTrackForPlayerUseCase
 
     var savedText: String? = ""
 
@@ -70,12 +71,13 @@ class SearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search)
 
         searchHistoryRepository = Creator.provideSearchHistoryRepository(context = applicationContext)
-        getSearchHistory = Creator.provideGetSearchHistoryUseCase(searchHistoryRepository, GsonJsonConverterImpl)
-        addElementToSearchHistory = Creator.provideAddElementToSearchHistoryUseCase(searchHistoryRepository, getSearchHistory, GsonJsonConverterImpl)
-        clearSearchHistory = Creator.provideClearSearchHistoryUseCase(searchHistoryRepository)
-        selectTrackForPlayer = Creator.provideSelectTrackForPlayerUseCase(searchHistoryRepository, GsonJsonConverterImpl)
+        gsonJsonConverter = Creator.provideGsonJsonConverter()
+        getSearchHistoryUseCase = Creator.provideGetSearchHistoryUseCase(searchHistoryRepository, gsonJsonConverter)
+        addElementToSearchHistoryUseCase = Creator.provideAddElementToSearchHistoryUseCase(searchHistoryRepository, getSearchHistoryUseCase, gsonJsonConverter)
+        clearSearchHistoryUseCase = Creator.provideClearSearchHistoryUseCase(searchHistoryRepository)
+        selectTrackForPlayerUseCase = Creator.provideSelectTrackForPlayerUseCase(searchHistoryRepository, gsonJsonConverter)
 
-        searchHistoryList = getSearchHistory.execute()
+        searchHistoryList = getSearchHistoryUseCase.execute()
 
         searchField = findViewById(R.id.et_search_field)
         clearButton = findViewById(R.id.iv_clearIcon)
@@ -114,9 +116,9 @@ class SearchActivity : AppCompatActivity() {
         refreshButton.setOnClickListener { search() }
 
         btnClearHistory.setOnClickListener {
-            clearSearchHistory.execute()
-            searchHistoryAdapter.setItems(getSearchHistory.execute())
-            searchHistoryList = getSearchHistory.execute()
+            clearSearchHistoryUseCase.execute()
+            searchHistoryAdapter.setItems(getSearchHistoryUseCase.execute())
+            searchHistoryList = getSearchHistoryUseCase.execute()
             searchHistoryGroup.isVisible = false
         }
 
@@ -200,10 +202,10 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun processClickedTrack(track: Track, intent: Intent) {
-        addElementToSearchHistory.execute(track)
-        searchHistoryAdapter.setItems(getSearchHistory.execute())
-        selectTrackForPlayer.execute(track)
-        searchHistoryList = getSearchHistory.execute()
+        addElementToSearchHistoryUseCase.execute(track)
+        searchHistoryAdapter.setItems(getSearchHistoryUseCase.execute())
+        selectTrackForPlayerUseCase.execute(track)
+        searchHistoryList = getSearchHistoryUseCase.execute()
         startActivity(intent)
 
     }
