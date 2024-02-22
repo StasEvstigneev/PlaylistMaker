@@ -1,22 +1,21 @@
 package com.example.playlistmaker
 
 import android.app.Application
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
+import com.example.playlistmaker.creator.Creator
+import com.example.playlistmaker.domain.settings.SettingsRepository
 
-const val SETTINGS_PREFERENCES = "settings_pref"
-const val NIGHT_THEME = "night_theme"
+
 
 class App : Application() {
 
     var nightTheme: Boolean = false
-    lateinit var settingsSharedPrefs: SharedPreferences
+    private lateinit var settingsRepository: SettingsRepository
 
     override fun onCreate() {
         super.onCreate()
-
-        settingsSharedPrefs = getSharedPreferences(SETTINGS_PREFERENCES, MODE_PRIVATE)
-        nightTheme = settingsSharedPrefs.getBoolean(NIGHT_THEME, false)
+        settingsRepository = Creator.provideSettingsRepository(applicationContext)
+        nightTheme = settingsRepository.getThemeSettings().nightMode
         switchNightTheme(nightTheme)
     }
 

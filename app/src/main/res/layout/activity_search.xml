@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.SearchActivity">
+    tools:context=".ui.search.activity.SearchActivity">
 
     <LinearLayout
         style="@style/HeaderStyle"
@@ -15,7 +15,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/return_from_settings"
+            android:id="@+id/return_button"
             style="@style/HeaderIcon"
             android:src="@drawable/ic_arrow_back" />
 
