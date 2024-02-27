@@ -2,7 +2,7 @@ package com.example.playlistmaker.domain.player
 
 import com.example.playlistmaker.domain.search.models.Track
 
-interface AudioPlayer {
+interface AudioPlayerInteractor {
 
     fun preparePlayer(track: Track)
 

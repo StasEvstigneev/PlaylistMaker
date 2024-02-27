@@ -12,11 +12,12 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.playlistmaker.creator.Creator
 import com.example.playlistmaker.databinding.ActivitySearchBinding
-import com.example.playlistmaker.domain.search.models.SearchActivityState
+import com.example.playlistmaker.domain.search.models.SearchState
 import com.example.playlistmaker.domain.search.models.Track
 import com.example.playlistmaker.ui.audioplayer.activity.AudioPlayerActivity
-import com.example.playlistmaker.ui.search.view_model.SearchActivityViewModel
+import com.example.playlistmaker.ui.search.view_model.SearchViewModel
 
 
 class SearchActivity : AppCompatActivity() {
@@ -26,7 +27,8 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchHistoryAdapter: SearchResultsAdapter
     private val handler = Handler(Looper.getMainLooper())
     private var isClickAllowed: Boolean = true
-    private lateinit var viewModel: SearchActivityViewModel
+    private var isSearchHistoryAvailable = false
+    private lateinit var viewModel: SearchViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +39,11 @@ class SearchActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(
             this,
-            SearchActivityViewModel.getViewModelFactory()
-        )[SearchActivityViewModel::class.java]
+            SearchViewModel.getViewModelFactory(
+                Creator.provideTracksInteractor(applicationContext),
+                Creator.provideSearchHistoryInteractor(applicationContext)
+            )
+        )[SearchViewModel::class.java]
 
         viewModel.getActivityState().observe(this) { state ->
             renderState(state)
@@ -46,19 +51,14 @@ class SearchActivity : AppCompatActivity() {
 
         val intent = Intent(this, AudioPlayerActivity::class.java)
 
-        searchResultsAdapter = SearchResultsAdapter(viewModel.receiveSearchResults()) {
+        searchResultsAdapter = SearchResultsAdapter(ArrayList<Track>()) {
             if (clickDebounce()) {
                 processClickedTrack(it, intent)
             }
         }
         binding.rvSearchResults.adapter = searchResultsAdapter
 
-        viewModel.getSearchResultsLiveData().observe(this) { searchResults ->
-            searchResultsAdapter.setItems(searchResults)
-        }
-
-
-        searchHistoryAdapter = SearchResultsAdapter(viewModel.loadSearchHistory()) {
+        searchHistoryAdapter = SearchResultsAdapter(ArrayList<Track>()) {
             if (clickDebounce()) {
                 processClickedTrack(it, intent)
             }
@@ -68,17 +68,13 @@ class SearchActivity : AppCompatActivity() {
 
         binding.rvSearchHistory.adapter = searchHistoryAdapter
 
-        viewModel.getSearchHistoryLiveData().observe(this) { searchHistory ->
-            searchHistoryAdapter.setItems(searchHistory)
-        }
-
-
         binding.searchRefreshBtn.setOnClickListener {
-            viewModel.searchDebounce(viewModel.getPreviousRequest())
+            viewModel.repeatRequest()
         }
 
         binding.btnClearHistory.setOnClickListener {
             viewModel.clearSearchHistory()
+            isSearchHistoryAvailable = false
             hideSearchHistory()
         }
 
@@ -86,8 +82,6 @@ class SearchActivity : AppCompatActivity() {
             this.finish()
         }
 
-
-        binding.etSearchField.setText(viewModel.getPreviousRequest())
         binding.etSearchField.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
 
@@ -100,16 +94,14 @@ class SearchActivity : AppCompatActivity() {
 
         binding.etSearchField.setOnFocusChangeListener { view, hasFocus ->
             binding.searchHistory.visibility =
-                if (hasFocus && binding.etSearchField.text.isEmpty() && viewModel.loadSearchHistory()
-                        .isNotEmpty()
+                if (hasFocus && binding.etSearchField.text.isEmpty() && isSearchHistoryAvailable
                 ) View.VISIBLE else View.GONE
         }
-
-
 
         binding.ivClearIcon.setOnClickListener {
             binding.etSearchField.setText("")
             viewModel.clearSearchField()
+            hideAllErrorPlaceholders()
             hideSearchResults()
         }
 
@@ -120,15 +112,14 @@ class SearchActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 binding.ivClearIcon.visibility = clearButtonVisibility(s)
                 binding.searchHistory.visibility =
-                    if (binding.etSearchField.hasFocus() && viewModel.loadSearchHistory()
-                            .isNotEmpty() && s?.isEmpty() == true
+                    if (binding.etSearchField.hasFocus() && isSearchHistoryAvailable && s?.isEmpty() == true
                     ) View.VISIBLE else View.GONE
 
             }
 
             override fun afterTextChanged(s: Editable?) {
-                viewModel.setPreviousRequest(s.toString())
-                viewModel.searchDebounce(s.toString())
+                viewModel.searchDebounce(s.toString() ?: "")
+
             }
         }
         binding.etSearchField.addTextChangedListener(simpleTextWatcher)
@@ -136,28 +127,46 @@ class SearchActivity : AppCompatActivity() {
     }
 
 
-    private fun renderState(state: SearchActivityState) {
+    private fun renderState(state: SearchState) {
         when (state) {
-            is SearchActivityState.Default -> {
+            is SearchState.Default -> {
+                searchHistoryAdapter.list = state.searchHistory
+                searchHistoryAdapter.notifyDataSetChanged()
+                searchResultsAdapter.list = state.searchResults
+                searchResultsAdapter.notifyDataSetChanged()
+
+                isSearchHistoryAvailable = state.searchHistory.isNotEmpty()
+
+                if (state.searchResults.isNotEmpty()) {
+                    showSearchResults()
+                } else if (state.searchHistory.isNotEmpty()) {
+                    showSearchHistory()
+                }
+
                 hideAllErrorPlaceholders()
                 hideProgressBar()
-                hideSearchResults()
+
             }
 
-            is SearchActivityState.Loading -> {
+            is SearchState.Loading -> {
+                searchResultsAdapter.list = state.searchResults
+                searchResultsAdapter.notifyDataSetChanged()
                 showProgressBar()
             }
 
-            is SearchActivityState.ShowResults -> {
+            is SearchState.ShowSearchResults -> {
+                searchResultsAdapter.list = state.searchResults
                 searchResultsAdapter.notifyDataSetChanged()
                 showSearchResults()
+
             }
 
-            is SearchActivityState.NoResultsFoundError -> {
+
+            is SearchState.NoResultsFoundError -> {
                 showSearchErrorPlaceholder()
             }
 
-            is SearchActivityState.NoInternetConnectionError -> {
+            is SearchState.NoInternetConnectionError -> {
                 showConnectionErrorPlaceholder()
             }
 
@@ -172,6 +181,11 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
+    private fun showSearchHistory() {
+        binding.searchHistory.isVisible = true
+        hideSearchResults()
+    }
+
 
     private fun hideSearchHistory() {
         binding.searchHistory.isVisible = false
@@ -180,6 +194,7 @@ class SearchActivity : AppCompatActivity() {
     private fun showSearchResults() {
         hideProgressBar()
         hideAllErrorPlaceholders()
+        hideSearchHistory()
         binding.rvSearchResults.isVisible = true
 
     }

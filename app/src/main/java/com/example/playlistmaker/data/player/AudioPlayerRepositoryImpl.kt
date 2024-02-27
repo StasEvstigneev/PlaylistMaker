@@ -4,10 +4,10 @@ import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
 import com.example.playlistmaker.utils.Formatter
-import com.example.playlistmaker.domain.player.AudioPlayer
+import com.example.playlistmaker.domain.player.AudioPlayerRepository
 import com.example.playlistmaker.domain.search.models.Track
 
-class AudioPlayerImpl(val mediaPlayer: MediaPlayer): AudioPlayer {
+class AudioPlayerRepositoryImpl(private val mediaPlayer: MediaPlayer): AudioPlayerRepository {
 
 
     private var playerState = PLAYER_STATE_DEFAULT

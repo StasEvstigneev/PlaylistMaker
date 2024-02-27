@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
 import com.example.playlistmaker.domain.search.models.Track
 
-class SearchResultsAdapter(private var searchResults: ArrayList<Track>, private val clickListener: OnTrackClickListener) :
-    RecyclerView.Adapter<SearchResultsViewHolder>() {
+class SearchResultsAdapter(
+    var list: ArrayList<Track>, private val clickListener: OnTrackClickListener
+) : RecyclerView.Adapter<SearchResultsViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultsViewHolder {
@@ -17,12 +18,12 @@ class SearchResultsAdapter(private var searchResults: ArrayList<Track>, private 
         return SearchResultsViewHolder(view)
     }
 
-    override fun getItemCount(): Int = searchResults.size
+    override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: SearchResultsViewHolder, position: Int) {
-        holder.bind(searchResults[position])
+        holder.bind(list[position])
         holder.itemView.setOnClickListener {
-            clickListener.onTrackClick(searchResults[position])
+            clickListener.onTrackClick(list[position])
         }
     }
 
@@ -31,8 +32,8 @@ class SearchResultsAdapter(private var searchResults: ArrayList<Track>, private 
     }
 
     fun setItems(newList: ArrayList<Track>) {
-        val oldList = searchResults
-        val diffUtil = object: DiffUtil.Callback(){
+        val oldList = list
+        val diffUtil = object : DiffUtil.Callback() {
 
             override fun getOldListSize(): Int {
                 return oldList.size
@@ -53,13 +54,11 @@ class SearchResultsAdapter(private var searchResults: ArrayList<Track>, private 
         }
 
         val diffResult = DiffUtil.calculateDiff(diffUtil)
-        searchResults = newList
+        list = newList
         diffResult.dispatchUpdatesTo(this)
 
 
     }
-
-
 
 
 }

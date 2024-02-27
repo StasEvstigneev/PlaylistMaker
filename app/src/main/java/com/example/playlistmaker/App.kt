@@ -14,7 +14,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        settingsRepository = Creator.provideSettingsRepository(applicationContext)
+        settingsRepository = Creator.getSettingsRepository(applicationContext)
         nightTheme = settingsRepository.getThemeSettings().nightMode
         switchNightTheme(nightTheme)
     }

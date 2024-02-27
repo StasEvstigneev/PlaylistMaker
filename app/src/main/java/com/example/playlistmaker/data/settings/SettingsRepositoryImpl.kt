@@ -1,14 +1,13 @@
 package com.example.playlistmaker.data.settings
 
-import android.content.Context
-import com.example.playlistmaker.creator.Creator
 import com.example.playlistmaker.domain.settings.SettingsRepository
 import com.example.playlistmaker.domain.settings.model.ThemeSettings
+import com.example.playlistmaker.domain.storage.LocalStorage
 
 
-class SettingsRepositoryImpl(context: Context) : SettingsRepository {
+class SettingsRepositoryImpl(private val localStorage: LocalStorage) : SettingsRepository {
 
-   private val localStorage = Creator.provideLocalStorage(context, SETTINGS_PREFERENCES)
+
 
     override fun getThemeSettings(): ThemeSettings {
         return when {
@@ -22,7 +21,6 @@ class SettingsRepositoryImpl(context: Context) : SettingsRepository {
     }
 
     companion object{
-        private const val SETTINGS_PREFERENCES = "settings_pref"
         private const val NIGHT_THEME = "night_theme"
     }
 }

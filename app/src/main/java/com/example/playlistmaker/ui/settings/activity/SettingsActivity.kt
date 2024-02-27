@@ -19,10 +19,14 @@ class SettingsActivity : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this, SettingsViewModel.getViewModelFactory(
-            Creator.provideSharingInteractor(Creator.provideExternalNavigator(this), this),
-            Creator.provideSettingsRepository(applicationContext)
-        ))[SettingsViewModel::class.java]
+        viewModel = ViewModelProvider(
+            this, SettingsViewModel.getViewModelFactory(
+                Creator.provideSharingInteractor(
+                    Creator.provideExternalNavigator(this),
+                    this),
+                Creator.provideSettingsInteractor(applicationContext)
+            )
+        )[SettingsViewModel::class.java]
 
         binding.returnButton.setOnClickListener {
             this.finish()

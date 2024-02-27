@@ -4,23 +4,27 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.playlistmaker.creator.Creator
+import com.example.playlistmaker.domain.player.AudioPlayerInteractor
 import com.example.playlistmaker.domain.player.model.AudioPlayerScreenState
 import com.example.playlistmaker.domain.player.model.AudioPlayerStatus
-import com.example.playlistmaker.domain.search.SearchHistoryRepository
+import com.example.playlistmaker.domain.search.SearchHistoryInteractor
 import com.example.playlistmaker.domain.search.models.Track
 
 class AudioPlayerViewModel(
-    searchHistoryRepository: SearchHistoryRepository
-): ViewModel() {
+    searchHistoryInteractor: SearchHistoryInteractor,
+    private val audioPlayerInteractor: AudioPlayerInteractor
+) : ViewModel() {
 
-    private val audioPlayer = Creator.getAudioPlayer()
     private val playbackTimerUpdater = Runnable { updatePlaybackTimer() }
 
-    private var screenStateLiveData = MutableLiveData<AudioPlayerScreenState>(AudioPlayerScreenState.Loading)
+    private var screenStateLiveData =
+        MutableLiveData<AudioPlayerScreenState>(AudioPlayerScreenState.Loading)
+
     fun getScreenStateLiveData(): LiveData<AudioPlayerScreenState> = screenStateLiveData
 
-    private var trackPlaybackTimerLiveData = MutableLiveData(audioPlayer.resetTrackPlaybackTime())
+    private var trackPlaybackTimerLiveData =
+        MutableLiveData(audioPlayerInteractor.resetTrackPlaybackTime())
+
     fun getTrackPlaybackTimerLiveData(): LiveData<String> = trackPlaybackTimerLiveData
 
     private var playerStatusLiveData = MutableLiveData<AudioPlayerStatus>(AudioPlayerStatus.DEFAULT)
@@ -28,51 +32,55 @@ class AudioPlayerViewModel(
 
 
     init {
-        val track = searchHistoryRepository.receiveTackInPlayer()
+        val track = searchHistoryInteractor.receiveTackInPlayer()
         screenStateLiveData.setValue(AudioPlayerScreenState.Content(track))
         preparePlayer(track)
 
     }
 
     private fun preparePlayer(track: Track) {
-        audioPlayer.preparePlayer(track)
-        audioPlayer.setOnPreparedListener {
+        audioPlayerInteractor.preparePlayer(track)
+        audioPlayerInteractor.setOnPreparedListener {
             playerStatusLiveData.postValue(AudioPlayerStatus.PREPARED)
-            audioPlayer.setPlayerStatePrepared()
+            audioPlayerInteractor.setPlayerStatePrepared()
         }
-        audioPlayer.setOnCompletionListener {
+        audioPlayerInteractor.setOnCompletionListener {
             playerStatusLiveData.postValue(AudioPlayerStatus.PREPARED)
-            audioPlayer.setPlayerStatePrepared()
+            audioPlayerInteractor.setPlayerStatePrepared()
         }
     }
 
 
     private fun startPlayer() {
-        audioPlayer.startPlayer()
+        audioPlayerInteractor.startPlayer()
         playerStatusLiveData.postValue(AudioPlayerStatus.PLAYING)
         playbackTimerUpdater.run()
 
     }
 
     fun pausePlayer() {
-        audioPlayer.pausePlayer()
+        audioPlayerInteractor.pausePlayer()
         playerStatusLiveData.postValue(AudioPlayerStatus.PAUSED)
     }
 
     fun playbackControl() {
-        if (audioPlayer.isPlaying()) {
+        if (audioPlayerInteractor.isPlaying()) {
             pausePlayer()
         } else {
             startPlayer()
         }
     }
 
-    fun releasePlayer() {
-        audioPlayer.releasePlayer(playbackTimerUpdater)
+    private fun releasePlayer() {
+        audioPlayerInteractor.releasePlayer(playbackTimerUpdater)
     }
 
     private fun updatePlaybackTimer() {
-    trackPlaybackTimerLiveData.postValue(audioPlayer.updatePlaybackTimer(playbackTimerUpdater))
+        trackPlaybackTimerLiveData.postValue(
+            audioPlayerInteractor.updatePlaybackTimer(
+                playbackTimerUpdater
+            )
+        )
 
     }
 
@@ -83,12 +91,16 @@ class AudioPlayerViewModel(
 
 
     companion object {
-        fun getViewModelFactory(searchHistoryRepository: SearchHistoryRepository): ViewModelProvider.Factory =
+        fun getViewModelFactory(
+            searchHistoryInteractor: SearchHistoryInteractor,
+            audioPlayerInteractor: AudioPlayerInteractor
+        ): ViewModelProvider.Factory =
             object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
                     return AudioPlayerViewModel(
-                        searchHistoryRepository
+                        searchHistoryInteractor,
+                        audioPlayerInteractor
                     ) as T
                 }
             }

@@ -1,12 +1,10 @@
 package com.example.playlistmaker.data.storage
 
-import android.content.Context
+
+import android.content.SharedPreferences
 import com.example.playlistmaker.domain.storage.LocalStorage
 
-class LocalStorageImpl(context: Context, prefsName: String): LocalStorage {
-
-    private val sharedPreferences = context
-        .getSharedPreferences(prefsName, Context.MODE_PRIVATE)
+class LocalStorageImpl(private val sharedPreferences: SharedPreferences): LocalStorage {
 
 
     override fun addStringData(key: String, string: String) {

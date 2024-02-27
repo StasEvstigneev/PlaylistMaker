@@ -29,10 +29,9 @@ class AudioPlayerActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(
             this,
             AudioPlayerViewModel.getViewModelFactory(
-                Creator.provideSearchHistoryRepository(
-                    applicationContext,
-                    Creator.provideGsonJsonConverter()
-                )
+                Creator.provideSearchHistoryInteractor(
+                    applicationContext
+                ), Creator.provideAudioPlayerInteractor()
             )
         )[AudioPlayerViewModel::class.java]
 
@@ -44,19 +43,22 @@ class AudioPlayerActivity : AppCompatActivity() {
             renderState(screenState)
         }
 
-        viewModel.getPlayerStatusLiveData().observe(this) {status ->
+        viewModel.getPlayerStatusLiveData().observe(this) { status ->
 
             when (status) {
                 AudioPlayerStatus.DEFAULT -> {
                     binding.ivPlayButton.isEnabled = status.term
                 }
+
                 AudioPlayerStatus.PREPARED -> {
                     binding.ivPlayButton.isEnabled = status.term
                     binding.ivPlayButton.setImageResource(R.drawable.ic_play_button)
                 }
+
                 AudioPlayerStatus.PLAYING -> {
                     binding.ivPlayButton.setImageResource(R.drawable.ic_pause_button)
                 }
+
                 AudioPlayerStatus.PAUSED -> {
                     binding.ivPlayButton.setImageResource(R.drawable.ic_play_button)
                 }
@@ -94,7 +96,8 @@ class AudioPlayerActivity : AppCompatActivity() {
                     binding.trackAlbumGroup.isVisible = true
                     binding.tvTrackAlbum.text = screenState.track.collectionName
                 }
-                binding.tvTrackYear.text = Formatter.getYearFromReleaseDate(screenState.track.releaseDate)
+                binding.tvTrackYear.text =
+                    Formatter.getYearFromReleaseDate(screenState.track.releaseDate)
                 binding.tvTrackGenre.text = screenState.track.primaryGenreName
                 binding.tvTrackCountry.text = screenState.track.country
             }
@@ -113,7 +116,6 @@ class AudioPlayerActivity : AppCompatActivity() {
         super.onResume()
         viewModel.playbackControl()
     }
-
 
 
 }
