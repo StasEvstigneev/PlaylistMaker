@@ -20,7 +20,7 @@ import com.example.playlistmaker.domain.GsonJsonConverter
 import com.example.playlistmaker.domain.settings.SettingsRepository
 import com.example.playlistmaker.domain.sharing.ExternalNavigator
 import com.example.playlistmaker.domain.sharing.SharingInteractor
-import com.example.playlistmaker.data.sharing.SharingInteractorImpl
+import com.example.playlistmaker.domain.sharing.impl.SharingInteractorImpl
 import com.example.playlistmaker.data.storage.LocalStorageImpl
 import com.example.playlistmaker.domain.player.AudioPlayerRepository
 import com.example.playlistmaker.domain.player.impl.AudioPlayerInteractorImpl
@@ -80,8 +80,8 @@ object Creator {
         return ExternalNavigatorImpl(context)
     }
 
-    fun provideSharingInteractor(externalNavigator: ExternalNavigator, context: Context): SharingInteractor {
-        return SharingInteractorImpl(externalNavigator, context)
+    fun provideSharingInteractor(externalNavigator: ExternalNavigator): SharingInteractor {
+        return SharingInteractorImpl(externalNavigator)
 
     }
 

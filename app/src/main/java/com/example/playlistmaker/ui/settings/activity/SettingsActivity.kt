@@ -22,8 +22,7 @@ class SettingsActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(
             this, SettingsViewModel.getViewModelFactory(
                 Creator.provideSharingInteractor(
-                    Creator.provideExternalNavigator(this),
-                    this),
+                    Creator.provideExternalNavigator(this)),
                 Creator.provideSettingsInteractor(applicationContext)
             )
         )[SettingsViewModel::class.java]
