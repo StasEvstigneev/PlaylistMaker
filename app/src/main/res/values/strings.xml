@@ -23,6 +23,7 @@
     <string name="album">Альбом</string>
     <string name="duration">Длительность</string>
     <string name="unknown">неизвестно</string>
+    <string name="in_developing">Раздел в разработке...</string>
 
 
 </resources>

@@ -3,7 +3,6 @@ package com.example.playlistmaker.ui.audioplayer.view_model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.playlistmaker.domain.player.AudioPlayerInteractor
 import com.example.playlistmaker.domain.player.model.AudioPlayerScreenState
 import com.example.playlistmaker.domain.player.model.AudioPlayerStatus
@@ -89,20 +88,4 @@ class AudioPlayerViewModel(
         releasePlayer()
     }
 
-
-    companion object {
-        fun getViewModelFactory(
-            searchHistoryInteractor: SearchHistoryInteractor,
-            audioPlayerInteractor: AudioPlayerInteractor
-        ): ViewModelProvider.Factory =
-            object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return AudioPlayerViewModel(
-                        searchHistoryInteractor,
-                        audioPlayerInteractor
-                    ) as T
-                }
-            }
-    }
 }

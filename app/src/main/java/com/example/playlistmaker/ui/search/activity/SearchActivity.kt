@@ -10,14 +10,13 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.playlistmaker.creator.Creator
 import com.example.playlistmaker.databinding.ActivitySearchBinding
 import com.example.playlistmaker.domain.search.models.SearchState
 import com.example.playlistmaker.domain.search.models.Track
 import com.example.playlistmaker.ui.audioplayer.activity.AudioPlayerActivity
 import com.example.playlistmaker.ui.search.view_model.SearchViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class SearchActivity : AppCompatActivity() {
@@ -28,7 +27,9 @@ class SearchActivity : AppCompatActivity() {
     private val handler = Handler(Looper.getMainLooper())
     private var isClickAllowed: Boolean = true
     private var isSearchHistoryAvailable = false
-    private lateinit var viewModel: SearchViewModel
+
+
+    private val viewModel by viewModel<SearchViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,14 +37,6 @@ class SearchActivity : AppCompatActivity() {
 
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        viewModel = ViewModelProvider(
-            this,
-            SearchViewModel.getViewModelFactory(
-                Creator.provideTracksInteractor(applicationContext),
-                Creator.provideSearchHistoryInteractor(applicationContext)
-            )
-        )[SearchViewModel::class.java]
 
         viewModel.getActivityState().observe(this) { state ->
             renderState(state)
@@ -112,7 +105,10 @@ class SearchActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 binding.ivClearIcon.visibility = clearButtonVisibility(s)
                 binding.searchHistory.visibility =
-                    if (binding.etSearchField.hasFocus() && isSearchHistoryAvailable && s?.isEmpty() == true
+                    if (binding.etSearchField.hasFocus()
+                        && !binding.tvSearchErrorPlaceholder.isVisible
+                        && !binding.tvConnectionErrorPlaceholder.isVisible
+                        && isSearchHistoryAvailable && s?.isEmpty() == true
                     ) View.VISIBLE else View.GONE
 
             }
