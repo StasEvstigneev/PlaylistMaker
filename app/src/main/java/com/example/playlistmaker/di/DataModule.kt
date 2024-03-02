@@ -12,6 +12,7 @@ import com.example.playlistmaker.domain.GsonJsonConverter
 import com.example.playlistmaker.domain.sharing.ExternalNavigator
 import com.example.playlistmaker.domain.storage.LocalStorage
 import com.example.playlistmaker.utils.GsonJsonConverterImpl
+import com.google.gson.Gson
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -27,7 +28,9 @@ val dataModule = module {
             .create(iTunesApiService::class.java)
     }
 
-    single<GsonJsonConverter> { GsonJsonConverterImpl }
+    single<GsonJsonConverter> {
+        GsonJsonConverterImpl(Gson())
+    }
 
     factory<ExternalNavigator> {
         ExternalNavigatorImpl(androidContext())

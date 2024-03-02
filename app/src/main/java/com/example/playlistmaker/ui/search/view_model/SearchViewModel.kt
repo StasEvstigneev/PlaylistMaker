@@ -20,6 +20,7 @@ class SearchViewModel(
     private val handler = Handler(Looper.getMainLooper())
 
     private var previousRequest: String = ""
+    private var unprocessedRequest: String = ""
 
     private var searchResultsList = ArrayList<Track>()
     private var searchHistoryList = ArrayList<Track>()
@@ -71,6 +72,7 @@ class SearchViewModel(
         if (searchRequest.isNotBlank()) {
 
             searchResultsList.clear()
+            unprocessedRequest = ""
             activityState.postValue(SearchState.Loading(searchResultsList))
 
             tracksInteractor.searchTracks(searchRequest, object : TracksInteractor.TracksConsumer {
@@ -78,6 +80,7 @@ class SearchViewModel(
                     handler.post {
                         if (errorCode == 523) {
                             activityState.postValue(SearchState.NoInternetConnectionError)
+                            unprocessedRequest = searchRequest
                         } else if (foundTracks != null) {
                             searchResultsList.addAll(foundTracks)
                             activityState.postValue(SearchState.ShowSearchResults(foundTracks as ArrayList<Track>))
@@ -112,7 +115,7 @@ class SearchViewModel(
 
 
     fun repeatRequest() {
-        search(previousRequest)
+        search(unprocessedRequest)
     }
 
 
