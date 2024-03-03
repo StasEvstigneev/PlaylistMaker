@@ -3,37 +3,27 @@ package com.example.playlistmaker.ui.audioplayer.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.example.playlistmaker.creator.Creator
 import com.example.playlistmaker.utils.Formatter
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.ActivityAudioPlayerBinding
 import com.example.playlistmaker.domain.player.model.AudioPlayerScreenState
 import com.example.playlistmaker.domain.player.model.AudioPlayerStatus
 import com.example.playlistmaker.ui.audioplayer.view_model.AudioPlayerViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class AudioPlayerActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: AudioPlayerViewModel
     private lateinit var binding: ActivityAudioPlayerBinding
+    private val viewModel by viewModel<AudioPlayerViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAudioPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        viewModel = ViewModelProvider(
-            this,
-            AudioPlayerViewModel.getViewModelFactory(
-                Creator.provideSearchHistoryInteractor(
-                    applicationContext
-                ), Creator.provideAudioPlayerInteractor()
-            )
-        )[AudioPlayerViewModel::class.java]
 
         binding.ivArrowReturn.setOnClickListener {
             this.finish()

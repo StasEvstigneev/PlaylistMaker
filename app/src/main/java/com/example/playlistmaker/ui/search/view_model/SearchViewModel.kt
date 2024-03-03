@@ -6,7 +6,6 @@ import android.os.SystemClock
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.playlistmaker.domain.search.SearchHistoryInteractor
 import com.example.playlistmaker.domain.search.TracksInteractor
 import com.example.playlistmaker.domain.search.models.SearchState
@@ -21,6 +20,7 @@ class SearchViewModel(
     private val handler = Handler(Looper.getMainLooper())
 
     private var previousRequest: String = ""
+    private var unprocessedRequest: String = ""
 
     private var searchResultsList = ArrayList<Track>()
     private var searchHistoryList = ArrayList<Track>()
@@ -72,6 +72,7 @@ class SearchViewModel(
         if (searchRequest.isNotBlank()) {
 
             searchResultsList.clear()
+            unprocessedRequest = ""
             activityState.postValue(SearchState.Loading(searchResultsList))
 
             tracksInteractor.searchTracks(searchRequest, object : TracksInteractor.TracksConsumer {
@@ -79,6 +80,7 @@ class SearchViewModel(
                     handler.post {
                         if (errorCode == 523) {
                             activityState.postValue(SearchState.NoInternetConnectionError)
+                            unprocessedRequest = searchRequest
                         } else if (foundTracks != null) {
                             searchResultsList.addAll(foundTracks)
                             activityState.postValue(SearchState.ShowSearchResults(foundTracks as ArrayList<Track>))
@@ -113,7 +115,7 @@ class SearchViewModel(
 
 
     fun repeatRequest() {
-        search(previousRequest)
+        search(unprocessedRequest)
     }
 
 
@@ -125,20 +127,6 @@ class SearchViewModel(
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
         private val SEARCH_REQUEST_TOKEN = Any()
-
-        fun getViewModelFactory(
-            tracksInteractor: TracksInteractor,
-            searchHistoryInteractor: SearchHistoryInteractor
-        ): ViewModelProvider.Factory =
-            object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return SearchViewModel(
-                        tracksInteractor,
-                        searchHistoryInteractor
-                    ) as T
-                }
-            }
     }
 
 
