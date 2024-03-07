@@ -42,21 +42,11 @@ class SearchHistoryRepositoryImpl(
         localStorage.clearData()
     }
 
-    override fun selectTrackForPlayer(selectedTrack: Track) {
-        val json:String = gsonJsonConverter.getJsonFromTrack(selectedTrack)
-        localStorage.addStringData(SELECTED_TRACK_KEY, json)
-    }
-
-    override fun receiveTackInPlayer(): Track {
-        val json = localStorage.getSavedStringData(SELECTED_TRACK_KEY)
-        return gsonJsonConverter.getTrackFromJson(json)
-    }
 
     companion object {
 
         private const val SEARCH_HISTORY_KEY = "SearchHistoryKey"
         private const val SEARCH_HISTORY_ITEMS_LIMIT: Int = 10
-        private const val SELECTED_TRACK_KEY = "TrackToPlay"
 
     }
 

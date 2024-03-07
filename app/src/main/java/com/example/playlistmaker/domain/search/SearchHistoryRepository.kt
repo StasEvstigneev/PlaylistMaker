@@ -11,9 +11,5 @@ interface SearchHistoryRepository {
 
     fun clearSearchHistory()
 
-    fun selectTrackForPlayer(selectedTrack: Track)
-
-    fun receiveTackInPlayer(): Track
-
 
 }

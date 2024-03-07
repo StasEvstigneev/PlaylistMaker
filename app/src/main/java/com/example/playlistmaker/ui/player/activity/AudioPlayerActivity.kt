@@ -1,4 +1,4 @@
-package com.example.playlistmaker.ui.audioplayer.activity
+package com.example.playlistmaker.ui.player.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,7 +10,7 @@ import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.ActivityAudioPlayerBinding
 import com.example.playlistmaker.domain.player.model.AudioPlayerScreenState
 import com.example.playlistmaker.domain.player.model.AudioPlayerStatus
-import com.example.playlistmaker.ui.audioplayer.view_model.AudioPlayerViewModel
+import com.example.playlistmaker.ui.player.view_model.AudioPlayerViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

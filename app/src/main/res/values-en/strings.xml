@@ -22,4 +22,9 @@
     <string name="duration">Duration</string>
     <string name="unknown">unknown</string>
     <string name="in_developing">Section under development...</string>
+    <string name="favorite_tracks">Favorite tracks</string>
+    <string name="playlists">Playlists</string>
+    <string name="new_playlist">New playlist</string>
+    <string name="medialibrary_empty">Your medialibrary is empty</string>
+    <string name="no_playlist_available">You have not created \n any playlist</string>
 </resources>

@@ -288,4 +288,65 @@
     </style>
 
 
+    <style name="TabLayout">
+        <item name="android:background">?attr/colorSecondary</item>
+
+    </style>
+
+
+
+    <style name="TabLayoutTextAppearance">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/tab_text_font_size</item>
+        <item name="android:lineHeight">@dimen/tab_text_line_height</item>
+        <item name="android:fontWeight">@dimen/tab_text_font_weight</item>
+        <item name="android:textAllCaps">false</item>
+
+    </style>
+
+
+
+    <style name="FavoriteTracksErrorMessage">
+        <item name="android:layout_marginTop">@dimen/favorites_error_placeholder_marginTop</item>
+        <item name="android:drawablePadding">@dimen/favorites_error_placeholder_drawablePadding</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/error_message_textSize</item>
+        <item name="android:lineHeight">@dimen/error_message_lineHeight</item>
+        <item name="android:fontWeight">@dimen/error_message_font_weight</item>
+        <item name="android:textColor">?attr/textAppearanceBody1</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+
+    <style name="NewPlaylistButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:layout_marginTop">@dimen/new_playlist_button_marginTop</item>
+        <item name="android:backgroundTint">?attr/textAppearanceBody1</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/new_playlist_button_font_size</item>
+        <item name="android:lineHeight">@dimen/new_playlist_button_line_height</item>
+        <item name="android:fontWeight">@dimen/new_playlist_button_font_weight</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="cornerRadius">@dimen/new_playlist_button_corner_radius</item>
+
+    </style>
+
+
+    <style name="PlaylistsErrorMessage">
+        <item name="android:layout_marginTop">@dimen/playlists_error_placeholder_marginTop</item>
+        <item name="android:drawablePadding">@dimen/playlists_error_placeholder_drawablePadding</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/error_message_textSize</item>
+        <item name="android:lineHeight">@dimen/error_message_lineHeight</item>
+        <item name="android:fontWeight">@dimen/error_message_font_weight</item>
+        <item name="android:textColor">?attr/textAppearanceBody1</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+
+
+
+
 </resources>
