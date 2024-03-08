@@ -17,11 +17,4 @@ class SearchHistoryInteractorImpl(private val repository: SearchHistoryRepositor
         repository.clearSearchHistory()
     }
 
-    override fun selectTrackForPlayer(selectedTrack: Track) {
-        repository.selectTrackForPlayer(selectedTrack)
-    }
-
-    override fun receiveTackInPlayer(): Track {
-        return repository.receiveTackInPlayer()
-    }
 }

@@ -93,6 +93,7 @@
     <dimen name="error_message_textSize">19sp</dimen>
     <dimen name="error_message_lineHeight">22sp</dimen>
     <dimen name="error_message_marginHorizontal">24dp</dimen>
+    <dimen name="error_message_font_weight">400</dimen>
 
 
     <!---RefreshButton-->
@@ -157,6 +158,30 @@
     <dimen name="audio_player_trackDataItem_fontLineHeight">15sp</dimen>
     <dimen name="audio_player_trackDataItem_paddingTop">9dp</dimen>
     <dimen name="audio_player_trackDataItem_paddingBottom">8dp</dimen>
+
+    <!---TabsMediateka-->
+    <dimen name="tab_text_font_size">14sp</dimen>
+    <dimen name="tab_text_line_height">16sp</dimen>
+    <dimen name="tab_text_font_weight">500</dimen>
+    <dimen name="tab_indicator_height">2dp</dimen>
+    <dimen name="tab_indicator_width">148dp</dimen>
+
+
+    <!---FavoriteTracksErrorPlaceholder-->
+    <dimen name="favorites_error_placeholder_marginTop">106dp</dimen>
+    <dimen name="favorites_error_placeholder_drawablePadding">16dp</dimen>
+
+    <!---NewPlaylistButton-->
+    <dimen name="new_playlist_button_font_size">14sp</dimen>
+    <dimen name="new_playlist_button_line_height">16sp</dimen>
+    <dimen name="new_playlist_button_font_weight">500</dimen>
+    <dimen name="new_playlist_button_corner_radius">54dp</dimen>
+    <dimen name="new_playlist_button_marginTop">24dp</dimen>
+
+    <!---PlaylistsErrorPlaceholder-->
+    <dimen name="playlists_error_placeholder_marginTop">46dp</dimen>
+    <dimen name="playlists_error_placeholder_drawablePadding">16dp</dimen>
+
 
 
 </resources>

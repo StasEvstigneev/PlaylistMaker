@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.playlistmaker.databinding.ActivitySearchBinding
 import com.example.playlistmaker.domain.search.models.SearchState
 import com.example.playlistmaker.domain.search.models.Track
-import com.example.playlistmaker.ui.audioplayer.activity.AudioPlayerActivity
+import com.example.playlistmaker.ui.player.activity.AudioPlayerActivity
 import com.example.playlistmaker.ui.search.view_model.SearchViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

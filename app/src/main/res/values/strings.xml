@@ -24,6 +24,11 @@
     <string name="duration">Длительность</string>
     <string name="unknown">неизвестно</string>
     <string name="in_developing">Раздел в разработке...</string>
+    <string name="favorite_tracks">Избранные треки</string>
+    <string name="playlists">Плейлисты</string>
+    <string name="new_playlist">Новый плейлист</string>
+    <string name="medialibrary_empty">Ваша медиатека пуста</string>
+    <string name="no_playlist_available">Вы не создали \n ни одного плейлиста</string>
 
 
 </resources>

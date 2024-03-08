@@ -6,15 +6,17 @@ import android.os.SystemClock
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.playlistmaker.domain.mediateka.TracksInteractor
 import com.example.playlistmaker.domain.search.SearchHistoryInteractor
-import com.example.playlistmaker.domain.search.TracksInteractor
+import com.example.playlistmaker.domain.search.SearchTracksInteractor
 import com.example.playlistmaker.domain.search.models.SearchState
 import com.example.playlistmaker.domain.search.models.Track
 
 
 class SearchViewModel(
-    private val tracksInteractor: TracksInteractor,
-    private val searchHistoryInteractor: SearchHistoryInteractor
+    private val searchTracksInteractor: SearchTracksInteractor,
+    private val searchHistoryInteractor: SearchHistoryInteractor,
+    private val tracksInteractor: TracksInteractor
 ) : ViewModel() {
 
     private val handler = Handler(Looper.getMainLooper())
@@ -51,7 +53,7 @@ class SearchViewModel(
     }
 
     fun selectTrackForPlayer(selectedTrack: Track) {
-        searchHistoryInteractor.selectTrackForPlayer(selectedTrack)
+        tracksInteractor.selectTrackForPlayer(selectedTrack)
     }
 
     private fun loadSearchHistory(): ArrayList<Track> {
@@ -75,7 +77,7 @@ class SearchViewModel(
             unprocessedRequest = ""
             activityState.postValue(SearchState.Loading(searchResultsList))
 
-            tracksInteractor.searchTracks(searchRequest, object : TracksInteractor.TracksConsumer {
+            searchTracksInteractor.searchTracks(searchRequest, object : SearchTracksInteractor.TracksConsumer {
                 override fun consume(foundTracks: List<Track>?, errorCode: Int?) {
                     handler.post {
                         if (errorCode == 523) {

@@ -1,16 +1,16 @@
-package com.example.playlistmaker.ui.audioplayer.view_model
+package com.example.playlistmaker.ui.player.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.playlistmaker.domain.mediateka.TracksInteractor
 import com.example.playlistmaker.domain.player.AudioPlayerInteractor
 import com.example.playlistmaker.domain.player.model.AudioPlayerScreenState
 import com.example.playlistmaker.domain.player.model.AudioPlayerStatus
-import com.example.playlistmaker.domain.search.SearchHistoryInteractor
 import com.example.playlistmaker.domain.search.models.Track
 
 class AudioPlayerViewModel(
-    searchHistoryInteractor: SearchHistoryInteractor,
+    tracksInteractor: TracksInteractor,
     private val audioPlayerInteractor: AudioPlayerInteractor
 ) : ViewModel() {
 
@@ -31,7 +31,7 @@ class AudioPlayerViewModel(
 
 
     init {
-        val track = searchHistoryInteractor.receiveTackInPlayer()
+        val track = tracksInteractor.receiveTackInPlayer()
         screenStateLiveData.setValue(AudioPlayerScreenState.Content(track))
         preparePlayer(track)
 

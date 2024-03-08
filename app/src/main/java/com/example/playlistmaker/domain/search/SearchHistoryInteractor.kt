@@ -10,9 +10,4 @@ interface SearchHistoryInteractor {
 
     fun clearSearchHistory()
 
-    fun selectTrackForPlayer(selectedTrack: Track)
-
-    fun receiveTackInPlayer(): Track
-
-
 }
