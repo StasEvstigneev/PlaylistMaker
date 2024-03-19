@@ -1,4 +1,4 @@
-package com.example.playlistmaker.ui.mediateka.activity
+package com.example.playlistmaker.ui.mediateka
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

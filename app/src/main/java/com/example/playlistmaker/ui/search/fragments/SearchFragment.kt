@@ -1,27 +1,34 @@
-package com.example.playlistmaker.ui.search.activity
+package com.example.playlistmaker.ui.search.fragments
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.playlistmaker.databinding.ActivitySearchBinding
+import com.example.playlistmaker.databinding.FragmentSearchBinding
 import com.example.playlistmaker.domain.search.models.SearchState
 import com.example.playlistmaker.domain.search.models.Track
 import com.example.playlistmaker.ui.player.activity.AudioPlayerActivity
+import com.example.playlistmaker.ui.search.SearchResultsAdapter
 import com.example.playlistmaker.ui.search.view_model.SearchViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+class SearchFragment: Fragment() {
 
-class SearchActivity : AppCompatActivity() {
+    private lateinit var binding : FragmentSearchBinding
 
-    private lateinit var binding: ActivitySearchBinding
+    private val viewModel by viewModel<SearchViewModel>()
+
+    private lateinit var textWatcher: TextWatcher
+
     private lateinit var searchResultsAdapter: SearchResultsAdapter
     private lateinit var searchHistoryAdapter: SearchResultsAdapter
     private val handler = Handler(Looper.getMainLooper())
@@ -29,20 +36,26 @@ class SearchActivity : AppCompatActivity() {
     private var isSearchHistoryAvailable = false
 
 
-    private val viewModel by viewModel<SearchViewModel>()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        binding = FragmentSearchBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        binding = ActivitySearchBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        viewModel.getActivityState().observe(this) { state ->
+        viewModel.getActivityState().observe(viewLifecycleOwner) { state ->
             renderState(state)
         }
 
-        val intent = Intent(this, AudioPlayerActivity::class.java)
+        val intent = Intent(requireContext(), AudioPlayerActivity::class.java)
 
         searchResultsAdapter = SearchResultsAdapter(ArrayList<Track>()) {
             if (clickDebounce()) {
@@ -57,9 +70,10 @@ class SearchActivity : AppCompatActivity() {
             }
         }
         binding.rvSearchHistory.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, true)
 
         binding.rvSearchHistory.adapter = searchHistoryAdapter
+
 
         binding.searchRefreshBtn.setOnClickListener {
             viewModel.repeatRequest()
@@ -71,9 +85,6 @@ class SearchActivity : AppCompatActivity() {
             hideSearchHistory()
         }
 
-        binding.returnButton.setOnClickListener {
-            this.finish()
-        }
 
         binding.etSearchField.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -98,7 +109,8 @@ class SearchActivity : AppCompatActivity() {
             hideSearchResults()
         }
 
-        val simpleTextWatcher = object : TextWatcher {
+
+        textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -118,7 +130,13 @@ class SearchActivity : AppCompatActivity() {
 
             }
         }
-        binding.etSearchField.addTextChangedListener(simpleTextWatcher)
+        textWatcher?.let {binding.etSearchField.addTextChangedListener(it)}
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        textWatcher?.let {binding.etSearchField.removeTextChangedListener(it)}
 
     }
 
@@ -154,7 +172,6 @@ class SearchActivity : AppCompatActivity() {
                 searchResultsAdapter.list = state.searchResults
                 searchResultsAdapter.notifyDataSetChanged()
                 showSearchResults()
-
             }
 
 
@@ -168,7 +185,6 @@ class SearchActivity : AppCompatActivity() {
 
         }
     }
-
 
     private fun processClickedTrack(track: Track, intent: Intent) {
         viewModel.addTrackToSearchHistory(track)

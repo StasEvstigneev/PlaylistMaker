@@ -2,50 +2,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/ActivityLayout"
+    style="@style/FragmentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.settings.activity.SettingsActivity">
+    tools:context=".ui.settings.fragments.SettingsFragment">
 
 
-    <LinearLayout
-        style="@style/HeaderStyle"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        app:titleTextAppearance="@style/ToolbarTitle"
+        app:title="@string/settings">
 
-        <ImageView
-            android:id="@+id/return_button"
-            style="@style/HeaderIcon"
-            android:src="@drawable/ic_arrow_back" />
-
-
-        <TextView
-            style="@style/HeadingOfActivities"
-            android:text="@string/settings"></TextView>
-
-    </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="@dimen/settings_list_marginTop"
         android:orientation="horizontal">
 
         <TextView
             style="@style/SettingsItemsText"
-            android:layout_marginVertical="21dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginVertical="@dimen/theme_switcher_marginVertical"
+            android:layout_marginStart="@dimen/theme_switcher_marginStart"
+            android:layout_marginEnd="@dimen/theme_switcher_marginEnd"
             android:text="@string/night_mode" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switcherNightTheme"
+            style="@style/SettingsSwitchIcon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/SettingsSwitchIcon" />
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>
