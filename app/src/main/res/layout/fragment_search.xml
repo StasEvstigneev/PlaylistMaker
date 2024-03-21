@@ -2,28 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/ActivityLayout"
+    style="@style/FragmentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.search.activity.SearchActivity">
+    tools:context=".ui.search.fragments.SearchFragment">
 
-    <LinearLayout
-        style="@style/HeaderStyle"
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        app:titleTextAppearance="@style/ToolbarTitle"
+        app:title="@string/search">
 
-        <ImageView
-            android:id="@+id/return_button"
-            style="@style/HeaderIcon"
-            android:src="@drawable/ic_arrow_back" />
-
-        <TextView
-            style="@style/HeadingOfActivities"
-            android:text="@string/search"></TextView>
-
-    </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
         android:layout_width="match_parent"

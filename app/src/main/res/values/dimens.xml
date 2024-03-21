@@ -40,8 +40,11 @@
     <dimen name="lists_padding_end">12dp</dimen>
     <dimen name="lists_padding_bottom">18dp</dimen>
     <dimen name="lists_padding_start">16dp</dimen>
-    <dimen name="lists_heading_margin_right">8dp</dimen>
-
+    <dimen name="lists_heading_margin_end">8dp</dimen>
+    <dimen name="settings_list_marginTop">24dp</dimen>
+    <dimen name="theme_switcher_marginVertical">21dp</dimen>
+    <dimen name="theme_switcher_marginStart">16dp</dimen>
+    <dimen name="theme_switcher_marginEnd">8dp</dimen>
 
     <!---SearchField-->
     <dimen name="et_search_field_margin_vertical">8dp</dimen>
@@ -181,6 +184,14 @@
     <!---PlaylistsErrorPlaceholder-->
     <dimen name="playlists_error_placeholder_marginTop">46dp</dimen>
     <dimen name="playlists_error_placeholder_drawablePadding">16dp</dimen>
+
+
+    <!---BottomNavText-->
+    <dimen name="bottom_nav_text_font_size">12sp</dimen>
+    <dimen name="bottom_nav_text_line_height">16sp</dimen>
+    <dimen name="bottom_nav_text_font_weight">400</dimen>
+
+
 
 
 
