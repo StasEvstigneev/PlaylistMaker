@@ -13,11 +13,11 @@ class TracksInteractorImpl(private val repository: TracksRepository) : TracksInt
         return repository.getFavoriteTracks()
     }
 
-    override fun selectTrackForPlayer(selectedTrack: Track) {
-        repository.selectTrackForPlayer(selectedTrack)
+    override fun playThisTrack(selectedTrack: Track) {
+        repository.playThisTrack(selectedTrack)
     }
 
-    override fun receiveTackInPlayer(): Track {
+    override fun uploadTrackInPlayer(): Track {
         return repository.receiveTackInPlayer()
     }
 }

@@ -1,4 +1,4 @@
-package com.example.playlistmaker.ui.mediateka.view_model
+package com.example.playlistmaker.presentation.mediateka
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

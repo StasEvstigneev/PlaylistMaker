@@ -1,4 +1,4 @@
-package com.example.playlistmaker.ui.player.activity
+package com.example.playlistmaker.ui.player
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,8 +9,7 @@ import com.example.playlistmaker.utils.Formatter
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.ActivityAudioPlayerBinding
 import com.example.playlistmaker.domain.player.model.AudioPlayerScreenState
-import com.example.playlistmaker.domain.player.model.AudioPlayerStatus
-import com.example.playlistmaker.ui.player.view_model.AudioPlayerViewModel
+import com.example.playlistmaker.presentation.player.AudioPlayerViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -33,32 +32,17 @@ class AudioPlayerActivity : AppCompatActivity() {
             renderState(screenState)
         }
 
-        viewModel.getPlayerStatusLiveData().observe(this) { status ->
-
-            when (status) {
-                AudioPlayerStatus.DEFAULT -> {
-                    binding.ivPlayButton.isEnabled = status.term
-                }
-
-                AudioPlayerStatus.PREPARED -> {
-                    binding.ivPlayButton.isEnabled = status.term
-                    binding.ivPlayButton.setImageResource(R.drawable.ic_play_button)
-                }
-
-                AudioPlayerStatus.PLAYING -> {
-                    binding.ivPlayButton.setImageResource(R.drawable.ic_pause_button)
-                }
-
-                AudioPlayerStatus.PAUSED -> {
-                    binding.ivPlayButton.setImageResource(R.drawable.ic_play_button)
-                }
-
+        viewModel.getPlayerStateLiveData().observe(this) {
+            binding.ivPlayButton.isEnabled = it.isPlayButtonEnabled
+            if (it.isPlaying) {
+                binding.ivPlayButton.setImageResource(R.drawable.ic_pause_button)
+            } else {
+                binding.ivPlayButton.setImageResource(R.drawable.ic_play_button)
             }
         }
 
-
-        viewModel.getTrackPlaybackTimerLiveData().observe(this) { time ->
-            binding.tvTrackPlaybackTimer.text = time
+        viewModel.getPlaybackTimerLiveData().observe(this) {
+            progress -> binding.tvTrackPlaybackTimer.text = progress
         }
 
         binding.ivPlayButton.setOnClickListener {
@@ -70,7 +54,7 @@ class AudioPlayerActivity : AppCompatActivity() {
     private fun renderState(screenState: AudioPlayerScreenState) {
 
         when (screenState) {
-            is AudioPlayerScreenState.Content -> {
+            is AudioPlayerScreenState.TrackIsLoaded -> {
                 Glide.with(applicationContext)
                     .load(screenState.track.artworkUrl512)
                     .placeholder(R.drawable.img_player_album_placeholder)
@@ -92,19 +76,19 @@ class AudioPlayerActivity : AppCompatActivity() {
                 binding.tvTrackCountry.text = screenState.track.country
             }
 
-            else -> false
+            else -> {}
         }
 
     }
 
     override fun onPause() {
         super.onPause()
-        viewModel.pausePlayer()
+        viewModel.onPauseControl()
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.playbackControl()
+        viewModel.onResumeControl()
     }
 
 

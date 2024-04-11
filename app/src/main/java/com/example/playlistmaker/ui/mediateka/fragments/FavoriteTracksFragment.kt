@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.playlistmaker.databinding.FragmentFavoriteTracksBinding
 import com.example.playlistmaker.domain.mediateka.models.FavoriteTracksState
-import com.example.playlistmaker.ui.mediateka.view_model.FavoriteTracksViewModel
+import com.example.playlistmaker.presentation.mediateka.FavoriteTracksViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteTracksFragment : Fragment() {

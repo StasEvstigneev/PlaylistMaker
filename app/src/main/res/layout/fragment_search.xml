@@ -13,8 +13,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleTextAppearance="@style/ToolbarTitle"
-        app:title="@string/search">
+        app:title="@string/search"
+        app:titleTextAppearance="@style/ToolbarTitle">
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -62,8 +62,7 @@
         android:layout_marginTop="@dimen/search_progressBar_marginTop"
         android:indeterminateTint="@color/blue"
         android:visibility="gone"
-        tools:visibility="visible"
-        />
+        tools:visibility="visible" />
 
 
     <TextView

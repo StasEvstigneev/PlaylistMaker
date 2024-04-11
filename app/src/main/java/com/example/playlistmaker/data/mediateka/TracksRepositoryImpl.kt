@@ -22,7 +22,7 @@ class TracksRepositoryImpl(
         return gsonJsonConverter.getTrackListFromJson(json)
     }
 
-    override fun selectTrackForPlayer(selectedTrack: Track) {
+    override fun playThisTrack(selectedTrack: Track) {
         val json: String = gsonJsonConverter.getJsonFromTrack(selectedTrack)
         localStorage.addStringData(SELECTED_TRACK_KEY, json)
     }

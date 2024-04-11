@@ -1,10 +1,10 @@
 package com.example.playlistmaker.di
 
-import com.example.playlistmaker.ui.mediateka.view_model.FavoriteTracksViewModel
-import com.example.playlistmaker.ui.mediateka.view_model.PlaylistsViewModel
-import com.example.playlistmaker.ui.player.view_model.AudioPlayerViewModel
-import com.example.playlistmaker.ui.search.view_model.SearchViewModel
-import com.example.playlistmaker.ui.settings.view_model.SettingsViewModel
+import com.example.playlistmaker.presentation.mediateka.FavoriteTracksViewModel
+import com.example.playlistmaker.presentation.mediateka.PlaylistsViewModel
+import com.example.playlistmaker.presentation.player.AudioPlayerViewModel
+import com.example.playlistmaker.presentation.search.SearchViewModel
+import com.example.playlistmaker.presentation.settings.SettingsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

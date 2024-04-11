@@ -26,12 +26,12 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.playlistmaker.ui.settings.fragments.SettingsFragment"
+        android:name="com.example.playlistmaker.ui.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
     <activity
         android:id="@+id/audioPlayerActivity"
-        android:name="com.example.playlistmaker.ui.player.activity.AudioPlayerActivity"
+        android:name="com.example.playlistmaker.ui.player.AudioPlayerActivity"
         android:label="activity_audio_player"
         tools:layout="@layout/activity_audio_player" />
     <fragment
