@@ -6,8 +6,6 @@ interface AudioPlayerRepository {
 
     fun preparePlayer(track: Track)
 
-    fun setPlayerStatePrepared()
-
     fun setOnPreparedListener(p: () -> Unit)
 
     fun setOnCompletionListener(p: () -> Unit)
@@ -16,14 +14,12 @@ interface AudioPlayerRepository {
 
     fun pausePlayer()
 
-    fun isPlaying(): Boolean
+    fun releasePlayer()
 
-    fun releasePlayer(runnable: Runnable)
+    fun isPlaying(): Boolean
 
     fun resetTrackPlaybackTime(): String
 
     fun getCurrentPosition(): String
-
-    fun updatePlaybackTimer(runnable: Runnable): String
 
 }

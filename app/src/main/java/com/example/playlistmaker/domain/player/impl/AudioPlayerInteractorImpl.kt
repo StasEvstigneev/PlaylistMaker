@@ -9,10 +9,6 @@ class AudioPlayerInteractorImpl(private val repository: AudioPlayerRepository): 
         repository.preparePlayer(track)
     }
 
-    override fun setPlayerStatePrepared() {
-        repository.setPlayerStatePrepared()
-    }
-
     override fun setOnPreparedListener(p: () -> Unit) {
         repository.setOnPreparedListener(p)
     }
@@ -29,12 +25,12 @@ class AudioPlayerInteractorImpl(private val repository: AudioPlayerRepository): 
         repository.pausePlayer()
     }
 
-    override fun isPlaying(): Boolean {
-        return repository.isPlaying()
+    override fun releasePlayer() {
+        repository.releasePlayer()
     }
 
-    override fun releasePlayer(runnable: Runnable) {
-        repository.releasePlayer(runnable)
+    override fun isPlaying(): Boolean {
+        return repository.isPlaying()
     }
 
     override fun resetTrackPlaybackTime(): String {
@@ -45,7 +41,4 @@ class AudioPlayerInteractorImpl(private val repository: AudioPlayerRepository): 
         return repository.getCurrentPosition()
     }
 
-    override fun updatePlaybackTimer(runnable: Runnable): String {
-        return repository.updatePlaybackTimer(runnable)
-    }
 }

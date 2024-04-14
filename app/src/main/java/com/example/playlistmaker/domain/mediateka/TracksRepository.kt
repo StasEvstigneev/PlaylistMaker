@@ -8,7 +8,7 @@ interface TracksRepository {
 
     fun getFavoriteTracks(): ArrayList<Track>
 
-    fun selectTrackForPlayer(selectedTrack: Track)
+    fun playThisTrack(selectedTrack: Track)
 
     fun receiveTackInPlayer(): Track
 

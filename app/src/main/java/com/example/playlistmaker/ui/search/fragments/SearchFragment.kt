@@ -2,8 +2,6 @@ package com.example.playlistmaker.ui.search.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -12,18 +10,22 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.playlistmaker.databinding.FragmentSearchBinding
 import com.example.playlistmaker.domain.search.models.SearchState
 import com.example.playlistmaker.domain.search.models.Track
-import com.example.playlistmaker.ui.player.activity.AudioPlayerActivity
+import com.example.playlistmaker.ui.player.AudioPlayerActivity
 import com.example.playlistmaker.ui.search.SearchResultsAdapter
-import com.example.playlistmaker.ui.search.view_model.SearchViewModel
+import com.example.playlistmaker.presentation.search.SearchViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment: Fragment() {
 
-    private lateinit var binding : FragmentSearchBinding
+    private var _binding : FragmentSearchBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel by viewModel<SearchViewModel>()
 
@@ -31,7 +33,7 @@ class SearchFragment: Fragment() {
 
     private lateinit var searchResultsAdapter: SearchResultsAdapter
     private lateinit var searchHistoryAdapter: SearchResultsAdapter
-    private val handler = Handler(Looper.getMainLooper())
+
     private var isClickAllowed: Boolean = true
     private var isSearchHistoryAvailable = false
 
@@ -43,7 +45,7 @@ class SearchFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentSearchBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -137,6 +139,7 @@ class SearchFragment: Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         textWatcher?.let {binding.etSearchField.removeTextChangedListener(it)}
+        _binding = null
 
     }
 
@@ -159,7 +162,6 @@ class SearchFragment: Fragment() {
 
                 hideAllErrorPlaceholders()
                 hideProgressBar()
-
             }
 
             is SearchState.Loading -> {
@@ -174,7 +176,6 @@ class SearchFragment: Fragment() {
                 showSearchResults()
             }
 
-
             is SearchState.NoResultsFoundError -> {
                 showSearchErrorPlaceholder()
             }
@@ -188,7 +189,7 @@ class SearchFragment: Fragment() {
 
     private fun processClickedTrack(track: Track, intent: Intent) {
         viewModel.addTrackToSearchHistory(track)
-        viewModel.selectTrackForPlayer(track)
+        viewModel.playThisTrack(track)
         startActivity(intent)
 
     }
@@ -269,16 +270,17 @@ class SearchFragment: Fragment() {
         val clickStatus = isClickAllowed
         if (isClickAllowed) {
             isClickAllowed = false
-            handler.postDelayed(
-                { isClickAllowed = true },
-                SEARCH_RESULTS_CLICK_DELAY
-            )
+            viewLifecycleOwner.lifecycleScope.launch {
+                delay(ON_TRACK_CLICK_DELAY)
+                isClickAllowed = true
+            }
         }
         return clickStatus
     }
 
+
     companion object {
-        private const val SEARCH_RESULTS_CLICK_DELAY = 2000L
+        private const val ON_TRACK_CLICK_DELAY = 2000L
     }
 
 }
