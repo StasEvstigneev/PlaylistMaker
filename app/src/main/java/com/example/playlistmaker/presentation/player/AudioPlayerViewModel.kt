@@ -14,44 +14,84 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class AudioPlayerViewModel(
-    tracksInteractor: TracksInteractor,
+    private val tracksInteractor: TracksInteractor,
     private val audioPlayerInteractor: AudioPlayerInteractor
 ) : ViewModel() {
 
     private var playbackTimerJob: Job? = null
 
+    private var track: Track = tracksInteractor.uploadTrackInPlayer()
 
-    private var screenStateLiveData =
+    private var screenState =
         MutableLiveData<AudioPlayerScreenState>(AudioPlayerScreenState.Loading)
 
-    fun getScreenStateLiveData(): LiveData<AudioPlayerScreenState> = screenStateLiveData
+    fun getScreenState(): LiveData<AudioPlayerScreenState> = screenState
 
 
-    private var playerStateLiveData = MutableLiveData<AudioPlayerState>(AudioPlayerState
-        .Default())
-    fun getPlayerStateLiveData(): LiveData<AudioPlayerState> = playerStateLiveData
+    private var playerState = MutableLiveData<AudioPlayerState>(
+        AudioPlayerState
+            .Default()
+    )
 
+    fun getPlayerState(): LiveData<AudioPlayerState> = playerState
 
 
     private var playbackTimer = MutableLiveData<String>(resetPlaybackTimer())
     fun getPlaybackTimerLiveData(): LiveData<String> = playbackTimer
 
 
-    init {
-        val track = tracksInteractor.uploadTrackInPlayer()
-        screenStateLiveData.setValue(AudioPlayerScreenState
-            .TrackIsLoaded(track))
-        preparePlayer(track)
+    private var favoriteStatus = MutableLiveData<Boolean>()
+    fun getFavoriteStatus(): LiveData<Boolean> = favoriteStatus
 
+    init {
+        preparePlayer(track)
+        screenState.postValue(
+            AudioPlayerScreenState
+                .TrackIsLoaded(track)
+        )
+
+        viewModelScope.launch {
+            tracksInteractor.getFavoriteTracksIds()
+                .collect { ids ->
+                    if (ids.contains(track.trackId)) {
+                        favoriteStatus.postValue(true)
+                    } else {
+                        favoriteStatus.postValue(false)
+                    }
+                }
+        }
+
+    }
+
+
+    fun onFavoriteClicked() {
+
+        if (favoriteStatus.value == true) {
+            removeFromFavorites(track)
+            favoriteStatus.postValue(false)
+
+        } else {
+            addToFavorites(track)
+            favoriteStatus.postValue(true)
+        }
+    }
+
+
+    private fun addToFavorites(track: Track) {
+        viewModelScope.launch { tracksInteractor.addTrackToFavorites(track) }
+    }
+
+    private fun removeFromFavorites(track: Track) {
+        viewModelScope.launch { tracksInteractor.removeTrackFromFavorites(track) }
     }
 
     private fun preparePlayer(track: Track) {
         audioPlayerInteractor.preparePlayer(track)
         audioPlayerInteractor.setOnPreparedListener {
-            playerStateLiveData.postValue(AudioPlayerState.Prepared())
+            playerState.postValue(AudioPlayerState.Prepared())
         }
         audioPlayerInteractor.setOnCompletionListener {
-            playerStateLiveData.postValue(AudioPlayerState.Prepared())
+            playerState.postValue(AudioPlayerState.Prepared())
             playbackTimerJob?.cancel()
             playbackTimer.postValue(resetPlaybackTimer())
         }
@@ -60,18 +100,18 @@ class AudioPlayerViewModel(
 
     private fun startPlayer() {
         audioPlayerInteractor.startPlayer()
-        playerStateLiveData.postValue(AudioPlayerState.Playing(isPlaying()))
+        playerState.postValue(AudioPlayerState.Playing(isPlaying()))
         runPlaybackTimer()
     }
 
     fun pausePlayer() {
         audioPlayerInteractor.pausePlayer()
         playbackTimerJob?.cancel()
-        playerStateLiveData.postValue(AudioPlayerState.Paused(isPlaying()))
+        playerState.postValue(AudioPlayerState.Paused(isPlaying()))
     }
 
     fun playbackControl() {
-        when (playerStateLiveData.value) {
+        when (playerState.value) {
             is AudioPlayerState.Playing -> pausePlayer()
             is AudioPlayerState.Paused -> startPlayer()
             is AudioPlayerState.Prepared -> startPlayer()
@@ -81,14 +121,14 @@ class AudioPlayerViewModel(
 
 
     fun onPauseControl() {
-        when (playerStateLiveData.value) {
+        when (playerState.value) {
             is AudioPlayerState.Playing -> playbackControl()
             else -> {}
         }
     }
 
     fun onResumeControl() {
-        when (playerStateLiveData.value) {
+        when (playerState.value) {
             is AudioPlayerState.Paused -> playbackControl()
             else -> {}
         }
@@ -100,7 +140,7 @@ class AudioPlayerViewModel(
 
     private fun releasePlayer() {
         audioPlayerInteractor.releasePlayer()
-        playerStateLiveData.postValue(AudioPlayerState.Default())
+        playerState.postValue(AudioPlayerState.Default())
     }
 
     private fun runPlaybackTimer() {
@@ -126,7 +166,7 @@ class AudioPlayerViewModel(
         releasePlayer()
     }
 
-    companion object{
+    companion object {
         private const val PLAYER_POSITION_CHECK_INTERVAL_MILLIS = 300L
     }
 

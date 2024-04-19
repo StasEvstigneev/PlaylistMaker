@@ -28,11 +28,11 @@ class AudioPlayerActivity : AppCompatActivity() {
             this.finish()
         }
 
-        viewModel.getScreenStateLiveData().observe(this) { screenState ->
+        viewModel.getScreenState().observe(this) { screenState ->
             renderState(screenState)
         }
 
-        viewModel.getPlayerStateLiveData().observe(this) {
+        viewModel.getPlayerState().observe(this) {
             binding.ivPlayButton.isEnabled = it.isPlayButtonEnabled
             if (it.isPlaying) {
                 binding.ivPlayButton.setImageResource(R.drawable.ic_pause_button)
@@ -41,12 +41,25 @@ class AudioPlayerActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.getPlaybackTimerLiveData().observe(this) {
-            progress -> binding.tvTrackPlaybackTimer.text = progress
+        viewModel.getFavoriteStatus().observe(this) { status ->
+
+            if (status == true) {
+                binding.ivAddToFavoritesButton.setImageResource(R.drawable.ic_is_favorite)
+            } else {
+                binding.ivAddToFavoritesButton.setImageResource(R.drawable.ic_is_not_favorite)
+            }
+        }
+
+        viewModel.getPlaybackTimerLiveData().observe(this) { progress ->
+            binding.tvTrackPlaybackTimer.text = progress
         }
 
         binding.ivPlayButton.setOnClickListener {
             viewModel.playbackControl()
+        }
+
+        binding.ivAddToFavoritesButton.setOnClickListener {
+            viewModel.onFavoriteClicked()
         }
 
     }
@@ -74,6 +87,8 @@ class AudioPlayerActivity : AppCompatActivity() {
                     Formatter.getYearFromReleaseDate(screenState.track.releaseDate)
                 binding.tvTrackGenre.text = screenState.track.primaryGenreName
                 binding.tvTrackCountry.text = screenState.track.country
+
+
             }
 
             else -> {}

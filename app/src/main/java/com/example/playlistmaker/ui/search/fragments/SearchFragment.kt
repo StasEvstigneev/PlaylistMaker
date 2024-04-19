@@ -16,27 +16,26 @@ import com.example.playlistmaker.databinding.FragmentSearchBinding
 import com.example.playlistmaker.domain.search.models.SearchState
 import com.example.playlistmaker.domain.search.models.Track
 import com.example.playlistmaker.ui.player.AudioPlayerActivity
-import com.example.playlistmaker.ui.search.SearchResultsAdapter
+import com.example.playlistmaker.ui.search.TracksAdapter
 import com.example.playlistmaker.presentation.search.SearchViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SearchFragment: Fragment() {
+class SearchFragment : Fragment() {
 
-    private var _binding : FragmentSearchBinding? = null
+    private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel by viewModel<SearchViewModel>()
 
     private lateinit var textWatcher: TextWatcher
 
-    private lateinit var searchResultsAdapter: SearchResultsAdapter
-    private lateinit var searchHistoryAdapter: SearchResultsAdapter
+    private lateinit var searchResultsAdapter: TracksAdapter
+    private lateinit var searchHistoryAdapter: TracksAdapter
 
     private var isClickAllowed: Boolean = true
     private var isSearchHistoryAvailable = false
-
 
 
     override fun onCreateView(
@@ -59,14 +58,14 @@ class SearchFragment: Fragment() {
 
         val intent = Intent(requireContext(), AudioPlayerActivity::class.java)
 
-        searchResultsAdapter = SearchResultsAdapter(ArrayList<Track>()) {
+        searchResultsAdapter = TracksAdapter(ArrayList<Track>()) {
             if (clickDebounce()) {
                 processClickedTrack(it, intent)
             }
         }
         binding.rvSearchResults.adapter = searchResultsAdapter
 
-        searchHistoryAdapter = SearchResultsAdapter(ArrayList<Track>()) {
+        searchHistoryAdapter = TracksAdapter(ArrayList<Track>()) {
             if (clickDebounce()) {
                 processClickedTrack(it, intent)
             }
@@ -132,13 +131,13 @@ class SearchFragment: Fragment() {
 
             }
         }
-        textWatcher?.let {binding.etSearchField.addTextChangedListener(it)}
+        textWatcher?.let { binding.etSearchField.addTextChangedListener(it) }
 
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        textWatcher?.let {binding.etSearchField.removeTextChangedListener(it)}
+        textWatcher?.let { binding.etSearchField.removeTextChangedListener(it) }
         _binding = null
 
     }

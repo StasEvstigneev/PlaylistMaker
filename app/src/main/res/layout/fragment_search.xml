@@ -51,16 +51,13 @@
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="3"
-        tools:listitem="@layout/search_result_track"
+        tools:listitem="@layout/list_item_track"
         tools:visibility="gone" />
 
     <ProgressBar
+        style="@style/ProgressBar"
         android:id="@+id/searchProgressBar"
-        android:layout_width="@dimen/search_progressBar_size"
-        android:layout_height="@dimen/search_progressBar_size"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/search_progressBar_marginTop"
-        android:indeterminateTint="@color/blue"
+        android:layout_marginTop="@dimen/progressBar_marginTop"
         android:visibility="gone"
         tools:visibility="visible" />
 
@@ -117,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="visible"
                 tools:itemCount="3"
-                tools:listitem="@layout/search_result_track" />
+                tools:listitem="@layout/list_item_track" />
 
             <Button
                 android:id="@+id/btnClearHistory"
