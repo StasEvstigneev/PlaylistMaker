@@ -138,6 +138,15 @@
 
     </style>
 
+
+    <style name="ProgressBar">
+        <item name="android:layout_width">@dimen/progressBar_size</item>
+        <item name="android:layout_height">@dimen/progressBar_size</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:indeterminateTint">@color/blue</item>
+    </style>
+
+
     <style name="TrackArtwork">
         <item name="android:layout_width">@dimen/track_artwork_width</item>
         <item name="android:layout_height">@dimen/track_artwork_height</item>

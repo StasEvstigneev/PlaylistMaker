@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/FragmentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center|top"
     tools:context=".ui.mediateka.fragments.FavoriteTracksFragment">
+
+
+    <ProgressBar
+        style="@style/ProgressBar"
+        android:id="@+id/favTracksProgressBar"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFavoriteTracks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/rv_recyclerView_margin_top"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="3"
+        tools:listitem="@layout/list_item_track"
+        tools:visibility="gone" />
 
 
     <TextView
@@ -17,6 +37,8 @@
         android:drawableTop="@drawable/img_search_error"
         android:text="@string/medialibrary_empty"
         android:visibility="visible" />
+
+
 
 
 </LinearLayout>

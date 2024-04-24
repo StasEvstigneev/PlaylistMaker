@@ -52,9 +52,9 @@
     <dimen name="et_search_field_padding_start">12dp</dimen>
     <dimen name="et_search_field_padding_vertical">10dp</dimen>
 
-    <!---SearchProgressBar-->
-    <dimen name="search_progressBar_size">44dp</dimen>
-    <dimen name="search_progressBar_marginTop">140dp</dimen>
+    <!---ProgressBar-->
+    <dimen name="progressBar_size">44dp</dimen>
+    <dimen name="progressBar_marginTop">140dp</dimen>
 
 
     <!---CancelButton-->
