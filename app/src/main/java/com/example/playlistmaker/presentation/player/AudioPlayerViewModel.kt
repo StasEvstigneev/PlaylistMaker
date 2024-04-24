@@ -9,9 +9,11 @@ import com.example.playlistmaker.domain.player.AudioPlayerInteractor
 import com.example.playlistmaker.domain.player.model.AudioPlayerScreenState
 import com.example.playlistmaker.domain.player.model.AudioPlayerState
 import com.example.playlistmaker.domain.search.models.Track
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AudioPlayerViewModel(
     private val tracksInteractor: TracksInteractor,
@@ -78,11 +80,19 @@ class AudioPlayerViewModel(
 
 
     private fun addToFavorites(track: Track) {
-        viewModelScope.launch { tracksInteractor.addTrackToFavorites(track) }
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                tracksInteractor.addTrackToFavorites(track)
+            }
+        }
     }
 
     private fun removeFromFavorites(track: Track) {
-        viewModelScope.launch { tracksInteractor.removeTrackFromFavorites(track) }
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                tracksInteractor.removeTrackFromFavorites(track)
+            }
+        }
     }
 
     private fun preparePlayer(track: Track) {

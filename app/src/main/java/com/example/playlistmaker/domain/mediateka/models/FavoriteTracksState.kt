@@ -1,10 +1,10 @@
 package com.example.playlistmaker.domain.mediateka.models
 
 import com.example.playlistmaker.domain.search.models.Track
-import java.util.ArrayList
 
-sealed class FavoriteTracksState {
-    object Loading: FavoriteTracksState()
-    object NoFavoriteTracks : FavoriteTracksState()
-    data class FavoriteTracks(val favoriteTracks: ArrayList<Track>) : FavoriteTracksState()
+
+sealed interface FavoriteTracksState {
+    data object Loading: FavoriteTracksState
+    data object NoFavoriteTracks : FavoriteTracksState
+    data class FavoriteTracks(val favoriteTracks: List<Track>) : FavoriteTracksState
 }

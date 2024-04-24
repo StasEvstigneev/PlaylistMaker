@@ -98,11 +98,11 @@ class FavoriteTracksFragment : Fragment() {
         binding.rvFavoriteTracks.isVisible = false
     }
 
-    private fun showContent(tracks: ArrayList<Track>) {
+    private fun showContent(tracks: List<Track>) {
         binding.favTracksProgressBar.isVisible = false
         binding.rvFavoriteTracks.isVisible = true
         binding.tvNoFavoriteTracksPlaceholder.isVisible = false
-        adapter.list = tracks
+        adapter.list = tracks as ArrayList<Track>
     }
 
 
