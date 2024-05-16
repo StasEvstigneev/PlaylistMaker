@@ -27,4 +27,21 @@
     <string name="new_playlist">New playlist</string>
     <string name="medialibrary_empty">Your medialibrary is empty</string>
     <string name="no_playlist_available">You have not created \n any playlist</string>
+    <string name="create">Create</string>
+    <string name="playlist_title">Title*</string>
+    <string name="description">Description</string>
+    <string name="playlist">Playlist</string>
+    <string name="created">created</string>
+    <string name="image_not_chosen">No image has been chosen</string>
+    <string name="exit_dialog_title">Quit playlist creation?</string>
+    <string name="exit_dialog_quit">Quit</string>
+    <string name="exit_dialog_cancel">Cancel</string>
+    <string name="exit_dialog_message">All unsaved data will be lost</string>
+    <string name="track">track</string>
+    <string name="treka">tracks</string>
+    <string name="trekov">tracks</string>
+    <string name="add_to_playlist">Add to playlist</string>
+    <string name="added_to_playlist">Added to the playlist</string>
+    <string name="track_is_already_in_PL">The track is already in the playlist</string>
+
 </resources>

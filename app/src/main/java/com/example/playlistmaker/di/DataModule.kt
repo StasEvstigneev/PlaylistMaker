@@ -59,7 +59,7 @@ val dataModule = module {
             .databaseBuilder(
                 androidContext(),
                 AppDatabase::class.java,
-                "database.db"
+                DB_NAME
             )
             .fallbackToDestructiveMigration()
             .build()
@@ -70,3 +70,4 @@ val dataModule = module {
 
 private const val ITUNES_BASE_URL = "https://itunes.apple.com"
 private const val SHARED_PREFERENCES = "SharedPrefs"
+private const val DB_NAME = "database.db"

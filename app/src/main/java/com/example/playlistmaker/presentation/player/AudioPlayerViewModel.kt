@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.playlistmaker.domain.createplaylist.PlaylistsInteractor
+import com.example.playlistmaker.domain.createplaylist.models.Playlist
 import com.example.playlistmaker.domain.mediateka.TracksInteractor
 import com.example.playlistmaker.domain.player.AudioPlayerInteractor
 import com.example.playlistmaker.domain.player.model.AudioPlayerScreenState
@@ -17,7 +19,8 @@ import kotlinx.coroutines.withContext
 
 class AudioPlayerViewModel(
     private val tracksInteractor: TracksInteractor,
-    private val audioPlayerInteractor: AudioPlayerInteractor
+    private val audioPlayerInteractor: AudioPlayerInteractor,
+    private val playlistsInteractor: PlaylistsInteractor
 ) : ViewModel() {
 
     private var playbackTimerJob: Job? = null
@@ -45,6 +48,11 @@ class AudioPlayerViewModel(
     private var favoriteStatus = MutableLiveData<Boolean>()
     fun getFavoriteStatus(): LiveData<Boolean> = favoriteStatus
 
+
+    private var playlistsState = MutableLiveData<ArrayList<Playlist>>(ArrayList<Playlist>())
+    fun getPlaylistsState(): LiveData<ArrayList<Playlist>> = playlistsState
+
+
     init {
         preparePlayer(track)
         screenState.postValue(
@@ -52,15 +60,49 @@ class AudioPlayerViewModel(
                 .TrackIsLoaded(track)
         )
 
+        getPlaylists()
+
+        getFavoriteTracksIds()
+
+    }
+
+    fun getPlaylists() {
+        viewModelScope.launch {
+            playlistsInteractor
+                .getPlaylists()
+                .collect { playlists ->
+                    processPlaylistsResult(playlists)
+                }
+        }
+    }
+
+    private fun processPlaylistsResult(playlists: List<Playlist>) {
+        if (playlists.isNotEmpty()) {
+            playlistsState.postValue(playlists as ArrayList<Playlist>)
+        } else {
+            playlistsState.postValue(ArrayList<Playlist>())
+        }
+
+    }
+
+
+    fun getFavoriteTracksIds() {
         viewModelScope.launch {
             tracksInteractor.getFavoriteTracksIds()
                 .collect { ids ->
-                    if (ids.contains(track.trackId)) {
-                        favoriteStatus.postValue(true)
-                    } else {
-                        favoriteStatus.postValue(false)
-                    }
+                    processFavoriteTracksResult(ids)
                 }
+        }
+
+    }
+
+
+    private fun processFavoriteTracksResult(ids: List<Int>) {
+
+        if (ids.contains(track.trackId)) {
+            favoriteStatus.postValue(true)
+        } else {
+            favoriteStatus.postValue(false)
         }
 
     }
@@ -94,6 +136,32 @@ class AudioPlayerViewModel(
             }
         }
     }
+
+
+    fun addTrackToPlaylist(playlist: Playlist) {
+
+        if (playlist.trackIds.contains(track.trackId)) {
+            screenState.postValue(
+                AudioPlayerScreenState
+                    .TrackHasNotBeenAddedToPL(playlist.title)
+            )
+        } else {
+
+            var updatedPlaylist = playlist
+            updatedPlaylist.trackIds.add(track.trackId)
+
+            viewModelScope.launch {
+                playlistsInteractor.addTrackToPlaylist(updatedPlaylist)
+                playlistsInteractor.addTrackToGeneralPlaylist(track)
+            }
+            screenState.postValue(
+                AudioPlayerScreenState
+                    .TrackHasBeenAddedToPL(playlist.title)
+            )
+        }
+
+    }
+
 
     private fun preparePlayer(track: Track) {
         audioPlayerInteractor.preparePlayer(track)

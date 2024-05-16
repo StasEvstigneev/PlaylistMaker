@@ -393,5 +393,145 @@
     </style>
 
 
+    <style name="CreatePlaylistButton">
+        <item name="android:layout_marginHorizontal">@dimen/create_playlist_button_marginHorizontal</item>
+        <item name="android:layout_marginTop">@dimen/create_playlist_button_marginTop</item>
+        <item name="android:layout_marginBottom">@dimen/create_playlist_button_marginBottom</item>
+        <item name="android:background">@drawable/create_playlist_btn_selector</item>
+
+    </style>
+
+    <style name="CreatePlaylistButtonTextAppearance">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/create_playlist_btn_text_font_size</item>
+        <item name="android:lineHeight">@dimen/create_playlist_btn_text_line_height</item>
+        <item name="android:fontWeight">@dimen/create_playlist_btn_text_font_weight</item>
+        <item name="android:textStyle">normal</item>
+
+    </style>
+
+    <style name="CreatePlaylistInputTextAppearance">
+        <item name="android:textColor">?attr/textAppearanceBody1</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/create_playlist_input_text_font_size</item>
+        <item name="android:lineHeight">@dimen/create_playlist_input_text_line_height</item>
+        <item name="android:fontWeight">@dimen/create_playlist_input_text_font_weight</item>
+        <item name="android:textStyle">normal</item>
+
+    </style>
+
+
+    <style name="CreatePlaylistInputTextLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_marginHorizontal">@dimen/create_playlist_text_input_layout_margin_horizontal</item>
+        <item name="android:textColorHint">?attr/textAppearanceBody1</item>
+        <item name="hintTextColor">?attr/colorPrimary</item>
+        <item name="boxStrokeColor">@color/box_stroke_color</item>
+
+    </style>
+
+    <style name="CustomStyleableToast">
+        <item name="stTextColor">?attr/colorSecondary</item>
+        <item name="stFont">@font/ys_display_regular</item>
+        <item name="stTextSize">@dimen/customized_toast_font_size</item>
+        <item name="stColorBackground">?attr/textAppearanceBody1</item>
+        <item name="stSolidBackground">true</item>
+        <item name="stLength">SHORT</item>
+        <item name="stRadius">0dp</item>
+
+    </style>
+
+
+    <style name="PlaylistCoverGridLayout">
+        <item name="android:layout_width">@dimen/playlist_cover_grid_width</item>
+        <item name="android:layout_height">@dimen/playlist_cover_grid_height</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:layout_marginTop">@dimen/playlist_cover_grid_marginTop</item>
+
+    </style>
+
+    <style name="PlaylistTextAppearanceGridLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/playlist_text_grid_title_marginTop</item>
+        <item name="android:gravity">start</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/playlist_text_grid_text_size</item>
+        <item name="android:lineHeight">@dimen/playlist_text_grid_text_line_height</item>
+        <item name="android:fontWeight">@dimen/playlist_text_grid_font_weight</item>
+        <item name="android:textColor">?attr/textAppearanceBody1</item>
+
+    </style>
+
+
+
+    <style name="PlaylistCoverLinearLayout">
+        <item name="android:layout_width">@dimen/playlist_cover_linear_width</item>
+        <item name="android:layout_height">@dimen/playlist_cover_linear_height</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:layout_marginVertical">@dimen/playlist_cover_linear_marginVertical</item>
+        <item name="android:layout_marginStart">@dimen/playlist_cover_linear_marginStart</item>
+        <item name="android:layout_marginEnd">@dimen/playlist_cover_linear_marginEnd</item>
+
+    </style>
+
+
+    <style name="PlaylistTitleTextAppearanceLinearLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/playlist_title_linear_title_marginTop</item>
+        <item name="android:gravity">start</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/playlist_title_linear_text_size</item>
+        <item name="android:lineHeight">@dimen/playlist_title_linear_text_line_height</item>
+        <item name="android:fontWeight">@dimen/playlist_title_linear_font_weight</item>
+        <item name="android:textColor">?attr/textAppearanceBody1</item>
+
+
+    </style>
+
+
+    <style name="PlaylistTracksQtyTextAppearanceLinearLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/playlist_tracks_qty_linear_title_marginTop</item>
+        <item name="android:gravity">start</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/playlist_tracks_qty_linear_text_size</item>
+        <item name="android:lineHeight">@dimen/playlist_tracks_qty_linear_text_line_height</item>
+        <item name="android:fontWeight">@dimen/playlist_tracks_qty_linear_font_weight</item>
+        <item name="android:textColor">?attr/textAppearanceBody1</item>
+
+
+    </style>
+
+
+
+
+    <style name="BottomSheetHeading">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/bottom_sheet_heading_marginTop</item>
+        <item name="android:layout_marginHorizontal">@dimen/bottom_sheet_heading_marginHorizontal</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/bottom_sheet_heading_text_size</item>
+        <item name="android:lineHeight">@dimen/bottom_sheet_heading_text_line_height</item>
+        <item name="android:fontWeight">@dimen/bottom_sheet_heading_font_weight</item>
+        <item name="android:textColor">?attr/textAppearanceBody1</item>
+
+
+    </style>
+
+
+
+
+
 
 </resources>

@@ -12,5 +12,11 @@ interface GsonJsonConverter {
 
     fun getJsonFromTrack(track: Track): String
 
+    fun getTrackIdsFromJson(json: String): ArrayList<Int>
+
+    fun getJsonFromTrackIds(trackIds: ArrayList<Int>): String
+
+
+
 
 }

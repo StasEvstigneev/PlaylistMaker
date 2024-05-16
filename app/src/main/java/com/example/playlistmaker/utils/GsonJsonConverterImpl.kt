@@ -22,5 +22,13 @@ class GsonJsonConverterImpl(private val gson: Gson): GsonJsonConverter {
         return gson.toJson(track)
     }
 
+    override fun getTrackIdsFromJson(json: String): ArrayList<Int> {
+        return gson.fromJson(json, object : TypeToken<ArrayList<Int>>() {}.type) ?: ArrayList()
+    }
+
+    override fun getJsonFromTrackIds(trackIds: ArrayList<Int>): String {
+        return gson.toJson(trackIds)
+    }
+
 
 }

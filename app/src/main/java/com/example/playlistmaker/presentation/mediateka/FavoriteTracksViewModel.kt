@@ -37,7 +37,6 @@ class FavoriteTracksViewModel(private val tracksInteractor: TracksInteractor): V
         }
     }
 
-
     fun playThisTrack(track: Track) {
         tracksInteractor.playThisTrack(track)
     }

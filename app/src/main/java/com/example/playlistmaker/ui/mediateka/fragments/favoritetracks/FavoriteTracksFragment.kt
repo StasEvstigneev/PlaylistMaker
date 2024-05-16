@@ -1,6 +1,5 @@
-package com.example.playlistmaker.ui.mediateka.fragments
+package com.example.playlistmaker.ui.mediateka.fragments.favoritetracks
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +7,13 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentFavoriteTracksBinding
 import com.example.playlistmaker.domain.mediateka.models.FavoriteTracksState
 import com.example.playlistmaker.domain.search.models.Track
 import com.example.playlistmaker.presentation.mediateka.FavoriteTracksViewModel
-import com.example.playlistmaker.ui.player.AudioPlayerActivity
 import com.example.playlistmaker.ui.search.TracksAdapter
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -49,11 +49,10 @@ class FavoriteTracksFragment : Fragment() {
             renderState(state)
         }
 
-        val intent = Intent(requireContext(), AudioPlayerActivity::class.java)
 
         adapter = TracksAdapter(ArrayList<Track>()) {
             if (clickDebounce()) {
-                processClickedTrack(it, intent)
+                processClickedTrack(it)
             }
         }
         binding.rvFavoriteTracks.adapter = adapter
@@ -74,6 +73,7 @@ class FavoriteTracksFragment : Fragment() {
         super.onResume()
         viewModel.getFavoriteTracks()
         adapter.notifyDataSetChanged()
+        isClickAllowed = true
     }
 
 
@@ -103,6 +103,7 @@ class FavoriteTracksFragment : Fragment() {
         binding.rvFavoriteTracks.isVisible = true
         binding.tvNoFavoriteTracksPlaceholder.isVisible = false
         adapter.list = tracks as ArrayList<Track>
+        adapter.notifyDataSetChanged()
     }
 
 
@@ -118,12 +119,11 @@ class FavoriteTracksFragment : Fragment() {
         return clickStatus
     }
 
-    private fun processClickedTrack(track: Track, intent: Intent) {
+    private fun processClickedTrack(track: Track) {
         viewModel.playThisTrack(track)
-        startActivity(intent)
+        findNavController().navigate(R.id.action_mediatekaFragment_to_audioPlayerFragment)
 
     }
-
 
 
     companion object {

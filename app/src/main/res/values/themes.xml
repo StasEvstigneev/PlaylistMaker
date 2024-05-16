@@ -16,6 +16,8 @@
 
         <item name="textAppearanceBody2">@color/text_grey</item>
 
+        <item name="dividerColor">@color/light_grey</item>
+
 
 
 
