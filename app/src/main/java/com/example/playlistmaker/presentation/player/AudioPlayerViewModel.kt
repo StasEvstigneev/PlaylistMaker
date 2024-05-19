@@ -8,6 +8,7 @@ import com.example.playlistmaker.domain.createplaylist.PlaylistsInteractor
 import com.example.playlistmaker.domain.createplaylist.models.Playlist
 import com.example.playlistmaker.domain.mediateka.TracksInteractor
 import com.example.playlistmaker.domain.player.AudioPlayerInteractor
+import com.example.playlistmaker.domain.player.model.AudioPlayerPlaylistsMessagesState
 import com.example.playlistmaker.domain.player.model.AudioPlayerScreenState
 import com.example.playlistmaker.domain.player.model.AudioPlayerState
 import com.example.playlistmaker.domain.search.models.Track
@@ -39,6 +40,12 @@ class AudioPlayerViewModel(
     )
 
     fun getPlayerState(): LiveData<AudioPlayerState> = playerState
+
+
+    private var playlistsMessage =
+        MutableLiveData<AudioPlayerPlaylistsMessagesState>(AudioPlayerPlaylistsMessagesState.Default)
+
+    fun getPlaylistsMessage(): LiveData<AudioPlayerPlaylistsMessagesState> = playlistsMessage
 
 
     private var playbackTimer = MutableLiveData<String>(resetPlaybackTimer())
@@ -141,10 +148,11 @@ class AudioPlayerViewModel(
     fun addTrackToPlaylist(playlist: Playlist) {
 
         if (playlist.trackIds.contains(track.trackId)) {
-            screenState.postValue(
-                AudioPlayerScreenState
+            playlistsMessage.postValue(
+                AudioPlayerPlaylistsMessagesState
                     .TrackHasNotBeenAddedToPL(playlist.title)
             )
+
         } else {
 
             var updatedPlaylist = playlist
@@ -154,12 +162,18 @@ class AudioPlayerViewModel(
                 playlistsInteractor.addTrackToPlaylist(updatedPlaylist)
                 playlistsInteractor.addTrackToGeneralPlaylist(track)
             }
-            screenState.postValue(
-                AudioPlayerScreenState
+            playlistsMessage.postValue(
+                AudioPlayerPlaylistsMessagesState
                     .TrackHasBeenAddedToPL(playlist.title)
             )
+
         }
 
+    }
+
+
+    fun setPlaylistsMessagesDefaultState() {
+        playlistsMessage.postValue(AudioPlayerPlaylistsMessagesState.Default)
     }
 
 

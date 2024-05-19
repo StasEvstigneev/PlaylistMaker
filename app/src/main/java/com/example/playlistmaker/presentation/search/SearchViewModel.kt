@@ -90,7 +90,7 @@ class SearchViewModel(
     }
 
     private fun processResult(foundTracks: List<Track>?, errorCode: Int?, searchRequest: String) {
-        if (errorCode == 523) {
+        if (errorCode == INTERNET_CONNECTION_ERROR) {
             screenState.postValue(SearchState.NoInternetConnectionError)
             unprocessedRequest = searchRequest
         } else if (foundTracks != null && foundTracks.isNotEmpty()) {
@@ -125,7 +125,7 @@ class SearchViewModel(
 
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
+        private const val INTERNET_CONNECTION_ERROR = 523
     }
-
 
 }

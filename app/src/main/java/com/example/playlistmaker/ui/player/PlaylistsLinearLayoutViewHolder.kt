@@ -9,11 +9,12 @@ import com.example.playlistmaker.R
 import com.example.playlistmaker.domain.createplaylist.models.Playlist
 import com.example.playlistmaker.utils.Formatter
 
-class PlaylistsLinearLayoutViewHolder(view: View):RecyclerView.ViewHolder(view) {
+class PlaylistsLinearLayoutViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val cover = itemView.findViewById<ImageView>(R.id.playlistCoverLinearLayout)
     private val title = itemView.findViewById<TextView>(R.id.playlistTitleLinearLayout)
-    private val tracksQuantity = itemView.findViewById<TextView>(R.id.playlistTracksQuantityLinearLayout)
+    private val tracksQuantity =
+        itemView.findViewById<TextView>(R.id.playlistTracksQuantityLinearLayout)
 
     fun bind(playlist: Playlist) {
 
@@ -25,9 +26,8 @@ class PlaylistsLinearLayoutViewHolder(view: View):RecyclerView.ViewHolder(view) 
 
 
         title.text = playlist.title
-        tracksQuantity.text = Formatter.playlistTracksQuantityFormatter(playlist.tracksQuantity, itemView.context)
-
-
+        tracksQuantity.text =
+            Formatter.playlistTracksQuantityFormatter(playlist.tracksQuantity, itemView.context)
 
 
     }

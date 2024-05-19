@@ -195,7 +195,7 @@
     <!---CreatePlaylistButton-->
     <dimen name="create_playlist_button_corner_radius">8dp</dimen>
     <dimen name="create_playlist_button_marginHorizontal">16dp</dimen>
-    <dimen name="create_playlist_button_marginTop">16dp</dimen>
+    <dimen name="create_playlist_button_marginTop">24dp</dimen>
     <dimen name="create_playlist_button_marginBottom">32dp</dimen>
 
 
@@ -252,7 +252,6 @@
     <dimen name="playlist_text_grid_title_marginTop">4dp</dimen>
 
 
-
     <!---PlaylistCoverLinearLayout-->
     <dimen name="playlist_cover_linear_corner_radius">2dp</dimen>
     <dimen name="playlist_cover_linear_height">45dp</dimen>
@@ -274,7 +273,6 @@
     <dimen name="playlist_tracks_qty_linear_text_line_height">12.89sp</dimen>
     <dimen name="playlist_tracks_qty_linear_font_weight">400</dimen>
     <dimen name="playlist_tracks_qty_linear_title_marginTop">1dp</dimen>
-
 
 
     <!---BottomSheetLayout-->
@@ -299,11 +297,6 @@
 
     <!---BottomSheetRecyclerView-->
     <dimen name="bottom_sheet_rv_marginTop">24dp</dimen>
-
-
-
-
-
 
 
 </resources>

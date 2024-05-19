@@ -10,9 +10,9 @@ import com.example.playlistmaker.databinding.FragmentMediatekaBinding
 import com.example.playlistmaker.ui.mediateka.MediatekaViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
-class MediatekaFragment: Fragment() {
+class MediatekaFragment : Fragment() {
 
-    private var _binding : FragmentMediatekaBinding? = null
+    private var _binding: FragmentMediatekaBinding? = null
     private val binding get() = _binding!!
 
 
@@ -23,7 +23,7 @@ class MediatekaFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMediatekaBinding.inflate(inflater, container, false)
 
         return binding.root

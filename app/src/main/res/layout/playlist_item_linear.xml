@@ -21,16 +21,15 @@
         <TextView
             style="@style/PlaylistTitleTextAppearanceLinearLayout"
             android:id="@+id/playlistTitleLinearLayout"
-            tools:text="Best songs 2024"/>
+            tools:text="Best songs 2024" />
 
         <TextView
             style="@style/PlaylistTracksQtyTextAppearanceLinearLayout"
             android:id="@+id/playlistTracksQuantityLinearLayout"
-            tools:text="98 треков"/>
+            tools:text="98 треков" />
 
 
     </LinearLayout>
-
 
 
 </LinearLayout>

@@ -38,8 +38,8 @@
     <string name="exit_dialog_cancel">Cancel</string>
     <string name="exit_dialog_message">All unsaved data will be lost</string>
     <string name="track">track</string>
-    <string name="treka">tracks</string>
-    <string name="trekov">tracks</string>
+    <string name="track_genitive">tracks</string>
+    <string name="tracks_genitive">tracks</string>
     <string name="add_to_playlist">Add to playlist</string>
     <string name="added_to_playlist">Added to the playlist</string>
     <string name="track_is_already_in_PL">The track is already in the playlist</string>

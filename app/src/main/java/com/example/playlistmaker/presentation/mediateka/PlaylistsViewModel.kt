@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class PlaylistsViewModel(
     private val playlistsInteractor: PlaylistsInteractor
-): ViewModel() {
+) : ViewModel() {
 
     private var screenState = MutableLiveData<PlaylistsState>(PlaylistsState.Loading)
     fun observeScreenState(): LiveData<PlaylistsState> = screenState
@@ -23,10 +23,10 @@ class PlaylistsViewModel(
 
 
     fun getPlaylists() {
-        viewModelScope.launch{
+        viewModelScope.launch {
             playlistsInteractor.getPlaylists()
-                .collect{
-                    playlists -> processResult(playlists)
+                .collect { playlists ->
+                    processResult(playlists)
 
                 }
 

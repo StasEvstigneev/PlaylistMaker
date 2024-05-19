@@ -10,7 +10,7 @@ sealed class PlaylistsState {
 
     data class PlaylistsAvailable(
         val playlists: ArrayList<Playlist>
-    ): PlaylistsState()
+    ) : PlaylistsState()
 
 
 }

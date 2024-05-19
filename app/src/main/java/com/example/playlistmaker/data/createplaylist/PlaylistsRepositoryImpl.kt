@@ -14,7 +14,7 @@ class PlaylistsRepositoryImpl(
     private val appDatabase: AppDatabase,
     private val playlistDbConverter: PlaylistDbConverter,
     private val generalPlaylistDbConverter: GeneralPlaylistDbConverter
-): PlaylistsRepository {
+) : PlaylistsRepository {
     override suspend fun addPlaylist(playlist: Playlist) {
         appDatabase
             .playlistsDao()
@@ -86,8 +86,6 @@ class PlaylistsRepositoryImpl(
                 generalPlaylistDbConverter.map(track)
             )
     }
-
-
 
 
     private fun convertFromPlaylistEntities(playlists: List<PlaylistEntity>): List<Playlist> {

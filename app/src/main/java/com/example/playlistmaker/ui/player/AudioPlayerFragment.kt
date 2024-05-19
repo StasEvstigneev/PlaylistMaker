@@ -14,6 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentAudioPlayerBinding
 import com.example.playlistmaker.domain.createplaylist.models.Playlist
+import com.example.playlistmaker.domain.player.model.AudioPlayerPlaylistsMessagesState
 import com.example.playlistmaker.domain.player.model.AudioPlayerScreenState
 import com.example.playlistmaker.presentation.player.AudioPlayerViewModel
 import com.example.playlistmaker.utils.Formatter
@@ -21,7 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import io.github.muddz.styleabletoast.StyleableToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AudioPlayerFragment: Fragment() {
+class AudioPlayerFragment : Fragment() {
 
     private var _binding: FragmentAudioPlayerBinding? = null
     private val binding get() = _binding!!
@@ -36,7 +37,7 @@ class AudioPlayerFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentAudioPlayerBinding.inflate(inflater, container, false)
 
@@ -48,7 +49,7 @@ class AudioPlayerFragment: Fragment() {
 
 
         binding.ivArrowReturn.setOnClickListener {
-           findNavController().popBackStack()
+            findNavController().popBackStack()
 
         }
 
@@ -126,6 +127,14 @@ class AudioPlayerFragment: Fragment() {
             binding.tvTrackPlaybackTimer.text = progress
         }
 
+        viewModel.getPlaylistsMessage().observe(viewLifecycleOwner) { state ->
+            processPlaylistMessages(state)
+
+        }
+
+
+
+
         binding.ivPlayButton.setOnClickListener {
             viewModel.playbackControl()
         }
@@ -165,16 +174,25 @@ class AudioPlayerFragment: Fragment() {
 
             }
 
-            is AudioPlayerScreenState.TrackHasBeenAddedToPL -> {
+        }
 
+    }
+
+    private fun processPlaylistMessages(state: AudioPlayerPlaylistsMessagesState) {
+
+        when (state) {
+            is AudioPlayerPlaylistsMessagesState.Default -> {}
+            is AudioPlayerPlaylistsMessagesState.TrackHasBeenAddedToPL -> {
                 viewModel.getPlaylists()
                 playlistsAdapter.notifyDataSetChanged()
-                showToastAddedToPL(screenState.playlistName)
+                showToastAddedToPL(state.playlistName)
+
             }
 
-            is AudioPlayerScreenState.TrackHasNotBeenAddedToPL -> {
-                showToastFailedToAddToPL(screenState.playlistName)
+            is AudioPlayerPlaylistsMessagesState.TrackHasNotBeenAddedToPL -> {
+                showToastFailedToAddToPL(state.playlistName)
             }
+
         }
 
     }
@@ -189,6 +207,8 @@ class AudioPlayerFragment: Fragment() {
                 R.style.CustomStyleableToast
             )
             .show()
+
+        viewModel.setPlaylistsMessagesDefaultState()
     }
 
 
@@ -200,6 +220,8 @@ class AudioPlayerFragment: Fragment() {
                 R.style.CustomStyleableToast
             )
             .show()
+
+        viewModel.setPlaylistsMessagesDefaultState()
     }
 
 
@@ -212,11 +234,13 @@ class AudioPlayerFragment: Fragment() {
     override fun onPause() {
         super.onPause()
         viewModel.onPauseControl()
+
     }
 
     override fun onResume() {
         super.onResume()
         viewModel.onResumeControl()
+        viewModel.getPlaylists()
     }
 
     override fun onDestroyView() {

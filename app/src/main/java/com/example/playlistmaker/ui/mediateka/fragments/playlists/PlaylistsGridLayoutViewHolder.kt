@@ -1,20 +1,14 @@
 package com.example.playlistmaker.ui.mediateka.fragments.playlists
 
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.playlistmaker.R
+import com.example.playlistmaker.databinding.PlaylistItemGridBinding
 import com.example.playlistmaker.domain.createplaylist.models.Playlist
 import com.example.playlistmaker.utils.Formatter
 
-class PlaylistsGridLayoutViewHolder(view: View): RecyclerView.ViewHolder(view) {
-
-    private val cover = itemView.findViewById<ImageView>(R.id.playlistCoverGrid)
-    private val title = itemView.findViewById<TextView>(R.id.playlistTitleGrid)
-    private val tracksQuantity = itemView.findViewById<TextView>(R.id.playlistTracksQuantityGrid)
-
+class PlaylistsGridLayoutViewHolder(private val binding: PlaylistItemGridBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
     fun bind(playlist: Playlist) {
 
@@ -22,14 +16,13 @@ class PlaylistsGridLayoutViewHolder(view: View): RecyclerView.ViewHolder(view) {
             .load(playlist.coverPath)
             .placeholder(R.drawable.img_trackplaceholder)
             .centerCrop()
-            .into(cover)
+            .into(binding.playlistCoverGrid)
 
-        title.text = playlist.title
+        binding.playlistTitleGrid.text = playlist.title
 
-        tracksQuantity.text = Formatter.playlistTracksQuantityFormatter(playlist.tracksQuantity, itemView.context)
-
+        binding.playlistTracksQuantityGrid.text =
+            Formatter.playlistTracksQuantityFormatter(playlist.tracksQuantity, itemView.context)
 
     }
-
 
 }

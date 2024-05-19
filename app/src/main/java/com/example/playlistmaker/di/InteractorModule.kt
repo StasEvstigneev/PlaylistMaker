@@ -1,8 +1,6 @@
 package com.example.playlistmaker.di
 
-import com.example.playlistmaker.domain.createplaylist.PlaylistCoversInteractor
 import com.example.playlistmaker.domain.createplaylist.PlaylistsInteractor
-import com.example.playlistmaker.domain.createplaylist.impl.PlaylistCoversInteractorImpl
 import com.example.playlistmaker.domain.createplaylist.impl.PlaylistsInteractorImpl
 import com.example.playlistmaker.domain.mediateka.TracksInteractor
 import com.example.playlistmaker.domain.mediateka.impl.TracksInteractorImpl
@@ -45,11 +43,7 @@ val interactorModule = module {
 
     }
 
-    factory<PlaylistCoversInteractor> {
-        PlaylistCoversInteractorImpl(get())
-    }
-
-    factory<PlaylistsInteractor>{
+    factory<PlaylistsInteractor> {
         PlaylistsInteractorImpl(get())
     }
 

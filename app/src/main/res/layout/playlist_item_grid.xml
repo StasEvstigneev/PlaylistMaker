@@ -2,26 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/playlist_grid_layout_margin">
-    
+
     <ImageView
         style="@style/PlaylistCoverGridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/playlistCoverGrid"
         android:background="@drawable/background_corners_8dp"
         android:clipToOutline="true"
-        tools:src="@drawable/img_trackplaceholder" />
+        android:adjustViewBounds="true"
+        tools:src="@tools:sample/backgrounds/scenic" />
 
     <TextView
         style="@style/PlaylistTextAppearanceGridLayout"
         android:id="@+id/playlistTitleGrid"
-        tools:text="Best songs 2024"/>
+        tools:text="Best songs 2024" />
 
     <TextView
         style="@style/PlaylistTextAppearanceGridLayout"
         android:id="@+id/playlistTracksQuantityGrid"
-        tools:text="98 треков"/>
+        tools:text="98 треков" />
 
 
 </LinearLayout>

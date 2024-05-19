@@ -19,7 +19,7 @@ object Formatter {
 
     fun getYearFromReleaseDate(releaseDate: String): String {
         return if (releaseDate.length > 4) {
-           releaseDate.substring(0, 4)
+            releaseDate.substring(0, 4)
         } else {
             releaseDate
         }
@@ -34,15 +34,15 @@ object Formatter {
 
         when (resultLastTwo) {
             in 11..19 -> {
-                trackWordForm = context.getString(R.string.trekov)
-
+                trackWordForm = context.getString(R.string.tracks_genitive)
 
             }
+
             else -> {
                 if (resultLastOne == 0 || resultLastOne in 5..9) {
-                    trackWordForm = context.getString(R.string.trekov)
+                    trackWordForm = context.getString(R.string.tracks_genitive)
                 } else if (resultLastOne in 2..4) {
-                    trackWordForm = context.getString(R.string.treka)
+                    trackWordForm = context.getString(R.string.track_genitive)
                 } else {
                     trackWordForm = context.getString(R.string.track)
                 }

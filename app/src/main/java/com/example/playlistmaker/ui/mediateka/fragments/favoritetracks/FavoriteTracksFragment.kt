@@ -34,7 +34,7 @@ class FavoriteTracksFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFavoriteTracksBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -45,7 +45,7 @@ class FavoriteTracksFragment : Fragment() {
 
         viewModel.getFavoriteTracks()
 
-        viewModel.observeScreenState().observe(viewLifecycleOwner) {state ->
+        viewModel.observeScreenState().observe(viewLifecycleOwner) { state ->
             renderState(state)
         }
 

@@ -10,7 +10,7 @@ import com.example.playlistmaker.databinding.FragmentSettingsBinding
 import com.example.playlistmaker.presentation.settings.SettingsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SettingsFragment: Fragment() {
+class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
@@ -31,7 +31,8 @@ class SettingsFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.switcherNightTheme.isChecked = (getActivity()?.getApplicationContext() as App).nightTheme
+        binding.switcherNightTheme.isChecked =
+            (getActivity()?.getApplicationContext() as App).nightTheme
 
         binding.switcherNightTheme.setOnCheckedChangeListener { switcher, isChecked ->
             (getActivity()?.getApplicationContext() as App).switchNightTheme(isChecked)

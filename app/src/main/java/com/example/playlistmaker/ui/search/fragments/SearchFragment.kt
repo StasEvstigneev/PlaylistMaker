@@ -16,8 +16,8 @@ import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentSearchBinding
 import com.example.playlistmaker.domain.search.models.SearchState
 import com.example.playlistmaker.domain.search.models.Track
-import com.example.playlistmaker.ui.search.TracksAdapter
 import com.example.playlistmaker.presentation.search.SearchViewModel
+import com.example.playlistmaker.ui.search.TracksAdapter
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,7 +42,7 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
@@ -126,11 +126,11 @@ class SearchFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                viewModel.searchDebounce(s.toString() ?: "")
+                viewModel.searchDebounce(s.toString())
 
             }
         }
-        textWatcher?.let { binding.etSearchField.addTextChangedListener(it) }
+        textWatcher.let { binding.etSearchField.addTextChangedListener(it) }
 
     }
 
@@ -142,7 +142,7 @@ class SearchFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        textWatcher?.let { binding.etSearchField.removeTextChangedListener(it) }
+        textWatcher.let { binding.etSearchField.removeTextChangedListener(it) }
         _binding = null
 
     }

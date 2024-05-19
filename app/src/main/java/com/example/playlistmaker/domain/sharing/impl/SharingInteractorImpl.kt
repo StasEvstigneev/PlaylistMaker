@@ -7,7 +7,7 @@ import com.example.playlistmaker.domain.sharing.SharingInteractor
 class SharingInteractorImpl(
     private val externalNavigator: ExternalNavigator
 
-): SharingInteractor {
+) : SharingInteractor {
 
     override fun shareApp() {
         externalNavigator.shareLink()

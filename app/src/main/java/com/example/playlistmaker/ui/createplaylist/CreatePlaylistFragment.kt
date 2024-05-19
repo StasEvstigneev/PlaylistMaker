@@ -1,7 +1,11 @@
 package com.example.playlistmaker.ui.createplaylist
 
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -20,6 +24,8 @@ import com.example.playlistmaker.presentation.createplaylist.CreatePlaylistViewM
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.github.muddz.styleabletoast.StyleableToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
+import java.io.FileOutputStream
 
 class CreatePlaylistFragment : Fragment() {
 
@@ -34,9 +40,9 @@ class CreatePlaylistFragment : Fragment() {
     private lateinit var descriptionTextWatcher: TextWatcher
 
     private var title: String = ""
+    private var image: Uri? = null
 
     private var showExitDialog: Boolean = false
-
 
 
     override fun onCreateView(
@@ -55,22 +61,33 @@ class CreatePlaylistFragment : Fragment() {
             .observe(viewLifecycleOwner) { screenState -> renderState(screenState) }
 
 
+        viewModel.getImageState().observe(viewLifecycleOwner) { imageUri ->
+            if (imageUri != null) {
+                binding.addPlaylistCover.setImageURI(imageUri)
+                image = imageUri
+                showExitDialog = true
+
+            } else {
+                binding.addPlaylistCover.setImageResource(R.drawable.playlist_img_picker)
+            }
+        }
+
         confirmExitDialog = MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.exit_dialog_title)
             .setMessage(R.string.exit_dialog_message)
-            .setPositiveButton(R.string.exit_dialog_quit) {dialog, which ->
+            .setPositiveButton(R.string.exit_dialog_quit) { dialog, which ->
                 parentFragmentManager.popBackStack()
             }
-            .setNeutralButton(R.string.exit_dialog_cancel) {dialog, which -> }
+            .setNeutralButton(R.string.exit_dialog_cancel) { dialog, which -> }
 
 
         requireActivity()
             .onBackPressedDispatcher
-            .addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                leaveFragment()
-            }
-        })
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    leaveFragment()
+                }
+            })
 
 
         binding.toolbar.setNavigationOnClickListener {
@@ -103,15 +120,18 @@ class CreatePlaylistFragment : Fragment() {
         }
         descriptionTextWatcher?.let { binding.descriptionInput.addTextChangedListener(it) }
 
+
         val pickImage =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
                 if (uri != null) {
                     viewModel.updateImage(uri)
+
                 } else {
                     Toast.makeText(
                         requireContext(),
                         getString(R.string.image_not_chosen),
-                        Toast.LENGTH_SHORT)
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                 }
             }
@@ -121,21 +141,54 @@ class CreatePlaylistFragment : Fragment() {
                 .launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
-        binding.buttonCreate.setOnClickListener {
-            viewModel.savePlaylist()
 
+        binding.buttonCreate.setOnClickListener {
+
+            if (image != null) {
+                saveImageToPrivateStorage(image!!, title)
+            }
+
+            viewModel.savePlaylist()
             parentFragmentManager.popBackStack()
 
             StyleableToast
                 .makeText(
                     requireContext(),
                     "${getString(R.string.playlist)} $title ${getString(R.string.created)}",
-                    R.style.CustomStyleableToast)
+                    R.style.CustomStyleableToast
+                )
                 .show()
-
         }
 
     }
+
+
+    private fun saveImageToPrivateStorage(uri: Uri, imageName: String) {
+
+        val filePath =
+            File(
+                requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                COVERS_ALBUM
+            )
+
+        if (!filePath.exists()) {
+            filePath.mkdirs()
+        }
+
+        val file = File(filePath, "$imageName.jpg")
+
+        viewModel.updateImagePath(file.path)
+
+        val inputStream = requireContext().contentResolver.openInputStream(uri)
+
+        val outputStream = FileOutputStream(file)
+
+        BitmapFactory
+            .decodeStream(inputStream)
+            .compress(Bitmap.CompressFormat.JPEG, 30, outputStream)
+
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -157,14 +210,9 @@ class CreatePlaylistFragment : Fragment() {
                     binding.buttonCreate.isEnabled = true
                     title = state.title
                 }
-                if (state.image != null) {
-                    binding.addPlaylistCover.setImageURI(state.image)
 
-                } else {
-                    binding.addPlaylistCover.setImageResource(R.drawable.playlist_img_picker)
-                }
                 showExitDialog =
-                    !(state.title.isNullOrEmpty() && state.description.isNullOrEmpty() && state.image == null)
+                    !(state.title.isNullOrEmpty() && state.description.isNullOrEmpty())
             }
         }
 
@@ -179,6 +227,11 @@ class CreatePlaylistFragment : Fragment() {
             findNavController().popBackStack()
 
         }
+    }
+
+
+    companion object {
+        const val COVERS_ALBUM = "Playlistmaker covers"
     }
 
 }

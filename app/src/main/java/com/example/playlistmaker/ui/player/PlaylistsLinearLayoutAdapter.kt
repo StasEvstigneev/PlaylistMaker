@@ -6,12 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
 import com.example.playlistmaker.domain.createplaylist.models.Playlist
 
-class PlaylistsLinearLayoutAdapter(var playlists: ArrayList<Playlist>, private val clickListener: OnPlaylistClickListener): RecyclerView.Adapter<PlaylistsLinearLayoutViewHolder>() {
+class PlaylistsLinearLayoutAdapter(
+    var playlists: ArrayList<Playlist>,
+    private val clickListener: OnPlaylistClickListener
+) : RecyclerView.Adapter<PlaylistsLinearLayoutViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): PlaylistsLinearLayoutViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.playlist_item_linear, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.playlist_item_linear, parent, false)
         return PlaylistsLinearLayoutViewHolder(view)
     }
 

@@ -17,6 +17,4 @@ interface GsonJsonConverter {
     fun getJsonFromTrackIds(trackIds: ArrayList<Int>): String
 
 
-
-
 }

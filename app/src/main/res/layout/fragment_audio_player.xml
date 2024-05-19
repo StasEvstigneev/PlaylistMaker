@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical"
     tools:context=".ui.player.AudioPlayerFragment">
 
@@ -296,11 +294,12 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View android:id="@+id/overlay"
+    <View
+        android:id="@+id/overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/overlay"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 
     <LinearLayout
@@ -309,10 +308,10 @@
         android:layout_height="match_parent"
         android:background="@drawable/bottom_sheet_background"
         android:orientation="vertical"
-
         app:behavior_hideable="true"
         app:behavior_peekHeight="@dimen/bottom_sheet_peek_height"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        tools:visibility="gone">
 
 
         <View
@@ -320,8 +319,8 @@
             android:layout_width="@dimen/bottom_sheet_divider_width"
             android:layout_height="@dimen/bottom_sheet_divider_height"
             android:layout_gravity="center"
-            android:background="@drawable/bottom_sheet_divider"
-            android:layout_marginTop="@dimen/bottom_sheet_divider_marginTop" />
+            android:layout_marginTop="@dimen/bottom_sheet_divider_marginTop"
+            android:background="@drawable/bottom_sheet_divider" />
 
         <TextView
             style="@style/BottomSheetHeading"
@@ -346,6 +345,3 @@
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
-

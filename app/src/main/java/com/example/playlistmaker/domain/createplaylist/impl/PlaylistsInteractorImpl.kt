@@ -6,7 +6,7 @@ import com.example.playlistmaker.domain.createplaylist.models.Playlist
 import com.example.playlistmaker.domain.search.models.Track
 import kotlinx.coroutines.flow.Flow
 
-class PlaylistsInteractorImpl(private val repository: PlaylistsRepository): PlaylistsInteractor {
+class PlaylistsInteractorImpl(private val repository: PlaylistsRepository) : PlaylistsInteractor {
     override suspend fun addPlaylist(playlist: Playlist) {
         repository.addPlaylist(playlist)
     }

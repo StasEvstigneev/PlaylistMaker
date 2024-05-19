@@ -32,5 +32,4 @@ class PlaylistDbConverter(private val gsonJsonConverter: GsonJsonConverter) {
         )
     }
 
-
 }

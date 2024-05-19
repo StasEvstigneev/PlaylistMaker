@@ -17,13 +17,11 @@ interface GeneralPlaylistDao {
     @Delete(entity = GeneralPlaylistEntity::class)
     suspend fun deleteTrackFromGeneralPlaylist(track: GeneralPlaylistEntity)
 
-
     @Query("SELECT * FROM general_playlist ORDER BY insertion_time asc")
     suspend fun getTracksFromGeneralPlaylist(): List<GeneralPlaylistEntity>
 
     @Query("SELECT track_id FROM general_playlist")
     suspend fun getTracksIds(): List<Int>
-
 
 
 }

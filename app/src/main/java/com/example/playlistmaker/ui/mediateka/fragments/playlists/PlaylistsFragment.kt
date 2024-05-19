@@ -29,7 +29,7 @@ class PlaylistsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentPlaylistsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -38,10 +38,11 @@ class PlaylistsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerViewPlaylists.layoutManager = GridLayoutManager(requireContext(), GRID_LAYOUT_SPAN)
+        binding.recyclerViewPlaylists.layoutManager =
+            GridLayoutManager(requireContext(), GRID_LAYOUT_SPAN)
 
-        viewModel.observeScreenState().observe(viewLifecycleOwner) {
-            screenState -> renderState(screenState)
+        viewModel.observeScreenState().observe(viewLifecycleOwner) { screenState ->
+            renderState(screenState)
 
         }
 
@@ -81,6 +82,7 @@ class PlaylistsFragment : Fragment() {
                 binding.tvNoPlaylistsPlaceholder.isVisible = true
                 binding.recyclerViewPlaylists.isVisible = false
             }
+
             is PlaylistsState.PlaylistsAvailable -> {
                 adapter.playlists = state.playlists
                 adapter.notifyDataSetChanged()
@@ -93,7 +95,6 @@ class PlaylistsFragment : Fragment() {
         }
 
     }
-
 
 
     companion object {
