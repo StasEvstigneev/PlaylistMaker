@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.PlaylistMaker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -16,8 +16,7 @@
 
         <item name="textAppearanceBody2">@color/text_grey</item>
 
-
-
+        <item name="dividerColor">@color/light_grey</item>
 
 
     </style>
@@ -29,12 +28,6 @@
 
 
     </style>
-
-
-
-
-
-
 
 
 </resources>

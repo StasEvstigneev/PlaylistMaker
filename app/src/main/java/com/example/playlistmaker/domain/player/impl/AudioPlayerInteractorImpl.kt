@@ -4,7 +4,8 @@ import com.example.playlistmaker.domain.player.AudioPlayerInteractor
 import com.example.playlistmaker.domain.player.AudioPlayerRepository
 import com.example.playlistmaker.domain.search.models.Track
 
-class AudioPlayerInteractorImpl(private val repository: AudioPlayerRepository): AudioPlayerInteractor {
+class AudioPlayerInteractorImpl(private val repository: AudioPlayerRepository) :
+    AudioPlayerInteractor {
     override fun preparePlayer(track: Track) {
         repository.preparePlayer(track)
     }

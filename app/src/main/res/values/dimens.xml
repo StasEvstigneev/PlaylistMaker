@@ -174,9 +174,9 @@
     <dimen name="favorites_error_placeholder_marginTop">106dp</dimen>
     <dimen name="favorites_error_placeholder_drawablePadding">16dp</dimen>
 
-    <!---NewPlaylistButton-->
+    <!---NewPlaylistButtonTextAppearance-->
     <dimen name="new_playlist_button_font_size">14sp</dimen>
-    <dimen name="new_playlist_button_line_height">16sp</dimen>
+    <dimen name="new_playlist_button_line_height">16.41sp</dimen>
     <dimen name="new_playlist_button_font_weight">500</dimen>
     <dimen name="new_playlist_button_corner_radius">54dp</dimen>
     <dimen name="new_playlist_button_marginTop">24dp</dimen>
@@ -192,7 +192,111 @@
     <dimen name="bottom_nav_text_font_weight">400</dimen>
 
 
+    <!---CreatePlaylistButton-->
+    <dimen name="create_playlist_button_corner_radius">8dp</dimen>
+    <dimen name="create_playlist_button_marginHorizontal">16dp</dimen>
+    <dimen name="create_playlist_button_marginTop">24dp</dimen>
+    <dimen name="create_playlist_button_marginBottom">32dp</dimen>
 
+
+    <!---CreatePlaylistBtnText-->
+    <dimen name="create_playlist_btn_text_font_size">16sp</dimen>
+    <dimen name="create_playlist_btn_text_line_height">18.75sp</dimen>
+    <dimen name="create_playlist_btn_text_font_weight">500</dimen>
+
+
+    <!---ImagePickerField-->
+    <dimen name="image_picker_corner_radius">8dp</dimen>
+    <dimen name="image_picker_image_height">312dp</dimen>
+    <dimen name="image_picker_image_width">312dp</dimen>
+    <dimen name="image_picker_icon_height">100dp</dimen>
+    <dimen name="image_picker_icon_width">100dp</dimen>
+    <dimen name="image_picker_marginHorizontal">24dp</dimen>
+    <dimen name="image_picker_marginTop">26dp</dimen>
+
+
+    <!---CreatePlaylistTextAppearance-->
+    <dimen name="create_playlist_input_text_font_size">16sp</dimen>
+    <dimen name="create_playlist_input_text_line_height">18.75sp</dimen>
+    <dimen name="create_playlist_input_text_font_weight">400</dimen>
+
+    <!---CreatePlaylistTextInputLayout-->
+    <dimen name="create_playlist_text_input_layout_margin_horizontal">16dp</dimen>
+    <dimen name="create_playlist_text_input_title_marginTop">32dp</dimen>
+    <dimen name="create_playlist_text_input_description_marginTop">16dp</dimen>
+
+
+    <!---CustomizedToast-->
+    <dimen name="customized_toast_font_size">14sp</dimen>
+
+
+    <!---PlaylistGridLayout-->
+    <dimen name="playlist_grid_layout_margin">4dp</dimen>
+
+
+    <!---PlaylistGridLayoutRecyclerView-->
+    <dimen name="playlist_grid_layout_rv_margin_horizontal">12dp</dimen>
+
+
+    <!---PlaylistCoverGridLayout-->
+    <dimen name="playlist_cover_grid_corner_radius">8dp</dimen>
+    <dimen name="playlist_cover_grid_height">160dp</dimen>
+    <dimen name="playlist_cover_grid_width">160dp</dimen>
+    <dimen name="playlist_cover_grid_marginTop">12dp</dimen>
+
+
+    <!---PlaylistTextGridLayout-->
+    <dimen name="playlist_text_grid_text_size">12sp</dimen>
+    <dimen name="playlist_text_grid_text_line_height">16sp</dimen>
+    <dimen name="playlist_text_grid_font_weight">400</dimen>
+    <dimen name="playlist_text_grid_title_marginTop">4dp</dimen>
+
+
+    <!---PlaylistCoverLinearLayout-->
+    <dimen name="playlist_cover_linear_corner_radius">2dp</dimen>
+    <dimen name="playlist_cover_linear_height">45dp</dimen>
+    <dimen name="playlist_cover_linear_width">45dp</dimen>
+    <dimen name="playlist_cover_linear_marginVertical">8dp</dimen>
+    <dimen name="playlist_cover_linear_marginStart">12dp</dimen>
+    <dimen name="playlist_cover_linear_marginEnd">8dp</dimen>
+
+
+    <!---PlaylistTitleLinearLayout-->
+    <dimen name="playlist_title_linear_text_size">16sp</dimen>
+    <dimen name="playlist_title_linear_text_line_height">18.75sp</dimen>
+    <dimen name="playlist_title_linear_font_weight">400</dimen>
+    <dimen name="playlist_title_linear_title_marginTop">14dp</dimen>
+
+
+    <!---PlaylistTracksQtyLinearLayout-->
+    <dimen name="playlist_tracks_qty_linear_text_size">11sp</dimen>
+    <dimen name="playlist_tracks_qty_linear_text_line_height">12.89sp</dimen>
+    <dimen name="playlist_tracks_qty_linear_font_weight">400</dimen>
+    <dimen name="playlist_tracks_qty_linear_title_marginTop">1dp</dimen>
+
+
+    <!---BottomSheetLayout-->
+    <dimen name="bottom_sheet_corner_radius">16dp</dimen>
+    <dimen name="bottom_sheet_peek_height">505dp</dimen>
+
+
+    <!---BottomSheetDivider-->
+    <dimen name="bottom_sheet_divider_height">4dp</dimen>
+    <dimen name="bottom_sheet_divider_width">50dp</dimen>
+    <dimen name="bottom_sheet_divider_radius">2dp</dimen>
+    <dimen name="bottom_sheet_divider_marginTop">8dp</dimen>
+
+
+    <!---BottomSheetHeading-->
+    <dimen name="bottom_sheet_heading_text_size">19sp</dimen>
+    <dimen name="bottom_sheet_heading_text_line_height">22.27sp</dimen>
+    <dimen name="bottom_sheet_heading_font_weight">500</dimen>
+    <dimen name="bottom_sheet_heading_marginTop">30dp</dimen>
+    <dimen name="bottom_sheet_heading_marginHorizontal">16dp</dimen>
+
+
+    <!---BottomSheetRecyclerView-->
+    <dimen name="bottom_sheet_rv_marginTop">24dp</dimen>
 
 
 </resources>

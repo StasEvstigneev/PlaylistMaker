@@ -1,6 +1,6 @@
 package com.example.playlistmaker.data.converters
 
-import com.example.playlistmaker.data.db.TrackEntity
+import com.example.playlistmaker.data.db.favorite_tracks.TrackEntity
 import com.example.playlistmaker.domain.search.models.Track
 
 class TrackDbConvertor {
@@ -36,6 +36,5 @@ class TrackDbConvertor {
             track.previewUrl
         )
     }
-
 
 }

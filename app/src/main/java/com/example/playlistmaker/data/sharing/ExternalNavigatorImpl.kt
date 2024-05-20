@@ -17,8 +17,10 @@ class ExternalNavigatorImpl(val context: Context) : ExternalNavigator {
         }
 
 
-        context.startActivity(Intent.createChooser(shareIntent, null)
-            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        context.startActivity(
+            Intent.createChooser(shareIntent, null)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        )
     }
 
     override fun openTerms() {
@@ -39,8 +41,10 @@ class ExternalNavigatorImpl(val context: Context) : ExternalNavigator {
         }
 
 
-        context.startActivity(Intent.createChooser(supportIntent, null)
-            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        context.startActivity(
+            Intent.createChooser(supportIntent, null)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        )
     }
 
 

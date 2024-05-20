@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center|top"
-    tools:context=".ui.mediateka.fragments.FavoriteTracksFragment">
+    tools:context=".ui.mediateka.fragments.favoritetracks.FavoriteTracksFragment">
 
 
     <ProgressBar
@@ -37,8 +37,6 @@
         android:drawableTop="@drawable/img_search_error"
         android:text="@string/medialibrary_empty"
         android:visibility="visible" />
-
-
 
 
 </LinearLayout>

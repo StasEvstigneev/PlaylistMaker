@@ -10,9 +10,11 @@ import com.example.playlistmaker.domain.search.models.Track
 import kotlinx.coroutines.launch
 
 
-class FavoriteTracksViewModel(private val tracksInteractor: TracksInteractor): ViewModel() {
+class FavoriteTracksViewModel(private val tracksInteractor: TracksInteractor) : ViewModel() {
 
-    private var screenStateLiveData = MutableLiveData<FavoriteTracksState>(FavoriteTracksState.Loading)
+    private var screenStateLiveData =
+        MutableLiveData<FavoriteTracksState>(FavoriteTracksState.Loading)
+
     fun observeScreenState(): LiveData<FavoriteTracksState> = screenStateLiveData
 
     init {
@@ -22,8 +24,8 @@ class FavoriteTracksViewModel(private val tracksInteractor: TracksInteractor): V
     fun getFavoriteTracks() {
         viewModelScope.launch {
             tracksInteractor.getFavoriteTracks()
-                .collect {
-                        tracks -> processResult(tracks)
+                .collect { tracks ->
+                    processResult(tracks)
                 }
         }
     }
@@ -37,11 +39,9 @@ class FavoriteTracksViewModel(private val tracksInteractor: TracksInteractor): V
         }
     }
 
-
     fun playThisTrack(track: Track) {
         tracksInteractor.playThisTrack(track)
     }
-
 
 
 }

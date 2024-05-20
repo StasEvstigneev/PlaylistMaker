@@ -13,5 +13,4 @@ interface LocalStorage {
     fun clearData()
 
 
-
 }

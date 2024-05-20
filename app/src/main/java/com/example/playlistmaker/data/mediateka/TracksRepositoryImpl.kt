@@ -2,7 +2,7 @@ package com.example.playlistmaker.data.mediateka
 
 import com.example.playlistmaker.data.converters.TrackDbConvertor
 import com.example.playlistmaker.data.db.AppDatabase
-import com.example.playlistmaker.data.db.TrackEntity
+import com.example.playlistmaker.data.db.favorite_tracks.TrackEntity
 import com.example.playlistmaker.domain.GsonJsonConverter
 import com.example.playlistmaker.domain.mediateka.TracksRepository
 import com.example.playlistmaker.domain.search.models.Track

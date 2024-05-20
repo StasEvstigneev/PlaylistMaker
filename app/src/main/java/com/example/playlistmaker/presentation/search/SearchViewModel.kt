@@ -34,23 +34,23 @@ class SearchViewModel(
     }
 
 
-    private val activityState =
+    private val screenState =
         MutableLiveData<SearchState>(SearchState.Default(searchHistoryList, searchResultsList))
 
-    fun getActivityState(): LiveData<SearchState> = activityState
+    fun getScreenState(): LiveData<SearchState> = screenState
 
 
     fun addTrackToSearchHistory(track: Track) {
         searchHistoryInteractor.addElementToSearchHistory(track)
         searchHistoryList = loadSearchHistory()
-        activityState.postValue(SearchState.Default(searchHistoryList, searchResultsList))
+        screenState.postValue(SearchState.Default(searchHistoryList, searchResultsList))
 
     }
 
     fun clearSearchHistory() {
         searchHistoryInteractor.clearSearchHistory()
         searchHistoryList = loadSearchHistory()
-        activityState.postValue(SearchState.Default(searchHistoryList, searchResultsList))
+        screenState.postValue(SearchState.Default(searchHistoryList, searchResultsList))
     }
 
     fun playThisTrack(selectedTrack: Track) {
@@ -65,7 +65,7 @@ class SearchViewModel(
     fun clearSearchField() {
         searchResultsList.clear()
         previousRequest = ""
-        activityState.postValue(SearchState.Default(loadSearchHistory(), searchResultsList))
+        screenState.postValue(SearchState.Default(loadSearchHistory(), searchResultsList))
     }
 
 
@@ -75,7 +75,7 @@ class SearchViewModel(
 
             searchResultsList.clear()
             unprocessedRequest = ""
-            activityState.postValue(SearchState.Loading(searchResultsList))
+            screenState.postValue(SearchState.Loading(searchResultsList))
 
             viewModelScope.launch {
                 searchTracksInteractor
@@ -90,14 +90,14 @@ class SearchViewModel(
     }
 
     private fun processResult(foundTracks: List<Track>?, errorCode: Int?, searchRequest: String) {
-        if (errorCode == 523) {
-            activityState.postValue(SearchState.NoInternetConnectionError)
+        if (errorCode == INTERNET_CONNECTION_ERROR) {
+            screenState.postValue(SearchState.NoInternetConnectionError)
             unprocessedRequest = searchRequest
         } else if (foundTracks != null && foundTracks.isNotEmpty()) {
             searchResultsList.addAll(foundTracks)
-            activityState.postValue(SearchState.ShowSearchResults(foundTracks as ArrayList<Track>))
+            screenState.postValue(SearchState.ShowSearchResults(foundTracks as ArrayList<Track>))
         } else {
-            activityState.postValue(SearchState.NoResultsFoundError)
+            screenState.postValue(SearchState.NoResultsFoundError)
         }
     }
 
@@ -125,7 +125,7 @@ class SearchViewModel(
 
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
+        private const val INTERNET_CONNECTION_ERROR = 523
     }
-
 
 }

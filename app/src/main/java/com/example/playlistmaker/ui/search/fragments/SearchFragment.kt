@@ -1,6 +1,5 @@
 package com.example.playlistmaker.ui.search.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,13 +10,14 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentSearchBinding
 import com.example.playlistmaker.domain.search.models.SearchState
 import com.example.playlistmaker.domain.search.models.Track
-import com.example.playlistmaker.ui.player.AudioPlayerActivity
-import com.example.playlistmaker.ui.search.TracksAdapter
 import com.example.playlistmaker.presentation.search.SearchViewModel
+import com.example.playlistmaker.ui.search.TracksAdapter
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,7 +42,7 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
@@ -52,22 +52,21 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getActivityState().observe(viewLifecycleOwner) { state ->
+        viewModel.getScreenState().observe(viewLifecycleOwner) { state ->
             renderState(state)
         }
 
-        val intent = Intent(requireContext(), AudioPlayerActivity::class.java)
 
         searchResultsAdapter = TracksAdapter(ArrayList<Track>()) {
             if (clickDebounce()) {
-                processClickedTrack(it, intent)
+                processClickedTrack(it)
             }
         }
         binding.rvSearchResults.adapter = searchResultsAdapter
 
         searchHistoryAdapter = TracksAdapter(ArrayList<Track>()) {
             if (clickDebounce()) {
-                processClickedTrack(it, intent)
+                processClickedTrack(it)
             }
         }
         binding.rvSearchHistory.layoutManager =
@@ -127,17 +126,23 @@ class SearchFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                viewModel.searchDebounce(s.toString() ?: "")
+                viewModel.searchDebounce(s.toString())
 
             }
         }
-        textWatcher?.let { binding.etSearchField.addTextChangedListener(it) }
+        textWatcher.let { binding.etSearchField.addTextChangedListener(it) }
 
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        isClickAllowed = true
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        textWatcher?.let { binding.etSearchField.removeTextChangedListener(it) }
+        textWatcher.let { binding.etSearchField.removeTextChangedListener(it) }
         _binding = null
 
     }
@@ -186,10 +191,10 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun processClickedTrack(track: Track, intent: Intent) {
+    private fun processClickedTrack(track: Track) {
         viewModel.addTrackToSearchHistory(track)
         viewModel.playThisTrack(track)
-        startActivity(intent)
+        findNavController().navigate(R.id.action_searchFragment_to_audioPlayerFragment)
 
     }
 

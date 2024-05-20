@@ -1,4 +1,4 @@
-package com.example.playlistmaker.data.db
+package com.example.playlistmaker.data.db.favorite_tracks
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -9,7 +9,7 @@ import com.example.playlistmaker.domain.storage.LocalStorage
 class SearchHistoryRepositoryImpl(
     private val localStorage: LocalStorage,
     private val gsonJsonConverter: GsonJsonConverter
-): SearchHistoryRepository {
+) : SearchHistoryRepository {
 
 
     override fun getSearchHistory(): ArrayList<Track> {
