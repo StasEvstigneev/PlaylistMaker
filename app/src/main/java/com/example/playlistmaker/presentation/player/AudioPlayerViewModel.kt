@@ -147,7 +147,7 @@ class AudioPlayerViewModel(
 
     fun addTrackToPlaylist(playlist: Playlist) {
 
-        if (playlist.trackIds.contains(track.trackId)) {
+        if (playlist.tracksIds.contains(track.trackId)) {
             playlistsMessage.postValue(
                 AudioPlayerPlaylistsMessagesState
                     .TrackHasNotBeenAddedToPL(playlist.title)
@@ -155,12 +155,8 @@ class AudioPlayerViewModel(
 
         } else {
 
-            var updatedPlaylist = playlist
-            updatedPlaylist.trackIds.add(track.trackId)
-
             viewModelScope.launch {
-                playlistsInteractor.addTrackToPlaylist(updatedPlaylist)
-                playlistsInteractor.addTrackToGeneralPlaylist(track)
+                playlistsInteractor.addTrackToPlaylist(playlist, track)
             }
             playlistsMessage.postValue(
                 AudioPlayerPlaylistsMessagesState

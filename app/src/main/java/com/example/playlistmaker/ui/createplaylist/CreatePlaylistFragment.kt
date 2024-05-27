@@ -27,20 +27,20 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.FileOutputStream
 
-class CreatePlaylistFragment : Fragment() {
+open class CreatePlaylistFragment : Fragment() {
 
-    private val viewModel by viewModel<CreatePlaylistViewModel>()
+    open val viewModel by viewModel<CreatePlaylistViewModel>()
 
-    private var _binding: FragmentCreatePlaylistBinding? = null
-    private val binding get() = _binding!!
+    open var _binding: FragmentCreatePlaylistBinding? = null
+    open val binding get() = _binding!!
 
     private lateinit var confirmExitDialog: MaterialAlertDialogBuilder
 
     private lateinit var titleTextWatcher: TextWatcher
     private lateinit var descriptionTextWatcher: TextWatcher
 
-    private var title: String = ""
-    private var image: Uri? = null
+    open var title: String = ""
+    open var image: Uri? = null
 
     private var showExitDialog: Boolean = false
 
@@ -101,11 +101,11 @@ class CreatePlaylistFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                viewModel.updateTitle(s.toString() ?: "")
+                viewModel.updateTitle(s.toString())
             }
 
         }
-        titleTextWatcher?.let { binding.titleInput.addTextChangedListener(it) }
+        titleTextWatcher.let { binding.titleInput.addTextChangedListener(it) }
 
 
         descriptionTextWatcher = object : TextWatcher {
@@ -114,11 +114,11 @@ class CreatePlaylistFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                viewModel.updateDescription(s.toString() ?: "")
+                viewModel.updateDescription(s.toString())
             }
 
         }
-        descriptionTextWatcher?.let { binding.descriptionInput.addTextChangedListener(it) }
+        descriptionTextWatcher.let { binding.descriptionInput.addTextChangedListener(it) }
 
 
         val pickImage =
@@ -163,7 +163,7 @@ class CreatePlaylistFragment : Fragment() {
     }
 
 
-    private fun saveImageToPrivateStorage(uri: Uri, imageName: String) {
+    open fun saveImageToPrivateStorage(uri: Uri, imageName: String) {
 
         val filePath =
             File(
@@ -175,13 +175,15 @@ class CreatePlaylistFragment : Fragment() {
             filePath.mkdirs()
         }
 
+//        val file = File.createTempFile(filePath.path, "$imageName.jpg")
+
         val file = File(filePath, "$imageName.jpg")
 
         viewModel.updateImagePath(file.path)
 
         val inputStream = requireContext().contentResolver.openInputStream(uri)
 
-        val outputStream = FileOutputStream(file)
+        val outputStream = FileOutputStream(file, false)
 
         BitmapFactory
             .decodeStream(inputStream)
@@ -192,8 +194,8 @@ class CreatePlaylistFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        titleTextWatcher?.let { binding.titleInput.removeTextChangedListener(it) }
-        descriptionTextWatcher?.let { binding.descriptionInput.removeTextChangedListener(it) }
+        titleTextWatcher.let { binding.titleInput.removeTextChangedListener(it) }
+        descriptionTextWatcher.let { binding.descriptionInput.removeTextChangedListener(it) }
         _binding = null
 
     }

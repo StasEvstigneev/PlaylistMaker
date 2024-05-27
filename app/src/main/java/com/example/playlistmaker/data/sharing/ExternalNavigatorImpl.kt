@@ -4,8 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import com.example.playlistmaker.R
+import com.example.playlistmaker.domain.createplaylist.models.Playlist
+import com.example.playlistmaker.domain.search.models.Track
 import com.example.playlistmaker.domain.sharing.ExternalNavigator
 import com.example.playlistmaker.domain.sharing.model.EmailData
+import com.example.playlistmaker.utils.Formatter
 
 class ExternalNavigatorImpl(val context: Context) : ExternalNavigator {
     override fun shareLink() {
@@ -45,6 +48,41 @@ class ExternalNavigatorImpl(val context: Context) : ExternalNavigator {
             Intent.createChooser(supportIntent, null)
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         )
+    }
+
+    override fun sharePlaylist(playlist: Playlist, tracks: ArrayList<Track>) {
+        val playlistInfo = preparePlaylistInfo(playlist, tracks)
+
+        val sharePlaylistIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, playlistInfo)
+        }
+
+        context.startActivity(
+            Intent.createChooser(sharePlaylistIntent, null).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        )
+
+    }
+
+
+    private fun preparePlaylistInfo(playlist: Playlist, tracks: ArrayList<Track>): String {
+
+        val playlistTitle = playlist.title
+        val playlistDescription =
+            if (!playlist.description.isNullOrEmpty()) "\n${playlist.description}" else ""
+        val tracksQuantity: String = Formatter
+            .playlistTracksQuantityFormatter(playlist.tracksQuantity, context)
+
+        var position: Int = 1
+        var trackList: String = ""
+
+        for (track in tracks) {
+            trackList += "$position. ${track.artistName} - ${track.trackName} (${track.trackTime})\n"
+            position += 1
+
+        }
+
+        return "$playlistTitle $playlistDescription\n$tracksQuantity\n$trackList"
     }
 
 

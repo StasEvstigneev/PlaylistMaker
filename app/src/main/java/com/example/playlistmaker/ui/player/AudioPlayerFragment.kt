@@ -132,9 +132,6 @@ class AudioPlayerFragment : Fragment() {
 
         }
 
-
-
-
         binding.ivPlayButton.setOnClickListener {
             viewModel.playbackControl()
         }

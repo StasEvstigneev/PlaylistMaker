@@ -22,7 +22,7 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
@@ -32,10 +32,10 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.switcherNightTheme.isChecked =
-            (getActivity()?.getApplicationContext() as App).nightTheme
+            (activity?.applicationContext as App).nightTheme
 
         binding.switcherNightTheme.setOnCheckedChangeListener { switcher, isChecked ->
-            (getActivity()?.getApplicationContext() as App).switchNightTheme(isChecked)
+            (activity?.applicationContext as App).switchNightTheme(isChecked)
             viewModel.updateThemeSetting(isChecked)
 
         }

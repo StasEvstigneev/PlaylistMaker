@@ -12,7 +12,7 @@ class PlaylistDbConverter(private val gsonJsonConverter: GsonJsonConverter) {
             playlist.title,
             playlist.description,
             playlist.coverPath,
-            gsonJsonConverter.getJsonFromTrackIds(playlist.trackIds),
+            gsonJsonConverter.getJsonFromTrackIds(playlist.tracksIds),
             playlist.tracksQuantity,
             playlist.timeStamp
 
@@ -26,10 +26,22 @@ class PlaylistDbConverter(private val gsonJsonConverter: GsonJsonConverter) {
             playlist.title,
             playlist.description,
             playlist.coverPath,
-            gsonJsonConverter.getTrackIdsFromJson(playlist.trackIds),
+            gsonJsonConverter.getTrackIdsFromJson(playlist.tracksIds),
             playlist.tracksQuantity,
             playlist.timeStamp
         )
     }
+
+
+    fun mapTracksIds(tracksIds: String): ArrayList<Int> {
+        return gsonJsonConverter.getTrackIdsFromJson(tracksIds)
+
+    }
+
+    fun mapTracksIds(tracksIds: ArrayList<Int>): String {
+        return gsonJsonConverter.getJsonFromTrackIds(tracksIds)
+
+    }
+
 
 }

@@ -526,4 +526,115 @@
     </style>
 
 
+    <style name="PlaylistTitleTextAppearance">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+        <item name="android:textSize">@dimen/playlist_title_text_size</item>
+        <item name="android:lineHeight">@dimen/playlist_title_line_height</item>
+        <item name="android:fontWeight">@dimen/playlist_title_font_weight</item>
+        <item name="android:layout_marginTop">
+            @dimen/playlist_title_marginTop
+        </item>
+        <item name="android:layout_marginHorizontal">
+            @dimen/playlist_fragment_data_marginHorizontal
+        </item>
+        <item name="android:gravity">start</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+
+    </style>
+
+    <style name="PlaylistDescriptionTextAppearance">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/playlist_description_text_size</item>
+        <item name="android:lineHeight">@dimen/playlist_description_line_height</item>
+        <item name="android:fontWeight">@dimen/playlist_description_font_weight</item>
+        <item name="android:layout_marginTop">
+            @dimen/playlist_description_marginTop
+        </item>
+        <item name="android:layout_marginHorizontal">
+            @dimen/playlist_fragment_data_marginHorizontal
+        </item>
+        <item name="android:gravity">start</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+
+    </style>
+
+
+    <style name="PlaylistDataTextAppearance">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/playlist_data_text_size</item>
+        <item name="android:lineHeight">@dimen/playlist_data_line_height</item>
+        <item name="android:fontWeight">@dimen/playlist_data_font_weight</item>
+        <item name="android:layout_marginTop">
+            @dimen/playlist_data_marginTop
+        </item>
+        <item name="android:gravity">start</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+
+    </style>
+
+
+    <style name="NoTracksInPlaylistMessage">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/error_message_textSize</item>
+        <item name="android:lineHeight">@dimen/error_message_lineHeight</item>
+        <item name="android:fontWeight">@dimen/error_message_font_weight</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+
+    <style name="PlaylistMenuTitleTextAppearance">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/playlist_title_linear_title_marginTop</item>
+        <item name="android:gravity">start</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/playlist_title_linear_text_size</item>
+        <item name="android:lineHeight">@dimen/playlist_title_linear_text_line_height</item>
+        <item name="android:fontWeight">@dimen/playlist_title_linear_font_weight</item>
+        <item name="android:textColor">?attr/textAppearanceBody1</item>
+
+    </style>
+
+
+    <style name="PlaylistMenuTracksQtyTextAppearance">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/playlist_tracks_qty_linear_title_marginTop
+        </item>
+        <item name="android:gravity">start</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/playlist_tracks_qty_linear_text_size</item>
+        <item name="android:lineHeight">@dimen/playlist_tracks_qty_linear_text_line_height</item>
+        <item name="android:fontWeight">@dimen/playlist_tracks_qty_linear_font_weight</item>
+        <item name="android:textColor">?attr/textAppearanceBody2</item>
+
+    </style>
+
+
+    <style name="PlaylistMenuTextAppearance">
+        <item name="android:layout_marginVertical">@dimen/playlist_menu_item_marginVertical</item>
+        <item name="android:layout_marginStart">@dimen/playlist_menu_item_marginStart</item>
+        <item name="android:gravity">start</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/playlist_menu_item_text_size</item>
+        <item name="android:lineHeight">@dimen/playlist_menu_item_text_line_height</item>
+        <item name="android:fontWeight">@dimen/playlist_menu_item_font_weight</item>
+        <item name="android:textColor">?attr/textAppearanceBody1</item>
+
+    </style>
+
+
 </resources>

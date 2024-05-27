@@ -43,5 +43,19 @@
     <string name="add_to_playlist">Add to playlist</string>
     <string name="added_to_playlist">Added to the playlist</string>
     <string name="track_is_already_in_PL">The track is already in the playlist</string>
+    <string name="minute">minute</string>
+    <string name="minute_genitive">minutes</string>
+    <string name="minutes_genitive">minutes</string>
+    <string name="no_tracks_in_playlist">This playlist contains no tracks</string>
+    <string name="confirm_track_removal">Are you sure you want to remove this track from the playlist?</string>
+    <string name="remove">Remove</string>
+    <string name="no_tracks_to_share">This playlist contains no tracks to share</string>
+    <string name="share">Share</string>
+    <string name="edit_information">Edit info</string>
+    <string name="remove_playlist">Remove playlist</string>
+    <string name="confirm_playlist_removal">Are you sure you want to remove this playlist?</string>
+    <string name="edit">Edit</string>
+    <string name="save">Save</string>
+
 
 </resources>

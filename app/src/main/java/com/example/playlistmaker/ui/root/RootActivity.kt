@@ -37,6 +37,16 @@ class RootActivity : AppCompatActivity() {
                     binding.divider.isVisible = false
                 }
 
+                R.id.playlistFragment -> {
+                    binding.bottomNavigationView.isVisible = false
+                    binding.divider.isVisible = false
+                }
+
+                R.id.editPlaylistFragment -> {
+                    binding.bottomNavigationView.isVisible = false
+                    binding.divider.isVisible = false
+                }
+
                 else -> {
                     binding.bottomNavigationView.isVisible = true
                 }
@@ -45,4 +55,5 @@ class RootActivity : AppCompatActivity() {
         }
 
     }
+
 }
