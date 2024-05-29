@@ -85,15 +85,15 @@ class PlaylistFragment : Fragment(), RecyclerViewClickInterface {
             state = BottomSheetBehavior.STATE_COLLAPSED
 
             val displayHeight = resources.displayMetrics.heightPixels
-            Log.d("Get display height", "Height = $displayHeight")
+            Log.d("HEIGHT", "Display Height = $displayHeight")
+
 
             setPeekHeight(
                 getPlaylistBottomSheetPeekHeight(
-                    resources
-                        .displayMetrics
-                        .heightPixels
+                    displayHeight
                 )
             )
+
         }
 
 
@@ -302,11 +302,22 @@ class PlaylistFragment : Fragment(), RecyclerViewClickInterface {
     private fun getPlaylistBottomSheetPeekHeight(displayHeight: Int): Int {
 
         return when (displayHeight) {
-            in 0..1500 -> (displayHeight * RATIO_012).toInt()
-            in 1501..1900 -> (displayHeight * RATIO_015).toInt()
-            in 1901..2100 -> (displayHeight * RATIO_020).toInt()
-            in 2101..2900 -> (displayHeight * RATIO_026).toInt()
-            else -> (displayHeight * RATIO_028).toInt()
+
+            in 0..1920 -> (displayHeight * RATIO_012).toInt()
+            in 1921..2030 -> (displayHeight * RATIO_021).toInt()
+            in 2031..2090 -> (displayHeight * RATIO_026).toInt()
+            in 2091..2200 -> (displayHeight * RATIO_028).toInt()
+            in 2201..2220 -> (displayHeight * RATIO_030).toInt()
+            in 2221..2475 -> (displayHeight * RATIO_033).toInt()
+            2476 -> (displayHeight * RATIO_015).toInt()
+            in 2477..2704 -> (displayHeight * RATIO_033).toInt()
+            2705 -> (displayHeight * RATIO_025).toInt()
+            in 2706..2711 -> (displayHeight * RATIO_033).toInt()
+            in 2712..2725 -> (displayHeight * RATIO_025).toInt()
+            in 2726..2871 -> (displayHeight * RATIO_033).toInt()
+            2872 -> (displayHeight * RATIO_030).toInt()
+            in 2873..2960 -> (displayHeight * RATIO_028).toInt()
+            else -> (displayHeight * RATIO_015).toInt()
 
         }
 
@@ -319,11 +330,13 @@ class PlaylistFragment : Fragment(), RecyclerViewClickInterface {
         const val COVER_PATH = "coverPath"
         private const val RATIO_012 = 0.12
         private const val RATIO_015 = 0.15
-        private const val RATIO_020 = 0.20
+        private const val RATIO_021 = 0.21
+        private const val RATIO_025 = 0.25
         private const val RATIO_026 = 0.26
         private const val RATIO_028 = 0.28
+        private const val RATIO_030 = 0.30
+        private const val RATIO_033 = 0.33
         private const val RATIO_048 = 0.48
-
     }
 
 }

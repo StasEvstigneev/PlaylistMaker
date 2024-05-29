@@ -52,25 +52,22 @@ class PlaylistViewModel(
 
             playlistState.postValue(playlist)
 
-            viewModelScope.launch {
-                playlistsInteractor.getTracksByIds(playlist.tracksIds).collect { tracks ->
-                    updateTracks(tracks as ArrayList<Track>)
+            playlistsInteractor.getTracksByIds(playlist.tracksIds).collect { tracks ->
+                updateTracks(tracks as ArrayList<Track>)
 
-                    screenState.postValue(
-                        PlaylistScreenState.PlaylistData(
-                            playlist.title,
-                            playlist.description ?: "",
-                            playlist.coverPath,
-                            playlistsInteractor.getTracklistDuration(tracks),
-                            playlist.tracksQuantity
-                        )
+                screenState.postValue(
+                    PlaylistScreenState.PlaylistData(
+                        playlist.title,
+                        playlist.description ?: "",
+                        playlist.coverPath,
+                        playlistsInteractor.getTracklistDuration(tracks),
+                        playlist.tracksQuantity
                     )
-
-                }
+                )
 
             }
-        }
 
+        }
     }
 
     private fun updateTracks(tracks: ArrayList<Track>) {
@@ -89,8 +86,9 @@ class PlaylistViewModel(
     fun deleteTrackFromPlaylist(track: Track) {
         viewModelScope.launch {
             playlistsInteractor.deleteTrackFromPlaylist(playlist!!, track)
+            updatePlaylistData()
         }
-        updatePlaylistData()
+
     }
 
     fun updatePlaylistData() {
