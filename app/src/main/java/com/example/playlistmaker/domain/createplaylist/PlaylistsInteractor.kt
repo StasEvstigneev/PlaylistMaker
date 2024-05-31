@@ -16,15 +16,21 @@ interface PlaylistsInteractor {
 
     suspend fun getPlaylistById(playlistId: Int): Playlist
 
-    suspend fun getTracksIds(playlistId: Int): List<Int>
+    suspend fun addTrackToPlaylist(playlist: Playlist, track: Track)
 
-    suspend fun addTrackToPlaylist(playlist: Playlist)
-
-    suspend fun deleteTrackFromPlaylist(playlist: Playlist)
+    suspend fun deleteTrackFromPlaylist(playlist: Playlist, track: Track)
 
     suspend fun addTrackToGeneralPlaylist(track: Track)
 
     suspend fun deleteTrackFromGeneralPlaylist(track: Track)
+
+    suspend fun getTracksIds(playlistId: Int): Flow<List<Int>>
+
+    suspend fun getTracksByIds(ids: List<Int>): Flow<List<Track>>
+
+    fun getTracklistDuration(tracks: ArrayList<Track>?): Long
+
+
 
 
 }

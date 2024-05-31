@@ -299,4 +299,56 @@
     <dimen name="bottom_sheet_rv_marginTop">24dp</dimen>
 
 
+    <!---PlaylistFragment-->
+    <dimen name="playlist_fragment_data_marginHorizontal">16dp</dimen>
+    <dimen name="playlist_fragment_icons_marginTop">16dp</dimen>
+
+
+    <!---PlaylistFragmentTitleAppearance-->
+    <dimen name="playlist_title_marginTop">24dp</dimen>
+    <dimen name="playlist_title_text_size">24sp</dimen>
+    <dimen name="playlist_title_line_height">28.13sp</dimen>
+    <dimen name="playlist_title_font_weight">700</dimen>
+
+
+    <!---PlaylistFragmentDescriptionAppearance-->
+    <dimen name="playlist_description_marginTop">8dp</dimen>
+    <dimen name="playlist_description_text_size">18sp</dimen>
+    <dimen name="playlist_description_line_height">21.1sp</dimen>
+    <dimen name="playlist_description_font_weight">400</dimen>
+
+
+    <!---PlaylistFragmentDataAppearance-->
+    <dimen name="playlist_data_marginTop">8dp</dimen>
+    <dimen name="playlist_data_marginStart">16dp</dimen>
+    <dimen name="playlist_data_marginEnd">16dp</dimen>
+    <dimen name="playlist_data_text_size">18sp</dimen>
+    <dimen name="playlist_data_line_height">21.1sp</dimen>
+    <dimen name="playlist_data_font_weight">400</dimen>
+
+
+    <!---PlaylistFragmentTracklist-->
+    <dimen name="tracklist_marginTop">12dp</dimen>
+    <dimen name="playlist_item_menu_marginBottom">8dp</dimen>
+
+
+    <!---PlaylistMenuItem-->
+    <dimen name="playlist_menu_item_text_size">16sp</dimen>
+    <dimen name="playlist_menu_item_text_line_height">18.75sp</dimen>
+    <dimen name="playlist_menu_item_font_weight">400</dimen>
+    <dimen name="playlist_menu_item_marginStart">16dp</dimen>
+    <dimen name="playlist_menu_item_marginVertical">20dp</dimen>
+
+
+    <!---PlaylistBottomSheet-->
+    <dimen name="playlist_bottom_sheet_peekHeight">220dp</dimen>
+
+
+
+
+
+
+
+
+
 </resources>

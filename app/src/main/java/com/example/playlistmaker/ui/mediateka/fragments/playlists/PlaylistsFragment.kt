@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -46,7 +47,15 @@ class PlaylistsFragment : Fragment() {
 
         }
 
-        adapter = PlaylistsGridLayoutAdapter(ArrayList<Playlist>())
+        adapter = PlaylistsGridLayoutAdapter(ArrayList<Playlist>()) { playlist ->
+            run {
+                val bundle = bundleOf(PLAYLIST_ID to playlist.id)
+                findNavController().navigate(
+                    R.id.action_mediatekaFragment_to_playlistFragment,
+                    bundle
+                )
+            }
+        }
 
         binding.recyclerViewPlaylists.adapter = adapter
 
@@ -100,6 +109,7 @@ class PlaylistsFragment : Fragment() {
     companion object {
         fun newInstance() = PlaylistsFragment()
         private const val GRID_LAYOUT_SPAN = 2
+        const val PLAYLIST_ID = "playlistId"
 
     }
 

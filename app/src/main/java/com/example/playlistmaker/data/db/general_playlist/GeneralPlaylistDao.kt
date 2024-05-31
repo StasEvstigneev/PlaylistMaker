@@ -8,6 +8,7 @@ import androidx.room.Query
 import com.example.playlistmaker.data.db.favorite_tracks.TrackEntity
 
 
+
 @Dao
 interface GeneralPlaylistDao {
 
@@ -18,10 +19,16 @@ interface GeneralPlaylistDao {
     suspend fun deleteTrackFromGeneralPlaylist(track: GeneralPlaylistEntity)
 
     @Query("SELECT * FROM general_playlist ORDER BY insertion_time asc")
-    suspend fun getTracksFromGeneralPlaylist(): List<GeneralPlaylistEntity>
+    suspend fun getAllTracksFromGeneralPlaylist(): List<GeneralPlaylistEntity>
 
     @Query("SELECT track_id FROM general_playlist")
     suspend fun getTracksIds(): List<Int>
+
+
+    @Query("SELECT * FROM general_playlist WHERE track_id IN (:ids) ORDER BY insertion_time desc")
+    suspend fun getTracksByIds(ids: List<Int>): List<GeneralPlaylistEntity>
+
+
 
 
 }

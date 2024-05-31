@@ -12,10 +12,22 @@ object Formatter {
             .format(time)
     }
 
+
+    fun getTimeMillis(time: String): Long {
+        val seconds = time.takeLast(2).toLong()
+        val minutes = time.dropLast(3).toLong()
+        val timeInMillis = (minutes * 60 + seconds) * 1000
+
+        return timeInMillis
+
+    }
+
+
     fun getArtworkUrl512(artworkUrl: String): String {
         return artworkUrl
             .replaceAfterLast('/', "512x512bb.jpg")
     }
+
 
     fun getYearFromReleaseDate(releaseDate: String): String {
         return if (releaseDate.length > 4) {
@@ -24,6 +36,7 @@ object Formatter {
             releaseDate
         }
     }
+
 
     fun playlistTracksQuantityFormatter(quantity: Int, context: Context): String {
         val result: String = quantity.toString()
@@ -51,5 +64,34 @@ object Formatter {
 
         return result + " " + trackWordForm
     }
+
+
+    fun playlistTotalDurationFormatter(duration: Long, context: Context): String {
+        val result = (duration / 60000).toString()
+        val resultLastTwo = result.takeLast(2).toInt()
+        val resultLastOne = result.takeLast(1).toInt()
+
+        var trackWordForm: String
+
+        when (resultLastTwo) {
+            in 11..19 -> {
+                trackWordForm = context.getString(R.string.minutes_genitive)
+
+            }
+
+            else -> {
+                if (resultLastOne == 0 || resultLastOne in 5..9) {
+                    trackWordForm = context.getString(R.string.minutes_genitive)
+                } else if (resultLastOne in 2..4) {
+                    trackWordForm = context.getString(R.string.minute_genitive)
+                } else {
+                    trackWordForm = context.getString(R.string.minute)
+                }
+            }
+        }
+
+        return result + " " + trackWordForm
+    }
+
 
 }

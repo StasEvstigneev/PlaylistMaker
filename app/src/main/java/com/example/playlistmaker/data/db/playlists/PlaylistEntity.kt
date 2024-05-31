@@ -9,13 +9,13 @@ data class PlaylistEntity(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id")
     var id: Int?,
     @ColumnInfo(name = "playlist_title")
-    val title: String,
+    var title: String,
     @ColumnInfo(name = "playlist_description")
-    val description: String?,
+    var description: String?,
     @ColumnInfo(name = "playlist_cover")
-    val coverPath: String?,
+    var coverPath: String?,
     @ColumnInfo(name = "tracks")
-    var trackIds: String,
+    var tracksIds: String,
     @ColumnInfo(name = "tracks_quantity")
     var tracksQuantity: Int,
     @ColumnInfo(name = "creation_time")

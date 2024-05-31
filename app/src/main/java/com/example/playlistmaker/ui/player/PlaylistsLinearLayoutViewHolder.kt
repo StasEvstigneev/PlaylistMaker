@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.playlistmaker.R
 import com.example.playlistmaker.domain.createplaylist.models.Playlist
 import com.example.playlistmaker.utils.Formatter
@@ -20,6 +21,8 @@ class PlaylistsLinearLayoutViewHolder(view: View) : RecyclerView.ViewHolder(view
 
         Glide.with(itemView)
             .load(playlist.coverPath)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
             .placeholder(R.drawable.img_trackplaceholder)
             .centerCrop()
             .into(cover)

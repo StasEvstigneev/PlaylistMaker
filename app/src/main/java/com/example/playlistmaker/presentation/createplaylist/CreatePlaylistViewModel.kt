@@ -12,21 +12,21 @@ import com.example.playlistmaker.domain.createplaylist.models.Playlist
 import kotlinx.coroutines.launch
 
 
-class CreatePlaylistViewModel(
+open class CreatePlaylistViewModel(
     private val playlistsInteractor: PlaylistsInteractor
 ) : ViewModel() {
 
-    private var title: String? = null
-    private var description: String? = null
-    private var image: Uri? = null
-    private var imagePath: String? = null
+    open var title: String? = null
+    open var description: String? = null
+    open var image: Uri? = null
+    open var imagePath: String? = null
 
 
     private val screenState = MutableLiveData<CreatePlaylistState>(CreatePlaylistState.Loading)
     fun getScreenState(): LiveData<CreatePlaylistState> = screenState
 
 
-    private val imageState =MutableLiveData<Uri?>(image)
+    private val imageState = MutableLiveData<Uri?>(image)
     fun getImageState(): LiveData<Uri?> = imageState
 
 
@@ -40,18 +40,18 @@ class CreatePlaylistViewModel(
         screenState.postValue(CreatePlaylistState.DataUpdated(title, description))
     }
 
-    fun updateDescription(updatedDescription: String) {
+    fun updateDescription(updatedDescription: String?) {
         description = updatedDescription
         screenState.postValue(CreatePlaylistState.DataUpdated(title, description))
 
     }
 
-    fun updateImage(updatedImage: Uri) {
+    fun updateImage(updatedImage: Uri?) {
         image = updatedImage
         imageState.postValue(image)
     }
 
-    fun updateImagePath(path: String) {
+    fun updateImagePath(path: String?) {
         imagePath = path
     }
 

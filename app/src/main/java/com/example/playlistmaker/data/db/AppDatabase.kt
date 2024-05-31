@@ -10,7 +10,7 @@ import com.example.playlistmaker.data.db.playlists.PlaylistEntity
 import com.example.playlistmaker.data.db.playlists.PlaylistsDao
 
 @Database(
-    version = 1,
+    version = 77,
     entities = [TrackEntity::class, PlaylistEntity::class, GeneralPlaylistEntity::class]
 )
 abstract class AppDatabase : RoomDatabase() {

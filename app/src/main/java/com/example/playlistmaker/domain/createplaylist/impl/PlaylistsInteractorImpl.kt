@@ -27,16 +27,12 @@ class PlaylistsInteractorImpl(private val repository: PlaylistsRepository) : Pla
         return repository.getPlaylistById(playlistId)
     }
 
-    override suspend fun getTracksIds(playlistId: Int): List<Int> {
-        return repository.getTracksIds(playlistId)
+    override suspend fun addTrackToPlaylist(playlist: Playlist, track: Track) {
+        repository.addTrackToPlaylist(playlist, track)
     }
 
-    override suspend fun addTrackToPlaylist(playlist: Playlist) {
-        repository.addTrackToPlaylist(playlist)
-    }
-
-    override suspend fun deleteTrackFromPlaylist(playlist: Playlist) {
-        repository.addTrackToPlaylist(playlist)
+    override suspend fun deleteTrackFromPlaylist(playlist: Playlist, track: Track) {
+        repository.deleteTrackFromPlaylist(playlist, track)
     }
 
     override suspend fun addTrackToGeneralPlaylist(track: Track) {
@@ -46,4 +42,18 @@ class PlaylistsInteractorImpl(private val repository: PlaylistsRepository) : Pla
     override suspend fun deleteTrackFromGeneralPlaylist(track: Track) {
         repository.deleteTrackFromGeneralPlaylist(track)
     }
+
+    override suspend fun getTracksIds(playlistId: Int): Flow<List<Int>> {
+        return repository.getTracksIds(playlistId)
+    }
+
+    override suspend fun getTracksByIds(ids: List<Int>): Flow<List<Track>> {
+        return repository.getTracksByIds(ids)
+    }
+
+    override fun getTracklistDuration(tracks: ArrayList<Track>?): Long {
+        return repository.getTracklistDuration(tracks)
+    }
+
+
 }
