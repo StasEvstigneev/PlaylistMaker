@@ -11,7 +11,6 @@ import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-
 class App : Application() {
 
     var nightTheme: Boolean = false
@@ -40,5 +39,4 @@ class App : Application() {
             }
         )
     }
-
 }

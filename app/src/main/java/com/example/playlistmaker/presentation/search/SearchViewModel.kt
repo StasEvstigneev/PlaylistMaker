@@ -103,7 +103,6 @@ class SearchViewModel(
 
 
     fun searchDebounce(searchRequest: String) {
-
         if (searchRequest != previousRequest) {
             previousRequest = searchRequest
 

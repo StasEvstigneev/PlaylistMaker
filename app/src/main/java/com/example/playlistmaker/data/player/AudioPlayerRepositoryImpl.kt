@@ -1,9 +1,9 @@
 package com.example.playlistmaker.data.player
 
 import android.media.MediaPlayer
-import com.example.playlistmaker.utils.Formatter
 import com.example.playlistmaker.domain.player.AudioPlayerRepository
 import com.example.playlistmaker.domain.search.models.Track
+import com.example.playlistmaker.utils.Formatter
 
 class AudioPlayerRepositoryImpl(private val mediaPlayer: MediaPlayer) : AudioPlayerRepository {
 

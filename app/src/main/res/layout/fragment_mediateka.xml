@@ -13,8 +13,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleTextAppearance="@style/ToolbarTitle"
-        app:title="@string/mediateka">
+        app:title="@string/mediateka"
+        app:titleTextAppearance="@style/ToolbarTitle">
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -24,12 +24,12 @@
         style="@style/TabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabTextColor="?attr/textAppearanceBody1"
-        app:tabTextAppearance="@style/TabLayoutTextAppearance"
-        app:tabRippleColor="@color/transparent"
-        app:tabMode="fixed"
         app:tabIndicator="@drawable/tab_indicator"
-        app:tabIndicatorColor="?attr/textAppearanceBody1">
+        app:tabIndicatorColor="?attr/textAppearanceBody1"
+        app:tabMode="fixed"
+        app:tabRippleColor="@color/transparent"
+        app:tabTextAppearance="@style/TabLayoutTextAppearance"
+        app:tabTextColor="?attr/textAppearanceBody1">
 
     </com.google.android.material.tabs.TabLayout>
 
