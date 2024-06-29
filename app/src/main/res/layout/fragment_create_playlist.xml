@@ -30,12 +30,12 @@
             android:layout_width="@dimen/image_picker_image_width"
             android:layout_height="@dimen/image_picker_image_height"
             android:layout_gravity="center"
-            android:background="@drawable/background_corners_8dp"
-            android:scaleType="centerCrop"
             android:layout_marginHorizontal="@dimen/image_picker_marginHorizontal"
             android:layout_marginTop="@dimen/image_picker_marginTop"
-            android:src="@drawable/playlist_img_picker"
-            android:clipToOutline="true" />
+            android:background="@drawable/background_corners_8dp"
+            android:clipToOutline="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/playlist_img_picker" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutTitle"

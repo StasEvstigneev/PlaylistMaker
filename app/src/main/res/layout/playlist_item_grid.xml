@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/playlist_grid_layout_margin">
+    android:layout_margin="@dimen/playlist_grid_layout_margin"
+    android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/playlistCoverGrid"
         style="@style/PlaylistCoverGridLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/playlistCoverGrid"
+        android:adjustViewBounds="true"
         android:background="@drawable/background_corners_8dp"
         android:clipToOutline="true"
-        android:adjustViewBounds="true"
         tools:src="@tools:sample/backgrounds/scenic" />
 
     <TextView
-        style="@style/PlaylistTextAppearanceGridLayout"
         android:id="@+id/playlistTitleGrid"
+        style="@style/PlaylistTextAppearanceGridLayout"
         tools:text="Best songs 2024" />
 
     <TextView
-        style="@style/PlaylistTextAppearanceGridLayout"
         android:id="@+id/playlistTracksQuantityGrid"
+        style="@style/PlaylistTextAppearanceGridLayout"
         tools:text="98 треков" />
 
 

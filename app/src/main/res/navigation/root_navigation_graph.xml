@@ -9,7 +9,7 @@
         android:id="@+id/mediatekaFragment"
         android:name="com.example.playlistmaker.ui.mediateka.fragments.MediatekaFragment"
         android:label="fragment_mediateka"
-        tools:layout="@layout/fragment_mediateka" >
+        tools:layout="@layout/fragment_mediateka">
         <action
             android:id="@+id/action_mediatekaFragment_to_audioPlayerFragment"
             app:destination="@id/audioPlayerFragment" />
@@ -29,7 +29,7 @@
         android:id="@+id/searchFragment"
         android:name="com.example.playlistmaker.ui.search.fragments.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_audioPlayerFragment"
             app:destination="@id/audioPlayerFragment" />
@@ -53,7 +53,7 @@
         android:id="@+id/audioPlayerFragment"
         android:name="com.example.playlistmaker.ui.player.AudioPlayerFragment"
         android:label="fragment_audio_player"
-        tools:layout="@layout/fragment_audio_player" >
+        tools:layout="@layout/fragment_audio_player">
         <action
             android:id="@+id/action_audioPlayerFragment_to_createPlaylistFragment"
             app:destination="@id/createPlaylistFragment" />
@@ -62,7 +62,7 @@
         android:id="@+id/playlistFragment"
         android:name="com.example.playlistmaker.ui.playlist.PlaylistFragment"
         android:label="fragment_playlist"
-        tools:layout="@layout/fragment_playlist" >
+        tools:layout="@layout/fragment_playlist">
         <action
             android:id="@+id/action_playlistFragment_to_audioPlayerFragment"
             app:destination="@id/audioPlayerFragment" />

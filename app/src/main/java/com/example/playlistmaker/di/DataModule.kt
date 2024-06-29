@@ -65,7 +65,6 @@ val dataModule = module {
             .build()
     }
 
-
 }
 
 private const val ITUNES_BASE_URL = "https://itunes.apple.com"

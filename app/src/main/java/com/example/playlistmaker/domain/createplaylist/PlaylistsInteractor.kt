@@ -31,6 +31,4 @@ interface PlaylistsInteractor {
     fun getTracklistDuration(tracks: ArrayList<Track>?): Long
 
 
-
-
 }

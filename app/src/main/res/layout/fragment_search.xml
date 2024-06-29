@@ -55,8 +55,8 @@
         tools:visibility="gone" />
 
     <ProgressBar
-        style="@style/ProgressBar"
         android:id="@+id/searchProgressBar"
+        style="@style/ProgressBar"
         android:layout_marginTop="@dimen/progressBar_marginTop"
         android:visibility="gone"
         tools:visibility="visible" />

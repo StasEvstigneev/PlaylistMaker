@@ -13,8 +13,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleTextAppearance="@style/ToolbarTitle"
-        app:title="@string/settings">
+        app:title="@string/settings"
+        app:titleTextAppearance="@style/ToolbarTitle">
 
     </androidx.appcompat.widget.Toolbar>
 
